@@ -77,6 +77,3 @@ function addJS_Node (text, s_URL) {
 console.log('Here is ' + window.location.href);
 addJS_Node(init_imgur_helper.toString())
 init_imgur_helper();
-
-
-window.observer_callbacks.push( {filter:function(n){return n.className && n.className == "comment-item";}, exec:function(n){$(n).hide();}, tagNames:{'DIV':true}});
