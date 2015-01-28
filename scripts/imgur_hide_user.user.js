@@ -111,13 +111,9 @@ function handleComment(n){
 	return false;
 }
 
-function move2top(n){
+function hideComment(n){
 	n.setAttribute("dirty_h", "1");
-	var $n = $(n);
-	if($n.parent().attr('class') === "bad-captions")
-		$n.parent().parent().prepend($n);
-	else
-		$n.parent().prepend($n);
+	$(n).hide();
 }
 
 // and here we go
@@ -133,7 +129,7 @@ function run(){
 	$('.comment').each(function(i){
 		//console.log('foo ', this);
 		if(this.dirty_h === undefined && handleComment(this)){
-			move2top(this);
+			hideComment(this);
 			//$(this).parent().prepend($(this));	
 		}	
 	});
@@ -148,7 +144,7 @@ function run(){
 				childs.each(function(){
 					//console.log('Has child ', n, this);
 					if (! this.hasAttribute('dirty_h') && handleComment(this)){
-						move2top(this);
+						hideComment(this);
 					}
 				});
 			//}
@@ -158,6 +154,6 @@ function run(){
 			return handleComment(n);
 		return false;		
 	}, exec:function(n){
-		move2top(n);
+		hideComment(n);
 	}, tagNames:{'DIV':true}});
 }
