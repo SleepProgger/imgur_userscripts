@@ -32,7 +32,7 @@ The settings are saved locally.
 If you want to copy your settings from one system to another use the export/inport function in the mod settings.  
 
 **User comment to top**
-This [script](scripts/imgur_top_users.user.js) behaves exactly the same as the "Hide user" script except it moves all comments from selected users to the top.
+This [script](scripts/imgur_top_user.user.js) behaves exactly the same as the "Hide user" script except it moves all comments from selected users to the top.
 
 
 
