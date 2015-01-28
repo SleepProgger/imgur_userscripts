@@ -24,7 +24,7 @@ $( window ).load(function() {
 				Accept: 'application/json'
 			},
 			success: function(result) {
-				console.loge(result);
+				console.log(result);
 				tble.append($('<tr><td>Comments</td><td>'+result.data.total_gallery_comments+'</td></tr>'));
 				tble.append($('<tr><td>Submissions</td><td>'+result.data.total_gallery_submissions+'</td></tr>'));
 				tble.append($('<tr><td>Favorites</td><td>'+result.data.total_gallery_favorites+'</td></tr>'));
