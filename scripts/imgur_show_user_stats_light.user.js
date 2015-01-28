@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        Imgur_enrichwithAPI
+// @name        imgur_show_user_stats_light
 // @namespace   someName
 // @include     http://imgur.com/user/*
 // @include     https://imgur.com/user/*
