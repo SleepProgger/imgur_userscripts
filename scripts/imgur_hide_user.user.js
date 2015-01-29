@@ -2,7 +2,7 @@
 // @name        imgur_hide_user
 // @namespace   someName
 // @include     http://imgur.com/*
-// @version     0.1a
+// @version     0.2a
 // @grant       none
 // ==/UserScript==
 
@@ -115,6 +115,20 @@ function hideComment(n){
 	n.setAttribute("dirty_h", "1");
 	$(n).hide();
 }
+
+imgur._.emitter.on("select", {}, function(obj){
+	if(obj.account_id && hide_ids[obj.account_id] != undefined){
+		if(hide_ids[obj.account_id] != obj.account_url){
+			hide_ids[obj.account_id] = obj.account_url;
+			console.log("update name for id ", obj.account_id, " : ", obj.account_url);
+			GM_setValue(GR_COOKIE_NAME, JSON.stringify(hide_ids));
+		}
+		console.log("Skip post from", obj.account_url);
+		$('.navNext').click();
+	}
+	// in case it got updated in another tab
+	hide_ids = $.parseJSON(GM_getValue(GR_COOKIE_NAME, '{}'));
+})
 
 // and here we go
 wait_for_helper(); // calls run when ready
