@@ -2,7 +2,7 @@
 // @name        imgur_comunity_mute
 // @namespace   someName
 // @include     https://community.imgur.com/*
-// @version     1.01a
+// @version     0.4a
 // @grant       none
 // ==/UserScript==
 
@@ -53,13 +53,13 @@ $('body').ready(function(){
 		if(hide_ids[tid]){			
 			$(node).find('.contents').hide();
 			if($(node).find('.umute_btn').length > 0) return;
-			var btn = $('<button style="float: right; margin-right: 2px; border-radius:20px" class="umute_btn">Unmute</button>');
-			$(node).find('.topic-meta-data').append(btn);
+			var btn = $('<button class="umute_btn" title="Unmute this user." style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden; outline:none; margin-left: 3px; "><i class="fa fa-microphone"></i></button>');
+			$(node).find('.post-info').first().prepend(btn);
 			btn.click(umute_foo);
 		}else {
 			if($(node).find('.mute_btn').length > 0) return;
-			var btn = $('<button style="float: right; margin-right: 2px; border-radius:20px" class="mute_btn">Mute</button>');
-			$(node).find('.topic-meta-data').append(btn);
+			var btn = $('<button title="Mute this user." style="background: none;" class="mute_btn"><i class="fa fa-microphone-slash"></i></button>');
+			btn.insertBefore($(node).find('.create').last());
 			btn.click(mute_foo);
 		}
 	}
