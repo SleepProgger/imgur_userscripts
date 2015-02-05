@@ -38,6 +38,8 @@ $('body').ready(function(){
 			$(this).click(umute_foo);
 			hide_ids[tid] = 1;
 			GM_setValue(GR_COOKIE_NAME, JSON.stringify(hide_ids));
+			$('[data-user-id="'+tid+'"]').find('.mute_btn').remove();
+			$('[data-user-id="'+tid+'"]').each(function(){ handle_post_node(this) });
 		}
 		function umute_foo(){
 			console.log("umute_foo", this);
@@ -47,11 +49,13 @@ $('body').ready(function(){
 			$(this).click(mute_foo);
 			delete hide_ids[tid];
 			GM_setValue(GR_COOKIE_NAME, JSON.stringify(hide_ids));
+			$('[data-user-id="'+tid+'"]').find('.umute_btn').remove();
+			$('[data-user-id="'+tid+'"]').each(function(){ $(this).find('.contents').show(); handle_post_node(this) });
 		}
 		if(hide_ids[tid]){			
 			$(node).find('.contents').hide();
 			if($(node).find('.umute_btn').length > 0) return;
-			var btn = $('<button style="float: right; margin-right: 2px; border-radius:20px" class="mute_btn">Unmute</button>');
+			var btn = $('<button style="float: right; margin-right: 2px; border-radius:20px" class="umute_btn">Unmute</button>');
 			$(node).find('.topic-meta-data').append(btn);
 			btn.click(umute_foo);
 		}else {
@@ -63,7 +67,6 @@ $('body').ready(function(){
 	}
 	
 	$('article').each(function(){handle_post_node(this)});
-	console.log("go go go");
 	var observer = new MutationObserver(function(mutations) {
 		for(var i=0; i < mutations.length; ++i){
 			var mutation = mutations[i];
