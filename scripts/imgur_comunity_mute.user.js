@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name        imgur_comunity_mute
 // @namespace   someName
-// @include     https://community.imgur.com/t/*
-// @version     1
+// @include     https://community.imgur.com/*
+// @version     1.01a
 // @grant       none
 // ==/UserScript==
 
@@ -31,7 +31,6 @@ $('body').ready(function(){
 	function handle_post_node(node){
 		var tid = node.getAttribute('data-user-id');
 		function mute_foo(){
-			console.log("mute_foo");
 			this.innerHTML = "Unmute";
 			$(node).find('.contents').hide();
 			$(this).unbind('click', mute_foo);
@@ -42,7 +41,6 @@ $('body').ready(function(){
 			$('[data-user-id="'+tid+'"]').each(function(){ handle_post_node(this) });
 		}
 		function umute_foo(){
-			console.log("umute_foo", this);
 			this.innerHTML = "Mute";
 			$(node).find('.contents').show();
 			$(this).unbind('click', umute_foo);
@@ -70,13 +68,22 @@ $('body').ready(function(){
 	var observer = new MutationObserver(function(mutations) {
 		for(var i=0; i < mutations.length; ++i){
 			var mutation = mutations[i];
-			for(var j=0; j < mutation.addedNodes.length; ++j){	
+			for(var j=0; j < mutation.addedNodes.length; ++j){
+				if(mutation.addedNodes[j].nodeName == "#text") continue;
 				var node = mutation.addedNodes[j];
-				if(node.nodeName == "article" && node.getAttribute('data-user-id')){
+				//console.log(node);
+				if(node.className == 'container posts'){
+					$('article').each(function(){handle_post_node(this)});
+					continue;
+				}
+				if(node.className == 'ember-view post-cloak'){
+					node = $(node).find('article').get(0);
+				}
+				if(node.nodeName == "ARTICLE" && node.getAttribute('data-user-id')){
 					handle_post_node(node);	
 				}
 			}
 		}
 	});
-	observer.observe($('body').get(0), { subtree: true, childList: true});
+	observer.observe(document, { subtree: true, childList: true});
 });
