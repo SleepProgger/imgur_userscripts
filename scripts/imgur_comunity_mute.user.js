@@ -2,7 +2,7 @@
 // @name        imgur_comunity_mute
 // @namespace   someName
 // @include     https://community.imgur.com/*
-// @version     0.4a
+// @version     0.41a
 // @grant       none
 // ==/UserScript==
 
@@ -73,7 +73,7 @@ $('body').ready(function(){
 				var node = mutation.addedNodes[j];
 				//console.log(node);
 				if(node.className == 'container posts'){
-					$('article').each(function(){handle_post_node(this)});
+					$(node).find('article').each(function(){handle_post_node(this)});
 					continue;
 				}
 				if(node.className == 'ember-view post-cloak'){
