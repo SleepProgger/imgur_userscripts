@@ -76,6 +76,12 @@ $('body').ready(function(){
 					$(node).find('article').each(function(){handle_post_node(this)});
 					continue;
 				}
+				// just to be sure (TODO: sometimes when jumping to a thread via notification the posts aren't handled.
+				// This "hack" (should) ensure that all posts are handled )
+				if(node.className == 'topic-link'){
+					$(window.document).find('article').each(function(){handle_post_node(this)});
+					continue;
+				}
 				if(node.className == 'ember-view post-cloak'){
 					node = $(node).find('article').get(0);
 				}
