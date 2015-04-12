@@ -3,7 +3,7 @@
 // @namespace   someName
 // @include     http://imgur.com/user/*
 // @include     https://imgur.com/user/*
-// @version     0.1a
+// @version     0.1b
 // @grant       none
 // ==/UserScript==
 
@@ -25,9 +25,9 @@ $( window ).load(function() {
 			},
 			success: function(result) {
 				console.log(result);
-				tble.append($('<tr><td>Comments</td><td>'+result.data.total_gallery_comments+'</td></tr>'));
-				tble.append($('<tr><td>Submissions</td><td>'+result.data.total_gallery_submissions+'</td></tr>'));
-				tble.append($('<tr><td>Favorites</td><td>'+result.data.total_gallery_favorites+'</td></tr>'));
+				tble.append($('<tr><td>Comments</td><td align="right">'+result.data.total_gallery_comments.toLocaleString()+'</td></tr>'));
+				tble.append($('<tr><td>Submissions</td><td align="right">'+result.data.total_gallery_submissions.toLocaleString()+'</td></tr>'));
+				tble.append($('<tr><td>Favorites</td><td align="right">'+result.data.total_gallery_favorites.toLocaleString()+'</td></tr>'));
 			},
 			error: function(a, b, c){
 				console.log('Failed to load', a, b, c);
