@@ -3,13 +3,11 @@
 // @namespace   someName
 // @include     http://imgur.com/user/*
 // @include     https://imgur.com/user/*
-// @version     0.1c
+// @version     0.1ca
 // @grant       none
 // ==/UserScript==
 
-alert("test");
-
-$( window ).load(function() {
+$( window ).ready(function() {
 	var CLIENT_ID = "cd0695f1226536b";
 
 	if(window.location.pathname.indexOf('/user/') === 0 && $('.button').filter('.comments').length > 0){
@@ -48,7 +46,7 @@ $( window ).load(function() {
 			}
 		});
 
-		// get the excat join date. TODO: I bet i messed up the time(zones) here.
+		// get the exact (*) join date. TODO: I bet i messed up the time(zones) here.
 		$.ajax({
 			url: 'https://api.imgur.com/3/account/'+username,
 			method: 'GET',
