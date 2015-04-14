@@ -7,6 +7,8 @@
 // @grant       none
 // ==/UserScript==
 
+alert("test");
+
 $( window ).load(function() {
 	var CLIENT_ID = "cd0695f1226536b";
 
