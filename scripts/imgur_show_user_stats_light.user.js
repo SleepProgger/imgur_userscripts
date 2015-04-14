@@ -3,9 +3,12 @@
 // @namespace   someName
 // @include     http://imgur.com/user/*
 // @include     https://imgur.com/user/*
-// @version     0.1ca
+// @version     0.1d
 // @grant       none
 // ==/UserScript==
+
+// TODO: Think about useable version numbers...
+// TODO: Show errors / no credits remaining ?
 
 $( window ).ready(function() {
 	var CLIENT_ID = "cd0695f1226536b";
@@ -35,8 +38,6 @@ $( window ).ready(function() {
 				Accept: 'application/json'
 			},
 			success: function(result, status, request) {
-				console.log(request.getAllResponseHeaders());
-				//console.log(result);
 				$('#stats_comments').html(result.data.total_gallery_comments.toLocaleString());
 				$('#stats_submissions').html(result.data.total_gallery_submissions.toLocaleString());
 				$('#stats_favorites').html(result.data.total_gallery_favorites.toLocaleString());
@@ -55,7 +56,6 @@ $( window ).ready(function() {
 				Accept: 'application/json'
 			},
 			success: function(result, status, request) {
-				console.log(request.getAllResponseHeaders());
 				$('#stats_created').html( new Date(result.data.created * 1000).toLocaleDateString() );
 			},
 			error: function(a, b, c){
@@ -99,7 +99,7 @@ $( window ).ready(function() {
 		});
 
 
-		// creadits remaining
+		// creadits remaining (TODO: Remove as soon as imgur api allows the credit fields per CORS)
 		$.ajax({
 			url: 'https://api.imgur.com/3/credits',
 			method: 'GET',
