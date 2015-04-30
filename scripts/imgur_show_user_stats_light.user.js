@@ -3,7 +3,7 @@
 // @namespace   someName
 // @include     http://imgur.com/user/*
 // @include     https://imgur.com/user/*
-// @version     0.1d
+// @version     0.1e
 // @grant       none
 // ==/UserScript==
 
@@ -16,6 +16,7 @@ $( window ).ready(function() {
 	if(window.location.pathname.indexOf('/user/') === 0 && $('.button').filter('.comments').length > 0){
 		var newBox = $('<div id="statsBox" class="textbox"></div>');
 		var tble = $('<table width="100%">' +
+								 '<tr><td>Totals / Links</td><td align="right" id="links_created"> - </td><td>' +
 								 '<tr><td>Account creation</td><td align="right" id="stats_created"> - </td></tr>'+
 								 '<tr><td>Comments</td><td align="right" id="stats_comments"> - </td></tr>'+
 								 '<tr><td>Submissions</td><td align="right" id="stats_submissions"> - </td></tr>'+
@@ -28,6 +29,8 @@ $( window ).ready(function() {
 		newBox.append(tble);
 		newBox.insertBefore( $('.icons').filter('.textbox') );
 		var username = window.location.pathname.split("/", 3)[2];
+
+		$('#links_created').html('<a target="_blank" href="http://imgur.com/user/'+username+'">imgur</a>, <a target="_blank" href="http://'+username+'.imgur.com">albums</a>, <a target="_blank" href="http://community.imgur.com/users/'+username+'/activity">ic</a>');
 
 		// get coments / submission stats
 		$.ajax({
