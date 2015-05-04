@@ -19,6 +19,7 @@ $( window ).ready(function() {
 		var username = window.location.pathname.split("/", 3)[2]; // TODO: look for a more stable way (is there an imgur js var maybe ?)
 		var newBox = $('<div id="statsBox" class="textbox"></div>');
 		var tble = $('<table width="100%">' +
+								 '<tr><td>Totals / Links</td><td align="right" id="links_created"> - </td><td>' +
 								 '<tr><td>Account creation</td><td align="right" id="stats_created"> - </td></tr>'+
 								 '<tr><td>Comments</td><td align="right"><a href="http://imgur.com/user/'+username+'/" id="stats_comments"> - </a></td></tr>'+
 								 '<tr><td>Submissions</td><td align="right"><a href="http://imgur.com/user/'+username+'/submitted" id="stats_submissions"> - </a></td></tr>'+
@@ -31,6 +32,8 @@ $( window ).ready(function() {
 		newBox.append(tble);
 		newBox.insertBefore( $('.icons').filter('.textbox') );
 		
+
+		$('#links_created').html('<a target="_blank" href="http://imgur.com/user/'+username+'">imgur</a>, <a target="_blank" href="http://'+username+'.imgur.com">albums</a>, <a target="_blank" href="http://community.imgur.com/users/'+username+'/activity">ic</a>');
 
 		// get coments / submission stats
 		$.ajax({
