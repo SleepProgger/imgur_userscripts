@@ -3,31 +3,34 @@
 // @namespace   someName
 // @include     http://imgur.com/user/*
 // @include     https://imgur.com/user/*
-// @version     0.1d
+// @version     0.1e
 // @grant       none
 // ==/UserScript==
 
+
 // TODO: Think about useable version numbers...
-// TODO: Show errors / no credits remaining ?
+// TODO: Add support for username.imgur.com style urls
+// TODO: Show errors and handle no credits remaining ?
 
 $( window ).ready(function() {
 	var CLIENT_ID = "cd0695f1226536b";
 
 	if(window.location.pathname.indexOf('/user/') === 0 && $('.button').filter('.comments').length > 0){
+		var username = window.location.pathname.split("/", 3)[2]; // TODO: look for a more stable way (is there an imgur js var maybe ?)
 		var newBox = $('<div id="statsBox" class="textbox"></div>');
 		var tble = $('<table width="100%">' +
 								 '<tr><td>Account creation</td><td align="right" id="stats_created"> - </td></tr>'+
-								 '<tr><td>Comments</td><td align="right" id="stats_comments"> - </td></tr>'+
-								 '<tr><td>Submissions</td><td align="right" id="stats_submissions"> - </td></tr>'+
-								 '<tr><td>Albums</td><td align="right" id="stats_albums"> - </td></tr>'+
-								 '<tr><td>Images</td><td align="right" id="stats_images"> - </td></tr>'+
-								 '<tr><td>Favorites</td><td align="right" id="stats_favorites"> - </td></tr>'+
+								 '<tr><td>Comments</td><td align="right"><a href="http://imgur.com/user/'+username+'/" id="stats_comments"> - </a></td></tr>'+
+								 '<tr><td>Submissions</td><td align="right"><a href="http://imgur.com/user/'+username+'/submitted" id="stats_submissions"> - </a></td></tr>'+
+								 '<tr><td>Albums</td><td align="right"><a href="http://'+username+'.imgur.com" id="stats_albums"> - </a></td></tr>'+
+								 '<tr><td>Images</td><td align="right"><a href="http://'+username+'.imgur.com/all" id="stats_images"> - </a></td></tr>'+
+								 '<tr><td>Favorites</td><td align="right"><a href="http://imgur.com/user/'+username+'/favorites" id="stats_favorites"> - </a></td></tr>'+
 								 '<tr><td style="color: #2B2B2B;" colspan="2" align="center" id="stats_credits_user"> - </td></tr>'+
 								 '<tr><td style="color: #2B2B2B;" colspan="2" align="center" id="stats_credits_script"> - </td></tr>'+
 								 '</table>');
 		newBox.append(tble);
 		newBox.insertBefore( $('.icons').filter('.textbox') );
-		var username = window.location.pathname.split("/", 3)[2];
+		
 
 		// get coments / submission stats
 		$.ajax({
