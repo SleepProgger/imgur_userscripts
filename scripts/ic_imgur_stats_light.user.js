@@ -2,7 +2,7 @@
 // @name        ic_imgur_stats
 // @namespace   foo
 // @include     https://community.imgur.com/*
-// @version     0.3
+// @version     0.3.1
 // @grant       none
 // ==/UserScript==
 
@@ -32,7 +32,8 @@ history.replaceState = function(){
 $(history).on("history_state_changed", function(evt, ob, title, url){
   window.setTimeout(function(){  // TODO: wait till loaded
     if(url.indexOf("/users/") != 0) return;
-    var username = $('.primary-textual h1').html();
+    var username = $('.primary-textual h1').html().trim().match(/([^\s]*)/)[1];
+    
     if($('#imgur_link').length === 0)
      showImgurInfo(username.trim());    
   }, 1000);
