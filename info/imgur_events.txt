@@ -1,38 +1,1348 @@
-$.each(imgur._.emitter.callbacks, function(k, v){ console.log(k + ' => ', v) })
-on /gallery:
-  select =>  Array [ Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, 6 more… ]
-    - Not clue what exactly, but it get fired when navigated to the next post.
-  command.location =>  Array [ Object ]
-  command.refresh =>  Array [ Object ]
-  keyboardNav =>  Array [ Object ]
-  buttonNav =>  Array [ Object ]
-  beforeComments =>  Array [ Object ]
-  imageRendered =>  Array [ Object ]
-  reset =>  Array [ Object ]
-  firstImage =>  Array [ Object ]
-  lastImage =>  Array [ Object ]
-  sectionChange =>  Array [ Object ]
-  sortChange =>  Array [ Object ]
-  windowChange =>  Array [ Object ]
-  sidegalleryPageLoad =>  Array [ Object, Object, Object ]
-  pointUpdate =>  Array [ Object ]
-  report image =>  Array [ Object ]
-  gotPromoted =>  Array [ Object ]
-  navToImage =>  Array [ Object, Object ]
-  displayPromoted =>  Array [ Object ]
-  promoEvent =>  Array [ Object ]
-  new suggest query =>  Array [ Object, Object ]
-  image-tag-box.hide =>  Array [ Object ]
-  closed dropdown menu =>  Array [ Object ]
-  image-tag-box.show =>  Array [ Object, Object ]
-  image tag updated =>  Array [ Object ]
-  tag updated =>  Array [ Object ]
-  tag added to post =>  Array [ Object ]
-  ajax error added to post =>  Array [ Object ]
-  tag removed from post =>  Array [ Object ]
-  ajax error removed from post =>  Array [ Object ]
-  ajax tag loading finished =>  Array [ Object ]
-  new finished query =>  Array [ Object ]
-  new suggest validation mode =>  Array [ Object ]
-  new suggestions =>  Array [ Object ]
-  current image updated =>  Array [ Object ]
+$.each(imgur._.emitter.callbacks, function(k, v){
+  console.log(k, ': ');
+  $.each(v, function(k2, v2){
+    console.log(' -', v2);
+    if(v2.this_arg){$.each(v2.this_arg, function(k3, v3){console.log(' --- ', k3, '=>', v3)})}
+ });
+})
+
+
+
+
+command.location : 
+ - Object { f: Imgur.Element.CommandLocation<.handleCommand(), this_arg: Object }
+command.refresh : 
+ - Object { f: Imgur.Element.CommandLocation<.handleRefreshCommand(), this_arg: Object }
+keyboardNav : 
+ - Object { f: function (), this_arg: Object }
+buttonNav : 
+ - Object { f: function (), this_arg: Object }
+ 
+// No clue. NOT fired before comments. Maybe at page load once ?
+beforeComments : 
+ - Object { f: Imgur.Linkify.OpGrabber<.handleImageChange(), this_arg: Object }
+ 
+// Fired at every new post
+// First param is Post object, but without comments.
+// change values in first parameter to change before page being completley loaded.
+select : 
+ - Object { f: Imgur.Linkify.OpGrabber<.handleImageChange(), this_arg: Object }
+ - Object { f: Imgur.Linkify.AlbumImageViewer<.handleUpdatedImage(), this_arg: Object }
+ - Object { f: Imgur.InsideNav<.navToImage(), this_arg: Object }
+ - Object { f: Imgur.Tag.Store.CurrentImage<.setCurrentImage(), this_arg: Object }
+ - Object { f: Imgur.SideGalleryCta<.handleSelectPost(), this_arg: Object }
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/<(), this_arg: null }
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+ - Object { f: function (), this_arg: null }
+ - Object { f: b(), this_arg: null }
+ - Object { f: o/X.once/<(), this_arg: null }
+ - Object { f: b(), this_arg: null }
+ - Object { f: Imgur.Factory.Widget<.bindIncusGallery/<(), this_arg: null }
+ - Object { f: Imgur.PointsUpdater<.kill(), this_arg: Object }
+ - Object { f: Imgur.PointsUpdater<.kill(), this_arg: Object }
+ - Object { f: function (), this_arg: null }
+ - Object { this_arg: null, f: b() }
+ - Object { this_arg: null, f: b() }
+ - Object { this_arg: null, f: b() }
+ - Object { this_arg: null, f: b() }
+ - Object { this_arg: null, f: b() }
+ - Object { this_arg: null, f: b() }
+ - Object { this_arg: null, f: b() }
+ - Object { this_arg: null, f: b() }
+ 
+imageRendered : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideNav/<(), this_arg: null }
+reset : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideNav/<(), this_arg: null }
+firstImage : 
+ - Object { f: function (), this_arg: Object }
+lastImage : 
+ - Object { f: function (), this_arg: Object }
+sectionChange : 
+ - Object { f: Imgur.InsideNav<.changeSection(), this_arg: Object }
+sortChange : 
+ - Object { f: Imgur.InsideNav<.changeSort(), this_arg: Object }
+windowChange : 
+ - Object { f: Imgur.InsideNav<.changeWindow(), this_arg: Object }
+sidegalleryPageLoad : 
+ - Object { f: b(), this_arg: null }
+ - Object { f: Imgur.SideGalleryCta<.handleNewGalleryPage(), this_arg: Object }
+ - Object { f: b(), this_arg: null }
+pointUpdate : 
+ - Object { f: Imgur.InsideNav<.updatePoints(), this_arg: Object }
+report image : 
+ - Object { f: Imgur.Gallery<.reportImage(), this_arg: Object }
+gotPromoted : 
+ - Object { f: b(), this_arg: null }
+navToImage : 
+ - Object { f: b(), this_arg: null }
+ - Object { f: b(), this_arg: null }
+displayPromoted : 
+ - Object { f: b(), this_arg: null }
+promoEvent : 
+ - Object { f: b(), this_arg: null }
+new suggest query : 
+ - Object { f: b(), this_arg: null }
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+image-tag-box.hide : 
+ - Object { f: b(), this_arg: null }
+closed dropdown menu : 
+ - Object { f: b(), this_arg: null }
+image-tag-box.show : 
+ - Object { f: b(), this_arg: null }
+ - Object { f: Imgur.Tag.Controller.InsideComponent<.handleUpdateTagBox(), this_arg: Object }
+image tag updated : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+tag updated : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+tag added to post : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+ajax error added to post : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+tag removed from post : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+ajax error removed from post : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+ajax tag loading finished : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+new finished query : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+ - Object { f: .f(), this_arg: Object }
+new suggest validation mode : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+new suggestions : 
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+
+// event whenever an image is changed (seems like to be called after starting to load the first image ?)
+current image updated :
+ - Object { f: Imgur.Factory.InsideGallery<.produceInsideTaggingWidget/t(), this_arg: null }
+
+
+
+//
+// With thisArgs object info
+//
+
+
+$.each(imgur._.emitter.callbacks, function(k, v){
+  console.log(k, ': ');
+  $.each(v, function(k2, v2){
+    console.log(' -', v2);
+    if(v2.this_arg){$.each(v2.this_arg, function(k3, v3){console.log(' --- ', k3, '=>', v3)})}
+ });
+})
+VM1367:3 command.location : 
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  handleCommand => (a){setTimeout(function(){window.location=a},50)}
+VM1367:6  ---  handleRefreshCommand => (){setTimeout(function(){window.location=window.location.href},50)}
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:3 command.refresh : 
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  handleCommand => (a){setTimeout(function(){window.location=a},50)}
+VM1367:6  ---  handleRefreshCommand => (){setTimeout(function(){window.location=window.location.href},50)}
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:3 keyboardNav : 
+VM1367:5  - Object {this_arg: b}
+VM1367:6  ---  getDOMNode => () { [native code] }
+VM1367:6  ---  changeLayout => () { [native code] }
+VM1367:6  ---  _ajaxSuccess => () { [native code] }
+VM1367:6  ---  _onScroll => () { [native code] }
+VM1367:6  ---  _checkEndReached => () { [native code] }
+VM1367:6  ---  _checkScrollPageNeeded => () { [native code] }
+VM1367:6  ---  _listHeight => () { [native code] }
+VM1367:6  ---  _itemOffset => () { [native code] }
+VM1367:6  ---  _loadPage => () { [native code] }
+VM1367:6  ---  _switchToViral => () { [native code] }
+VM1367:6  ---  nthFromHash => () { [native code] }
+VM1367:6  ---  insertSingleItem => () { [native code] }
+VM1367:6  ---  selectedPosition => () { [native code] }
+VM1367:6  ---  hashPosition => () { [native code] }
+VM1367:6  ---  selectImage => () { [native code] }
+VM1367:6  ---  getImage => () { [native code] }
+VM1367:6  ---  getNextImage => () { [native code] }
+VM1367:6  ---  getPrevImage => () { [native code] }
+VM1367:6  ---  bindMouseMove => () { [native code] }
+VM1367:6  ---  _nav => () { [native code] }
+VM1367:6  ---  updateVote => () { [native code] }
+VM1367:6  ---  updateFavorite => () { [native code] }
+VM1367:6  ---  scrollToHash => () { [native code] }
+VM1367:6  ---  props => Object {env: Object, cache: "/hit.json", emitter: d, recsExperimentEnabled: false, showRecommendations: false}
+VM1367:6  ---  context => Object {}
+VM1367:6  ---  state => Object {items: Array[447], scrollTop: 23045, selectedHash: "HimEFdu", source: "/gallery", section: "hot"…}
+VM1367:6  ---  refs => Object {TlYGkw7: b, xtoLyW2: b, tAmT5xk: b, X5WRvup: b, fXMaS8o: b…}
+VM1367:6  ---  _reactInternalInstance => k {_currentElement: k, _rootNodeID: ".1", _instance: b, _pendingElement: null, _pendingStateQueue: null…}
+VM1367:6  ---  constructor => (a,c){y(this instanceof b,"Something is calling a React component directly. Use a factory or JSX instead. See: https://fb.me/react-legacyfactory"),this.__reactAutoBindMap&&k(this),this.props=…
+VM1367:6  ---  __reactAutoBindMap => Object {}
+VM1367:6  ---  HEIGHT => 485
+VM1367:6  ---  ROW_HEIGHT => Object {list: 111, grid: 147}
+VM1367:6  ---  ITEMS_PER_ROW => Object {list: 1, grid: 2}
+VM1367:6  ---  RENDER_BUFFER => 1000
+VM1367:6  ---  FETCH_MORE_BUFFER => 3000
+VM1367:6  ---  SELECTED_OFFSET => 40
+VM1367:6  ---  BREAK_HEIGHT => 60
+VM1367:6  ---  GRID_MARGIN => 6
+VM1367:6  ---  _ => Object {localStorage: d, isLoading: false, currentInserted: true, el: Object, sectionTitles: Object…}
+VM1367:6  ---  getInitialState => (){var a,b;if("undefined"==typeof $.cookie("m_section")){var c=document.createElement("a");c.href=document.referrer,"twitch.tv"===c.host?(a="tag",b="/t/gaming"):Imgur.Environment.image.topic&…
+VM1367:6  ---  componentDidMount => (){if(this.props.display!==!1){this._loadPage(),this.bindMouseMove();var a=_.throttle(_.bind(this._onScroll,this),500);this._.el.$sideGallery=$(React.findDOMNode(this)),this._.el.$content=thi…
+VM1367:6  ---  shouldComponentUpdate => (){return!0}
+VM1367:6  ---  componentDidUpdate => (a,b){(b.items.length!==this.state.items.length||b.layout!==this.state.layout)&&this._.el.$sideGallery.find(".nano").nanoScroller(),b.scrollToHash!==this.state.scrollToHash&&this.scrollToHash…
+VM1367:6  ---  render => (){if(this.props.display===!1)return!1;var a,b,c,d,e,f,g,h,i,j=[],k=this._.sideGalleryItem,l={min:this.state.scrollTop-this.RENDER_BUFFER,max:this.state.scrollTop+this.HEIGHT+this.RENDER_BUFF…
+VM1367:6  ---  mixins => null
+VM1367:6  ---  statics => null
+VM1367:6  ---  propTypes => null
+VM1367:6  ---  contextTypes => null
+VM1367:6  ---  childContextTypes => null
+VM1367:6  ---  getDefaultProps => null
+VM1367:6  ---  getChildContext => null
+VM1367:6  ---  componentWillMount => null
+VM1367:6  ---  componentWillReceiveProps => null
+VM1367:6  ---  componentWillUpdate => null
+VM1367:6  ---  componentWillUnmount => null
+VM1367:6  ---  updateComponent => null
+VM1367:6  ---  setState => (a,b){e("object"==typeof a||"function"==typeof a||null==a,"setState(...): takes an object of state variables to update or a function which returns an object of state variables."),f(null!=a,"s…
+VM1367:6  ---  forceUpdate => (a){d.enqueueForceUpdate(this),a&&d.enqueueCallback(this,a)}
+VM1367:6  ---  replaceState => (a,b){t.enqueueReplaceState(this,a),b&&t.enqueueCallback(this,b)}
+VM1367:6  ---  isMounted => (){var a=m.current;null!==a&&(y(a._warnedAboutRefsInRender,"%s is accessing isMounted inside its render() function. render() should be a pure function of props and state. It should never acce…
+VM1367:6  ---  setProps => (a,b){t.enqueueSetProps(this,a),b&&t.enqueueCallback(this,b)}
+VM1367:6  ---  replaceProps => (a,b){t.enqueueReplaceProps(this,a),b&&t.enqueueCallback(this,b)}
+VM1367:3 buttonNav : 
+VM1367:5  - Object {this_arg: b}
+VM1367:6  ---  getDOMNode => () { [native code] }
+VM1367:6  ---  changeLayout => () { [native code] }
+VM1367:6  ---  _ajaxSuccess => () { [native code] }
+VM1367:6  ---  _onScroll => () { [native code] }
+VM1367:6  ---  _checkEndReached => () { [native code] }
+VM1367:6  ---  _checkScrollPageNeeded => () { [native code] }
+VM1367:6  ---  _listHeight => () { [native code] }
+VM1367:6  ---  _itemOffset => () { [native code] }
+VM1367:6  ---  _loadPage => () { [native code] }
+VM1367:6  ---  _switchToViral => () { [native code] }
+VM1367:6  ---  nthFromHash => () { [native code] }
+VM1367:6  ---  insertSingleItem => () { [native code] }
+VM1367:6  ---  selectedPosition => () { [native code] }
+VM1367:6  ---  hashPosition => () { [native code] }
+VM1367:6  ---  selectImage => () { [native code] }
+VM1367:6  ---  getImage => () { [native code] }
+VM1367:6  ---  getNextImage => () { [native code] }
+VM1367:6  ---  getPrevImage => () { [native code] }
+VM1367:6  ---  bindMouseMove => () { [native code] }
+VM1367:6  ---  _nav => () { [native code] }
+VM1367:6  ---  updateVote => () { [native code] }
+VM1367:6  ---  updateFavorite => () { [native code] }
+VM1367:6  ---  scrollToHash => () { [native code] }
+VM1367:6  ---  props => Object {env: Object, cache: "/hit.json", emitter: d, recsExperimentEnabled: false, showRecommendations: false}
+VM1367:6  ---  context => Object {}
+VM1367:6  ---  state => Object {items: Array[447], scrollTop: 23045, selectedHash: "HimEFdu", source: "/gallery", section: "hot"…}
+VM1367:6  ---  refs => Object {TlYGkw7: b, xtoLyW2: b, tAmT5xk: b, X5WRvup: b, fXMaS8o: b…}
+VM1367:6  ---  _reactInternalInstance => k {_currentElement: k, _rootNodeID: ".1", _instance: b, _pendingElement: null, _pendingStateQueue: null…}
+VM1367:6  ---  constructor => (a,c){y(this instanceof b,"Something is calling a React component directly. Use a factory or JSX instead. See: https://fb.me/react-legacyfactory"),this.__reactAutoBindMap&&k(this),this.props=…
+VM1367:6  ---  __reactAutoBindMap => Object {}
+VM1367:6  ---  HEIGHT => 485
+VM1367:6  ---  ROW_HEIGHT => Object {list: 111, grid: 147}
+VM1367:6  ---  ITEMS_PER_ROW => Object {list: 1, grid: 2}
+VM1367:6  ---  RENDER_BUFFER => 1000
+VM1367:6  ---  FETCH_MORE_BUFFER => 3000
+VM1367:6  ---  SELECTED_OFFSET => 40
+VM1367:6  ---  BREAK_HEIGHT => 60
+VM1367:6  ---  GRID_MARGIN => 6
+VM1367:6  ---  _ => Object {localStorage: d, isLoading: false, currentInserted: true, el: Object, sectionTitles: Object…}
+VM1367:6  ---  getInitialState => (){var a,b;if("undefined"==typeof $.cookie("m_section")){var c=document.createElement("a");c.href=document.referrer,"twitch.tv"===c.host?(a="tag",b="/t/gaming"):Imgur.Environment.image.topic&…
+VM1367:6  ---  componentDidMount => (){if(this.props.display!==!1){this._loadPage(),this.bindMouseMove();var a=_.throttle(_.bind(this._onScroll,this),500);this._.el.$sideGallery=$(React.findDOMNode(this)),this._.el.$content=thi…
+VM1367:6  ---  shouldComponentUpdate => (){return!0}
+VM1367:6  ---  componentDidUpdate => (a,b){(b.items.length!==this.state.items.length||b.layout!==this.state.layout)&&this._.el.$sideGallery.find(".nano").nanoScroller(),b.scrollToHash!==this.state.scrollToHash&&this.scrollToHash…
+VM1367:6  ---  render => (){if(this.props.display===!1)return!1;var a,b,c,d,e,f,g,h,i,j=[],k=this._.sideGalleryItem,l={min:this.state.scrollTop-this.RENDER_BUFFER,max:this.state.scrollTop+this.HEIGHT+this.RENDER_BUFF…
+VM1367:6  ---  mixins => null
+VM1367:6  ---  statics => null
+VM1367:6  ---  propTypes => null
+VM1367:6  ---  contextTypes => null
+VM1367:6  ---  childContextTypes => null
+VM1367:6  ---  getDefaultProps => null
+VM1367:6  ---  getChildContext => null
+VM1367:6  ---  componentWillMount => null
+VM1367:6  ---  componentWillReceiveProps => null
+VM1367:6  ---  componentWillUpdate => null
+VM1367:6  ---  componentWillUnmount => null
+VM1367:6  ---  updateComponent => null
+VM1367:6  ---  setState => (a,b){e("object"==typeof a||"function"==typeof a||null==a,"setState(...): takes an object of state variables to update or a function which returns an object of state variables."),f(null!=a,"s…
+VM1367:6  ---  forceUpdate => (a){d.enqueueForceUpdate(this),a&&d.enqueueCallback(this,a)}
+VM1367:6  ---  replaceState => (a,b){t.enqueueReplaceState(this,a),b&&t.enqueueCallback(this,b)}
+VM1367:6  ---  isMounted => (){var a=m.current;null!==a&&(y(a._warnedAboutRefsInRender,"%s is accessing isMounted inside its render() function. render() should be a pure function of props and state. It should never acce…
+VM1367:6  ---  setProps => (a,b){t.enqueueSetProps(this,a),b&&t.enqueueCallback(this,b)}
+VM1367:6  ---  replaceProps => (a,b){t.enqueueReplaceProps(this,a),b&&t.enqueueCallback(this,b)}
+VM1367:3 beforeComments : 
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _ => Object {currentOp: "alcesalcesg"}
+VM1367:6  ---  init => (a){this._={currentOp:null},a.on("beforeComments",this,this.handleImageChange),a.on("select",this,this.handleImageChange)}
+VM1367:6  ---  REGEX => /(?:^|[^A-z0-9])@([A-z0-9]{4,}|op(?=([^A-z0-9]|$)))/gi
+VM1367:6  ---  scan => (a){var b=null,c=[];if(!this._.currentOp)return c;for(;null!==(b=this.REGEX.exec(a));){var d=b.index,e=b.index+b[1].length;"@"!==b[0][0]&&(d++,e++),c.push({begin:d,end:e})}return c}
+VM1367:6  ---  handleImageChange => (a){this._.currentOp=a&&a.account_url?a.account_url:null}
+VM1367:6  ---  grab => (a){return{href:"/user/"+this._.currentOp,text:a}}
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:3 select : 
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _ => Object {currentOp: "alcesalcesg"}
+VM1367:6  ---  init => (a){this._={currentOp:null},a.on("beforeComments",this,this.handleImageChange),a.on("select",this,this.handleImageChange)}
+VM1367:6  ---  REGEX => /(?:^|[^A-z0-9])@([A-z0-9]{4,}|op(?=([^A-z0-9]|$)))/gi
+VM1367:6  ---  scan => (a){var b=null,c=[];if(!this._.currentOp)return c;for(;null!==(b=this.REGEX.exec(a));){var d=b.index,e=b.index+b[1].length;"@"!==b[0][0]&&(d++,e++),c.push({begin:d,end:e})}return c}
+VM1367:6  ---  handleImageChange => (a){this._.currentOp=a&&a.account_url?a.account_url:null}
+VM1367:6  ---  grab => (a){return{href:"/user/"+this._.currentOp,text:a}}
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _ => Object {hash: "HimEFdu", pendingRef: null, abortedHash: "HimEFdu"}
+VM1367:6  ---  init => (a){this._={hash:a,pendingRef:null}}
+VM1367:6  ---  handleUpdatedImage => (a){this._.abortedHash=this._.hash,this._.hash=a.hash
+}
+VM1367:6  ---  canView => (){return!1}
+VM1367:6  ---  canHover => (a){return!!a.match(/#\d+/)}
+VM1367:6  ---  hoverover => (a,b,c){if(b.match(/#\d+/)){var d=b.replace("#",""),e=this._.hash,f=$.ajax({url:"/gallery/action/image/"+e,type:"GET",data:{order:d},success:_.bind(function(a){this._.abortedHash!==e&&a.data&…
+VM1367:6  ---  hoverout => (){this._.pendingRef&&this._.pendingRef.abort(),this._.abortedHash=this._.hash}
+VM1367:6  ---  dispatch => (a,b,c){a.preventDefault(),c.colorbox({initialHeight:240,initialWidth:320,maxWidth:"95%",maxHeight:"95%",className:"noHeader",scalePhotos:!0,photo:!0,fixed:!0,transition:"elastic",scrolling:!…
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _super => undefined
+VM1367:6  ---  _ => Object {hash: "HimEFdu", url: "/gallery/HimEFdu", protocol: "https:", host: "imgur.com", isDropDownOpen: false…}
+VM1367:6  ---  init => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  setHash => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  getHash => (){return this._.hash}
+VM1367:6  ---  updateCaptionHash => (){this._.captionInstance.setHash(this._.hash)}
+VM1367:6  ---  updateShare => (){if(!this.hasImage())return void imcon.warn("Can't find image when updating share");var a=this.getImage(),b="http://"+this._.host+this.getURL({type:"historyState",hash:a.hash});b=a.is_album…
+VM1367:6  ---  hasImage => (a){return a=a||this._.hash,a==this._.image.hash?!0:null!=this._.sideGallery.getImage(a)}
+VM1367:6  ---  getImage => (a){return a=a||this._.hash,null==this._.sideGallery?this._.image:this.hasImage(a)?this._.sideGallery.getImage(a):null}
+VM1367:6  ---  getCurrentImage => (){return this._.sideGallery.getImage(this.getHash())}
+VM1367:6  ---  checkFetchQueue => (){if(0!==this._.fetchQueue.length){var a=this._.fetchQueue.shift();
+a&&a()}}
+VM1367:6  ---  disableCache => (){var a=this._.captionsCacheTime,b=new Date;b.setTime(b.getTime()+1e3*a),$.cookie(this._.captionsCacheCookie,"true",{expires:b,path:"/"}),window.setTimeout(this.enableCache.bind(this),1e3*a)…
+VM1367:6  ---  enableCache => (){"new"!=this._.section&&$.cookie(this._.captionsCacheCookie,null,{path:"/"})}
+VM1367:6  ---  generalInit => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  bindViewabilityScroll => (){$(window).on("scroll resize",_.throttle(_.bind(this.checkViewabilityScroll,this),250))}
+VM1367:6  ---  checkStickyHeader => (){var a=$(window).scrollTop(),b=$(".post-header"),c=this._.elements.$postContainer.offset().top,d=a-this._.scrollPosition;if(this._.scrollPosition=a,!this._.headerFixed&&a>c){var e=this._.el…
+VM1367:6  ---  checkViewabilityTime => (a){(_.isObject(a)||this._.lastVwTimeHash!==this._.hash)&&(this._.vwHashTime>0&&this._.emitter.trigger("vwTime",this._.lastVwTimeHash,(new Date).valueOf()-this._.vwHashTime),this._.lastVwTime…
+VM1367:6  ---  checkViewabilityScroll => (){var a=parseInt(this._.elements.$window.scrollTop()+this._.elements.$window.height(),10),b=parseInt(this._.elements.$underImage.offset().top+this._.elements.$underImage.outerHeight()+this._…
+VM1367:6  ---  enablePrevButton => (){this._.elements.$navPrev.removeClass("disabled")}
+VM1367:6  ---  enableNextButton => (){this._.elements.$navNext.removeClass("disabled")}
+VM1367:6  ---  disablePrevButton => (){this._.elements.$navPrev.addClass("disabled")}
+VM1367:6  ---  disableNextButton => (){this._.elements.$navNext.addClass("disabled")}
+VM1367:6  ---  changeSection => (a){this._.section=a}
+VM1367:6  ---  changeSort => (a){this._.sort=a}
+VM1367:6  ---  changeWindow => (a){this._.window=a}
+VM1367:6  ---  updatePoints => (a){var b,c,d;if("comment"===a.type){var e=this._.captionInstance.getCaptionById(this.getHash(),a.comment);e&&"visible_points"in e&&(e.visible_points=a.points),this._.insideCommentsArea.force…
+VM1367:6  ---  getURL => (a){var b="hit";return"captionsJSON"!=a.type||this._.usingCache&&"true"!==$.cookie(this._.captionsCacheCookie)&&"new"!==this._.section||a.cache||(b="miss"),{historyState:this._.baseURL+"/"+a.…
+VM1367:6  ---  fetchImage => (a,b,c){var d=this._.sideGallery.getImage(a);d&&(d.is_album&&null==this._.albumImageStore.getImages(d.hash)?this._.albumImageStore.fetchImages(d.hash,_.bind(function(a){for(var c=0;c<a.count&…
+VM1367:6  ---  fetchCaptions => (a,b,c){if(this._.captionsEnabled){if(this._.captionInstance.haveCaptions(a))return void b();if(!this._.fetchingCaptions[a]){this._.fetchingCaptions[a]=!0;var d=this,e=this.getURL({type:"capt…
+VM1367:6  ---  scrollToCaptions => (a){var b=this._.elements.$underImage.offset().top-this._.elements.$postHeader.outerHeight();a?$("html, body").animate({scrollTop:b},500):window.scrollTo(0,b)}
+VM1367:6  ---  processCaptions => (){var a=this,b=this._.hash,c=this.getCaptionSorter(),d=b===this._.image.hash?this._.image:this._.sideGallery.getImage(b),e=_.clone(this._.captionInstance.getParentIds(b)),f=_.transform(e,fun…
+VM1367:6  ---  getPermalinkIfExists => (){var a=window.location.pathname,b=-1!==a.indexOf("comment");if(b){var c=a.split("/comment/")[1].split("/");return{commentId:parseInt(c[0]),contextLevels:parseInt(c[1])}}}
+VM1367:6  ---  setupHistoryState => (){var a=this,b=Imgur.History.getInstance();b.addPopState("inside_nav.comment",function(b){a.handlePopStateComment(b)}),b.addPopState("inside_nav.image",function(b){a.handlePopStateImage(b)})…
+VM1367:6  ---  handlePopStateComment => (){var a=window.location.pathname.split("/"),b=null;3==a.length&&a[2].length>=5&&(b=a[2]),a.length>3&&(b="r"===a[1]?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this.setHash(b),this.scrollToCaption…
+VM1367:6  ---  handlePopStateImage => (){var a=window.location.pathname.split("/"),b=null;3===a.length&&a[2].length>=5&&(b=a[2]),a[2]&&(b=-1!==_.indexOf(["r","topic"],a[1])?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this._.sideGaller…
+VM1367:6  ---  pushWindowState => (a,b){var c=this._.baseURL+"/"+this._.hash;a&&(c+="/comment/"+a,b&&(c+="/"+b)),Imgur.History.getInstance().addWindowState("inside_nav.comment","Comments on "+window.title,c)}
+VM1367:6  ---  setCaptionSort => (a){var b=a.substr(0,1).toUpperCase()+a.substr(1);this._.captionLayout.sort=this["sortCaptionsBy"+b]}
+VM1367:6  ---  getCaptionSorter => (){var a=[_.bind(this.sortCaptionsByMineJustSubmitted,this),this._.captionLayout.sort,_.bind(this.sortCaptionsByIdDesc,this)];return function(b,c){for(var d=0;d<a.length;d++){var e=a[d](b,c);…
+VM1367:6  ---  sortCaptionsByTop => (a,b){var c=a.points,d=b.points;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByBest => (a,b){var c=a.best_score,d=b.best_score;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByNew => (a,b){var c=new Date(a.datetime),d=new Date(b.datetime);return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByMineJustSubmitted => (a,b){return"just_inserted"in a&&!("just_inserted"in b)?-1:"just_inserted"in b&&!("just_inserted"in a)?1:0}
+VM1367:6  ---  sortCaptionsById => (a,b){return a.id<b.id?-1:a.id>b.id?1:0}
+VM1367:6  ---  sortCaptionsByIdDesc => (a,b){return a.id>b.id?-1:a.id<b.id?1:0}
+VM1367:6  ---  showAnalytics => (){this._.analytics.popAndLoad(this._.image)}
+VM1367:6  ---  blankPage => (){var a=this._.elements;Imgur.InfiniteScroll.getInstance().stopInfiniteScroll(),React.unmountComponentAtNode(a.$image.get(0)),$(a.sparkbar).unbind(),$(a.sparkbar).remove(),this._.customAds&&…
+VM1367:6  ---  pushToFetchQueue => (a,b,c){this._.fetchQueue.push(_.bind(this.fetchImage,this,a,b,c))}
+VM1367:6  ---  updateVoteResponseData => (a,b,c){a=a||this.getHash(),b=b||this._.elements.$voteUp,c=c||this._.elements.$voteDown,null!=this._.sideGallery&&(b.hasClass("pushed")?this._.sideGallery.updateVote(a,"up"):c.hasClass("pushe…
+VM1367:6  ---  updateFavorite => (a){this._.sideGallery.updateFavorite(this.getHash(),a)}
+VM1367:6  ---  setupReportLink => (){var a=this.getHash(),b=this._.sideGallery.getImage(a),c=Imgur.Environment.auth.url===this._.image.account_url||!this._.captionsEnabled||b.promoId||b.readonly;this._.el.inside.reportImageLi…
+VM1367:6  ---  handleAds => (){var a=this.getHash(),b=this._.sideGallery.getImage(a);this.isSafe()?this._.ad.injectAd&&(!this._.isHotImage&&b.is_hot||b.hasOwnProperty("in_gallery")&&b.in_gallery)?this.showAds():this._.a…
+VM1367:6  ---  isSafe => (){var a=this._.sideGallery.getImage(this.getHash());if(!a)return!1;var b=("undefined"!=typeof a.timestamp?a.timestamp:a.datetime).split(/[- :]/),c=new Date;return b=new Date(Date.UTC(b[0],b[…
+VM1367:6  ---  updateSponsoredInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a);b.$smallLinks.hide();var d=$("<div>"+_.unescape(c.description)+"</div>");d.find("p").remove(":empty"),this._.element…
+VM1367:6  ---  updateSubmissionInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a),d=this.numberFormat(c.points,"point").split(" "),e=Imgur.Util.truncatedNumberFormat(c.views),f=isFinite(c.points)&&t…
+VM1367:6  ---  updateStatBar => (a,b,c){var d=a.ups+a.downs;d=0>=d?1:d;var e=a.ups/d*100,f=a.downs/d*100;0==e&&0==f&&(e=50,f=50),this._.elements.$statsLink.html(this._.templates.statBar({item:a,points:b,views:c,upvotePercen…
+VM1367:6  ---  setupDownloadLinks => (a){var b=this;this._.elements.$download.unbind("click"),a.is_album?(this._.elements.$download.text("Download album"),this._.elements.$download.click(function(){return b.startDownload(a.hash)…
+VM1367:6  ---  startDownload => (a){var b=Imgur.Album.getInstance();b._.id=a,b.downloadAlbum()}
+VM1367:6  ---  updatePage => (a){var b=this.getHash(),c=this._.elements,d=this._.sideGallery.getImage(b),e=this,f=680;this._.image.is_moderated&&this.removeAds(),d&&(this._.image=d),this._.analytics.clear(!0),Imgur.Galle…
+VM1367:6  ---  setupOptionDropdown => (a){var b=this._.elements,c=Imgur.Environment.auth&&Imgur.Environment.auth.url==this._.image.account_url,d=a.is_album?"show":"hide",e=a.is_album?"hide":"show",f=c&&!a.nsfw&&this._.captionsEna…
+VM1367:6  ---  purgeCommentData => (){var a=this,b=Object.keys(this._.captionInstance._.captions).filter(function(b){return Object.hasOwnProperty.call(a._.captionInstance._.captions,b)&&a.isImageNearby(b)});this._.captionInsta…
+VM1367:6  ---  purgeAlbumData => (){var a=Object.keys(this._.albumImages);if(a.length>10)for(var b=0;b<a.length;++b)this.isImageNearby(a[b])||delete this._.albumImages[a[b]]}
+VM1367:6  ---  isImageNearby => (a){var b=this._.sideGallery.selectedPosition(),c=this._.sideGallery.hashPosition(a);return-1!==c&&c>=b-3&&b+1>=c}
+VM1367:6  ---  _promotedTag => (){var a=React.DOM.div({className:"promoted-tag"},React.DOM.a({href:Imgur.Environment.ppBlog,className:"title",title:"learn more about promoted posts"},"promoted"));return a}
+VM1367:6  ---  _promotedWrap => (a){return React.DOM.div({className:"promoted-wrap"},this._promotedTag(),a)}
+VM1367:6  ---  insertPost => (a,b){if(a.hash==this.getHash()){if(a.is_album&&null==this._.albumImageStore.getImages(a.hash))return void this._.albumImageStore.fetchImages(a.hash,_.bind(this.insertPost,this,this._.sideGal…
+VM1367:6  ---  preloadImage => (a){var b,c=".gif"==a.ext&&a.animated&&a.size>2097152;if(c){var d=document.createElement("video"),e=document.createElement("source");d.canPlayType&&d.canPlayType("video/webm")?e.src=Imgur.Env…
+VM1367:6  ---  bindGoogleForceRefresh => (){var a=this;if(this._.elements.adframe){var b=this._.elements.adframe.contentDocument.getElementsByTagName("iframe")[0];"undefined"!=typeof b&&(b.onload=function(){a.forceAdRefresh()})}}
+VM1367:6  ---  forceAdRefresh => (){this._.ad.nextImageLoadRefreshesAd=!0}
+VM1367:6  ---  bindScrollAd => (){if(this._.elements.$scrollAd.length){var a=this;this._.elements.$scrollAdClose.on("click",function(){a._.ad.closed=!0,a._.elements.$scrollAd.addClass("nodisplay"),a._.elements.scrollAdfram…
+VM1367:6  ---  checkAdTime => (){var a=(this._.elements,this);if(this._.ad.nextImageLoadRefreshesAd){{a._.elements}if(window.usesABP&&"undefined"!=typeof window.abp_ad){this._.ad.abpAdId.removeClass("nodisplay");try{googl…
+VM1367:6  ---  removeAds => (){$(this._.elements.adWrapper).remove(),this._.ad.abpAdId.addClass("nodisplay"),this._.elements.$scrollAd.addClass("nodisplay");try{this._.elements.scrollAdframe.contentWindow.clear()}catch(…
+VM1367:6  ---  showAds => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  hideZoomedImage => (){$(".jquery-image-zoom").is(":visible")&&$("div.jquery-image-zoom a").click(),$.colorbox.close()}
+VM1367:6  ---  timeoutNextImage => (){if(this._.autoBrowse&&!this._.autoBrowseTimeout){var a=7e3,b=this;this._.autoBrowseTimeout=setTimeout(function(){b._.autoBrowseTimeout=null,b._.elements.$navNext.click()},a)}else this._.au…
+VM1367:6  ---  bindAutoBrowse => (){var a=this;$(document).keyup(function(b){return b.ctrlKey&&120===b.keyCode&&(a._.autoBrowse=!a._.autoBrowse,a._.autoBrowse?(a.timeoutNextImage(),humanMsg.displayMsg("Starting auto browse i…
+VM1367:6  ---  navToImage => (a,b){if(!("hash"in a&&this._.hash==a.hash)){"performance"in window&&"memory"in window.performance&&Imgur.Util.jafoLog({event:"nextPageMemory",meta:{pageDepth:Imgur.getInstance().pageDepth,us…
+VM1367:6  ---  logNavigation => (a,b,c){c||(c="next"===a?this._.sideGallery.getNextImage():this._.sideGallery.getPrevImage()),Imgur.Util.jafoLog({event:"galleryNav",meta:{direction:a,trigger:b,targeted:c,visibleTooltip:this…
+VM1367:6  ---  bindArrowKeys => (){var a=this,b={ARROW_LEFT:[37],ARROW_RIGHT:[39],ENTER:[13],MINUS:[109,173,189],PLUS:[187,61,107],NINE:[57,105]};$(document).keydown(function(c){if(!c.ctrlKey&&!c.altKey&&!c.metaKey){if(-1!=…
+VM1367:6  ---  getSideGallery => (){return this._.sideGallery}
+VM1367:6  ---  forceScrollToCaption => (){var a=document.location.hash.substr(1),b=parseInt(a,10);if(!isNaN(b)){var c=$("#caption-"+a);this.scrollToCaption(c)}}
+VM1367:6  ---  scrollToCaption => (a){var b=a.offset().top;$("body").scrollTop(b);var c=a.find(".textbox").first();c.addClass("flash"),setTimeout(function(){c.removeClass("flash")},2e3)}
+VM1367:6  ---  setupKeynavTooltip => (a){if(!Imgur.Environment.auth.id){var b=a?"sidegallery-keynav-popup-tip":"sidegallery-keynav-postnext-tip",c=new Imgur.Elements.FrequencyCappedWrapper(b,Imgur.Elements.TetheredTooltip,{stora…
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:6  ---  setEmitter => (a){this._.emitter=a}
+VM1367:6  ---  imageLinkTipsy => (){$(".tipsy").remove();var a=$(this),b=a.attr("href");if($("#hzImg").length)return"";if(a.closest(".comment").find("> .children > .comment > .caption").text().match(/nsfw/gi)||a.parent().tex…
+VM1367:6  ---  appendFavoriteBar => (a,b,c){var d=$(_.templates["galleryimage.favoriteBar"]({value:"http:"+b,favorited:c.data.favorited}));$favoriteImage=d.find(".favorite-image");var e=new Imgur.Favorite({$favButton:$favoriteI…
+VM1367:6  ---  bindZeroClipboard => (){var a=new ZeroClipboard.Client;a.glue("copy-clipboard","copy-container"),a.addEventListener("onMouseUp",function(){$copyContainer=$("#copy-container"),$copyContainer.attr("title","copied")…
+VM1367:6  ---  removeFavoriteBar => (){$("#favorite-bar").remove()}
+VM1367:6  ---  initHeaderActions => (){var a=this;try{!this._.isSubdomain&&null!=this._.dropdownPulseTime&&localStorage&&void 0==localStorage[this._.dropdownPulseTime]&&this._.el.dropdown.mainMenu.addClass("pulse")}catch(b){}th…
+VM1367:6  ---  _showBetaInvite => (){Imgur.Environment.beta.inBeta||null!=this._.beta&&this._.beta.showInvite&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaInvite))}
+VM1367:6  ---  _showBetaWelcome => (){Imgur.Environment.beta.inBeta&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaWelcome))}
+VM1367:6  ---  showBetaBar => 
+VM1367:6  ---  showAnnouncementBar => 
+VM1367:6  ---  closeDropdownMenu => (a){if(1!=a.which&&2!=a.which&&3!=a.which&&27!=a.which)return!1;var b=a?$(a.target):null;b.parents(".tag-group-selector-container").length||b.closest("#tags-underbar").length||b.closest("#col…
+VM1367:6  ---  openDropdownMenu => (a,b){return b.hasClass("opened")?void this.closeDropdownMenu(a):($(".opened").removeClass("opened"),b.addClass("opened"),b.hasClass("pulse")&&this.hidePulse(b),Imgur.Upload.Index&&Imgur.Uplo…
+VM1367:6  ---  hidePulse => (a){try{localStorage[this._.dropdownPulseTime]=!0}catch(b){}a.removeClass("pulse")}
+VM1367:6  ---  runPlaceholder => (a){var b="input[type=text][title],input[type=password][title],textarea[title]",c=a||$(b);c.each(function(){$(this).showPlaceholder(),$(this).hasClass("placeholder-onkeydown")?($(this).bind("…
+VM1367:6  ---  hideAds => (){$(".advertisement embed").css("visibility","hidden")}
+VM1367:6  ---  signin => (a){if(!this._.mobile){var b=this;return this.hideAds(),$.colorbox({href:"http"+(Imgur.Environment.isDev?"":"s")+"://"+b._.host+"/"+(a?"signin":"register")+"/modal",iframe:!0,fastIframe:!1,wi…
+VM1367:6  ---  vote => (a,b){a.preventDefault();var c=$(a.currentTarget),d=c.parent().children(".up"),e=c.parent().children(".down"),f=c.attr("data"),g=c.attr("type"),h=null,i=0,j=0,k=this._.hash;if(k&&k.length&&"i…
+VM1367:6  ---  displayVoteMessage => (a){if("function"==typeof humanMsg.remove){var b=this;humanMsg.removeMsg(function(){b.showVoteMessage(a)})}else this.showVoteMessage(a)}
+VM1367:6  ---  showVoteMessage => (a){"up"==a?this.showUpvoteMessage():"down"==a&&this.showDownvoteMessage()}
+VM1367:6  ---  showUpvoteMessage => (){humanMsg.displayMsg(this._.messages.upvoted,"action-msg")}
+VM1367:6  ---  showDownvoteMessage => (){humanMsg.displayMsg(this._.messages.downvoted,"action-msg")}
+VM1367:6  ---  getSettings => (){return{host:this._.host,cdnUrl:this._.cdnUrl,signed:this._.signed,auth:this._.auth}}
+VM1367:6  ---  numberFormat => (a,b){a=(""+a).split(".");for(var c=[],d=a[0],e=d.length;e>0;e-=3,d=d.substring(0,e))c.unshift(d.substr(-3));return c+(a[1]?"."+a[1]:"")+(b?" "+(1!==Math.abs(a)?b+"s":b):"")}
+VM1367:6  ---  getPageHash => (){var a=window.location.hash;return a.substring(1)}
+VM1367:6  ---  getLinkCodes => (){return this._.linkCodes}
+VM1367:6  ---  getImageSizes => (){return this._.imageSizes}
+VM1367:6  ---  getExtension => (a){return/[.]/.exec(a)?/[^.]+$/.exec(a):""}
+VM1367:6  ---  setPageHash => (a){"function"==typeof history.replaceState&&history.replaceState(null,a,"#"+a)}
+VM1367:6  ---  setURL => (a){"/"!=a.substr(0,1)&&(a="/"+a),this._.url=a}
+VM1367:6  ---  parseUri => (a){for(var b={strictMode:!1,key:["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],q:{name:"queryKey",parser:/…
+VM1367:6  ---  setHost => (a){this._.host=a}
+VM1367:6  ---  buildMap => (a,b){var c={};for(var d in b){var e=b[d],f=e[a];c[f]=e}return c}
+VM1367:6  ---  previewBeta => (){$.colorbox({href:"/lightboxes/betapreview",iframe:!0,width:"700px",height:"600px",transition:"none",className:"noHeader",fixed:!1,open:!0})}
+VM1367:6  ---  acceptBeta => (){window.location="//"+this._.host+"/beta/enable"}
+VM1367:6  ---  getSearchUrl => (a,b,c){var d="",e=a.sort,f="/search/"+e+"/"+a.window+(b?"/page/"+b:"");return c&&(f+=(Imgur.Environment.signed?"/miss":"/hit")+".json"),a.advSearch&&$.each(a.advSearch,_.bind(function(a,b){"…
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _ => Object {emitter: d, currentImage: Object}
+VM1367:6  ---  init => (a){this._={emitter:a,currentImage:null}}
+VM1367:6  ---  setCurrentImage => (a){this._.currentImage=a,this._.emitter.trigger("current image updated")}
+VM1367:6  ---  getCurrentImage => (){return this._.currentImage}
+VM1367:6  ---  getCurrentImageId => (){return this._.currentImage?this._.currentImage.hash:null}
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _ => Object {config: Array[1], emitter: d, inside: d, sideGallery: b}
+VM1367:6  ---  init => (a,b,c,d){this._={config:a,emitter:b,inside:c,sideGallery:d},b.on("sidegalleryPageLoad",this,this.handleNewGalleryPage),b.on("select",this,this.handleSelectPost)}
+VM1367:6  ---  isActive => (){var a=this.getItem();return!!a}
+VM1367:6  ---  handleNewGalleryPage => (a){"initial"===a&&this.isActive()&&this.handleNewGallery()}
+VM1367:6  ---  handleNewGallery => (){var a=this.getItem();if(a){var b=this._.inside.getHash(),c=b?this._.sideGallery.hashPosition(b):-1;insertAt=-1===c?0:c%2===1||c+1===this._.sideGallery.state.items.length?c+1:c+2,this._.sid…
+VM1367:6  ---  getItem => (){if(Imgur.Util.Experiments._exp3377Active()){var a=this._.inside.getHash(),b=_.find(this._.config,function(b,c){if(!b||!b.hash||!b.variation)return void imcon.log("Bad side cta item",c,b);i…
+VM1367:6  ---  handleSelectPost => (a){var b=_.find(this._.config,function(b){return b.hash===a.hash});if(b&&b.localStorageName){var c=new Imgur.Storage.LocalStorage;c.save(b.localStorageName,{hash:a.hash,date:+new Date})}}
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:5  - Object {this_arg: null}
+VM1367:5  - Object {this_arg: null}
+VM1367:5  - Object {this_arg: null}
+VM1367:5  - Object {this_arg: null}
+VM1367:5  - Object {this_arg: null}
+VM1367:5  - Object {this_arg: null}
+VM1367:5  - Object {this_arg: null}
+VM1367:5  - Object {this_arg: null}
+VM1367:3 imageRendered : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 reset : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 firstImage : 
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _super => undefined
+VM1367:6  ---  _ => Object {hash: "HimEFdu", url: "/gallery/HimEFdu", protocol: "https:", host: "imgur.com", isDropDownOpen: false…}
+VM1367:6  ---  init => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  setHash => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  getHash => (){return this._.hash}
+VM1367:6  ---  updateCaptionHash => (){this._.captionInstance.setHash(this._.hash)}
+VM1367:6  ---  updateShare => (){if(!this.hasImage())return void imcon.warn("Can't find image when updating share");var a=this.getImage(),b="http://"+this._.host+this.getURL({type:"historyState",hash:a.hash});b=a.is_album…
+VM1367:6  ---  hasImage => (a){return a=a||this._.hash,a==this._.image.hash?!0:null!=this._.sideGallery.getImage(a)}
+VM1367:6  ---  getImage => 
+VM1367:6  ---  getCurrentImage => 
+VM1367:6  ---  checkFetchQueue => 
+VM1367:6  ---  disableCache => 
+VM1367:6  ---  enableCache => 
+VM1367:6  ---  generalInit => 
+VM1367:6  ---  bindViewabilityScroll => (){$(window).on("scroll resize",_.throttle(_.bind(this.checkViewabilityScroll,this),250))}
+VM1367:6  ---  checkStickyHeader => (){var a=$(window).scrollTop(),b=$(".post-header"),c=this._.elements.$postContainer.offset().top,d=a-this._.scrollPosition;if(this._.scrollPosition=a,!this._.headerFixed&&a>c){var e=this._.el…
+VM1367:6  ---  checkViewabilityTime => (a){(_.isObject(a)||this._.lastVwTimeHash!==this._.hash)&&(this._.vwHashTime>0&&this._.emitter.trigger("vwTime",this._.lastVwTimeHash,(new Date).valueOf()-this._.vwHashTime),this._.lastVwTime…
+VM1367:6  ---  checkViewabilityScroll => (){var a=parseInt(this._.elements.$window.scrollTop()+this._.elements.$window.height(),10),b=parseInt(this._.elements.$underImage.offset().top+this._.elements.$underImage.outerHeight()+this._…
+VM1367:6  ---  enablePrevButton => (){this._.elements.$navPrev.removeClass("disabled")}
+VM1367:6  ---  enableNextButton => (){this._.elements.$navNext.removeClass("disabled")}
+VM1367:6  ---  disablePrevButton => (){this._.elements.$navPrev.addClass("disabled")}
+VM1367:6  ---  disableNextButton => (){this._.elements.$navNext.addClass("disabled")}
+VM1367:6  ---  changeSection => (a){this._.section=a}
+VM1367:6  ---  changeSort => (a){this._.sort=a}
+VM1367:6  ---  changeWindow => (a){this._.window=a}
+VM1367:6  ---  updatePoints => (a){var b,c,d;if("comment"===a.type){var e=this._.captionInstance.getCaptionById(this.getHash(),a.comment);e&&"visible_points"in e&&(e.visible_points=a.points),this._.insideCommentsArea.force…
+VM1367:6  ---  getURL => (a){var b="hit";return"captionsJSON"!=a.type||this._.usingCache&&"true"!==$.cookie(this._.captionsCacheCookie)&&"new"!==this._.section||a.cache||(b="miss"),{historyState:this._.baseURL+"/"+a.…
+VM1367:6  ---  fetchImage => (a,b,c){var d=this._.sideGallery.getImage(a);d&&(d.is_album&&null==this._.albumImageStore.getImages(d.hash)?this._.albumImageStore.fetchImages(d.hash,_.bind(function(a){for(var c=0;c<a.count&…
+VM1367:6  ---  fetchCaptions => (a,b,c){if(this._.captionsEnabled){if(this._.captionInstance.haveCaptions(a))return void b();if(!this._.fetchingCaptions[a]){this._.fetchingCaptions[a]=!0;var d=this,e=this.getURL({type:"capt…
+VM1367:6  ---  scrollToCaptions => (a){var b=this._.elements.$underImage.offset().top-this._.elements.$postHeader.outerHeight();a?$("html, body").animate({scrollTop:b},500):window.scrollTo(0,b)}
+VM1367:6  ---  processCaptions => (){var a=this,b=this._.hash,c=this.getCaptionSorter(),d=b===this._.image.hash?this._.image:this._.sideGallery.getImage(b),e=_.clone(this._.captionInstance.getParentIds(b)),f=_.transform(e,fun…
+VM1367:6  ---  getPermalinkIfExists => (){var a=window.location.pathname,b=-1!==a.indexOf("comment");if(b){var c=a.split("/comment/")[1].split("/");return{commentId:parseInt(c[0]),contextLevels:parseInt(c[1])}}}
+VM1367:6  ---  setupHistoryState => (){var a=this,b=Imgur.History.getInstance();b.addPopState("inside_nav.comment",function(b){a.handlePopStateComment(b)}),b.addPopState("inside_nav.image",function(b){a.handlePopStateImage(b)})…
+VM1367:6  ---  handlePopStateComment => (){var a=window.location.pathname.split("/"),b=null;3==a.length&&a[2].length>=5&&(b=a[2]),a.length>3&&(b="r"===a[1]?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this.setHash(b),this.scrollToCaption…
+VM1367:6  ---  handlePopStateImage => (){var a=window.location.pathname.split("/"),b=null;3===a.length&&a[2].length>=5&&(b=a[2]),a[2]&&(b=-1!==_.indexOf(["r","topic"],a[1])?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this._.sideGaller…
+VM1367:6  ---  pushWindowState => (a,b){var c=this._.baseURL+"/"+this._.hash;a&&(c+="/comment/"+a,b&&(c+="/"+b)),Imgur.History.getInstance().addWindowState("inside_nav.comment","Comments on "+window.title,c)}
+VM1367:6  ---  setCaptionSort => (a){var b=a.substr(0,1).toUpperCase()+a.substr(1);this._.captionLayout.sort=this["sortCaptionsBy"+b]}
+VM1367:6  ---  getCaptionSorter => (){var a=[_.bind(this.sortCaptionsByMineJustSubmitted,this),this._.captionLayout.sort,_.bind(this.sortCaptionsByIdDesc,this)];return function(b,c){for(var d=0;d<a.length;d++){var e=a[d](b,c);…
+VM1367:6  ---  sortCaptionsByTop => (a,b){var c=a.points,d=b.points;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByBest => (a,b){var c=a.best_score,d=b.best_score;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByNew => (a,b){var c=new Date(a.datetime),d=new Date(b.datetime);return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByMineJustSubmitted => (a,b){return"just_inserted"in a&&!("just_inserted"in b)?-1:"just_inserted"in b&&!("just_inserted"in a)?1:0}
+VM1367:6  ---  sortCaptionsById => (a,b){return a.id<b.id?-1:a.id>b.id?1:0}
+VM1367:6  ---  sortCaptionsByIdDesc => (a,b){return a.id>b.id?-1:a.id<b.id?1:0}
+VM1367:6  ---  showAnalytics => (){this._.analytics.popAndLoad(this._.image)}
+VM1367:6  ---  blankPage => (){var a=this._.elements;Imgur.InfiniteScroll.getInstance().stopInfiniteScroll(),React.unmountComponentAtNode(a.$image.get(0)),$(a.sparkbar).unbind(),$(a.sparkbar).remove(),this._.customAds&&…
+VM1367:6  ---  pushToFetchQueue => (a,b,c){this._.fetchQueue.push(_.bind(this.fetchImage,this,a,b,c))}
+VM1367:6  ---  updateVoteResponseData => (a,b,c){a=a||this.getHash(),b=b||this._.elements.$voteUp,c=c||this._.elements.$voteDown,null!=this._.sideGallery&&(b.hasClass("pushed")?this._.sideGallery.updateVote(a,"up"):c.hasClass("pushe…
+VM1367:6  ---  updateFavorite => (a){this._.sideGallery.updateFavorite(this.getHash(),a)}
+VM1367:6  ---  setupReportLink => (){var a=this.getHash(),b=this._.sideGallery.getImage(a),c=Imgur.Environment.auth.url===this._.image.account_url||!this._.captionsEnabled||b.promoId||b.readonly;this._.el.inside.reportImageLi…
+VM1367:6  ---  handleAds => (){var a=this.getHash(),b=this._.sideGallery.getImage(a);this.isSafe()?this._.ad.injectAd&&(!this._.isHotImage&&b.is_hot||b.hasOwnProperty("in_gallery")&&b.in_gallery)?this.showAds():this._.a…
+VM1367:6  ---  isSafe => (){var a=this._.sideGallery.getImage(this.getHash());if(!a)return!1;var b=("undefined"!=typeof a.timestamp?a.timestamp:a.datetime).split(/[- :]/),c=new Date;return b=new Date(Date.UTC(b[0],b[…
+VM1367:6  ---  updateSponsoredInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a);b.$smallLinks.hide();var d=$("<div>"+_.unescape(c.description)+"</div>");d.find("p").remove(":empty"),this._.element…
+VM1367:6  ---  updateSubmissionInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a),d=this.numberFormat(c.points,"point").split(" "),e=Imgur.Util.truncatedNumberFormat(c.views),f=isFinite(c.points)&&t…
+VM1367:6  ---  updateStatBar => (a,b,c){var d=a.ups+a.downs;d=0>=d?1:d;var e=a.ups/d*100,f=a.downs/d*100;0==e&&0==f&&(e=50,f=50),this._.elements.$statsLink.html(this._.templates.statBar({item:a,points:b,views:c,upvotePercen…
+VM1367:6  ---  setupDownloadLinks => (a){var b=this;this._.elements.$download.unbind("click"),a.is_album?(this._.elements.$download.text("Download album"),this._.elements.$download.click(function(){return b.startDownload(a.hash)…
+VM1367:6  ---  startDownload => (a){var b=Imgur.Album.getInstance();b._.id=a,b.downloadAlbum()}
+VM1367:6  ---  updatePage => (a){var b=this.getHash(),c=this._.elements,d=this._.sideGallery.getImage(b),e=this,f=680;this._.image.is_moderated&&this.removeAds(),d&&(this._.image=d),this._.analytics.clear(!0),Imgur.Galle…
+VM1367:6  ---  setupOptionDropdown => (a){var b=this._.elements,c=Imgur.Environment.auth&&Imgur.Environment.auth.url==this._.image.account_url,d=a.is_album?"show":"hide",e=a.is_album?"hide":"show",f=c&&!a.nsfw&&this._.captionsEna…
+VM1367:6  ---  purgeCommentData => (){var a=this,b=Object.keys(this._.captionInstance._.captions).filter(function(b){return Object.hasOwnProperty.call(a._.captionInstance._.captions,b)&&a.isImageNearby(b)});this._.captionInsta…
+VM1367:6  ---  purgeAlbumData => (){var a=Object.keys(this._.albumImages);if(a.length>10)for(var b=0;b<a.length;++b)this.isImageNearby(a[b])||delete this._.albumImages[a[b]]}
+VM1367:6  ---  isImageNearby => (a){var b=this._.sideGallery.selectedPosition(),c=this._.sideGallery.hashPosition(a);return-1!==c&&c>=b-3&&b+1>=c}
+VM1367:6  ---  _promotedTag => (){var a=React.DOM.div({className:"promoted-tag"},React.DOM.a({href:Imgur.Environment.ppBlog,className:"title",title:"learn more about promoted posts"},"promoted"));return a}
+VM1367:6  ---  _promotedWrap => (a){return React.DOM.div({className:"promoted-wrap"},this._promotedTag(),a)}
+VM1367:6  ---  insertPost => (a,b){if(a.hash==this.getHash()){if(a.is_album&&null==this._.albumImageStore.getImages(a.hash))return void this._.albumImageStore.fetchImages(a.hash,_.bind(this.insertPost,this,this._.sideGal…
+VM1367:6  ---  preloadImage => (a){var b,c=".gif"==a.ext&&a.animated&&a.size>2097152;if(c){var d=document.createElement("video"),e=document.createElement("source");d.canPlayType&&d.canPlayType("video/webm")?e.src=Imgur.Env…
+VM1367:6  ---  bindGoogleForceRefresh => (){var a=this;if(this._.elements.adframe){var b=this._.elements.adframe.contentDocument.getElementsByTagName("iframe")[0];"undefined"!=typeof b&&(b.onload=function(){a.forceAdRefresh()})}}
+VM1367:6  ---  forceAdRefresh => (){this._.ad.nextImageLoadRefreshesAd=!0}
+VM1367:6  ---  bindScrollAd => (){if(this._.elements.$scrollAd.length){var a=this;this._.elements.$scrollAdClose.on("click",function(){a._.ad.closed=!0,a._.elements.$scrollAd.addClass("nodisplay"),a._.elements.scrollAdfram…
+VM1367:6  ---  checkAdTime => (){var a=(this._.elements,this);if(this._.ad.nextImageLoadRefreshesAd){{a._.elements}if(window.usesABP&&"undefined"!=typeof window.abp_ad){this._.ad.abpAdId.removeClass("nodisplay");try{googl…
+VM1367:6  ---  removeAds => (){$(this._.elements.adWrapper).remove(),this._.ad.abpAdId.addClass("nodisplay"),this._.elements.$scrollAd.addClass("nodisplay");try{this._.elements.scrollAdframe.contentWindow.clear()}catch(…
+VM1367:6  ---  showAds => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  hideZoomedImage => (){$(".jquery-image-zoom").is(":visible")&&$("div.jquery-image-zoom a").click(),$.colorbox.close()}
+VM1367:6  ---  timeoutNextImage => (){if(this._.autoBrowse&&!this._.autoBrowseTimeout){var a=7e3,b=this;this._.autoBrowseTimeout=setTimeout(function(){b._.autoBrowseTimeout=null,b._.elements.$navNext.click()},a)}else this._.au…
+VM1367:6  ---  bindAutoBrowse => (){var a=this;$(document).keyup(function(b){return b.ctrlKey&&120===b.keyCode&&(a._.autoBrowse=!a._.autoBrowse,a._.autoBrowse?(a.timeoutNextImage(),humanMsg.displayMsg("Starting auto browse i…
+VM1367:6  ---  navToImage => (a,b){if(!("hash"in a&&this._.hash==a.hash)){"performance"in window&&"memory"in window.performance&&Imgur.Util.jafoLog({event:"nextPageMemory",meta:{pageDepth:Imgur.getInstance().pageDepth,us…
+VM1367:6  ---  logNavigation => (a,b,c){c||(c="next"===a?this._.sideGallery.getNextImage():this._.sideGallery.getPrevImage()),Imgur.Util.jafoLog({event:"galleryNav",meta:{direction:a,trigger:b,targeted:c,visibleTooltip:this…
+VM1367:6  ---  bindArrowKeys => (){var a=this,b={ARROW_LEFT:[37],ARROW_RIGHT:[39],ENTER:[13],MINUS:[109,173,189],PLUS:[187,61,107],NINE:[57,105]};$(document).keydown(function(c){if(!c.ctrlKey&&!c.altKey&&!c.metaKey){if(-1!=…
+VM1367:6  ---  getSideGallery => (){return this._.sideGallery}
+VM1367:6  ---  forceScrollToCaption => (){var a=document.location.hash.substr(1),b=parseInt(a,10);if(!isNaN(b)){var c=$("#caption-"+a);this.scrollToCaption(c)}}
+VM1367:6  ---  scrollToCaption => (a){var b=a.offset().top;$("body").scrollTop(b);var c=a.find(".textbox").first();c.addClass("flash"),setTimeout(function(){c.removeClass("flash")},2e3)}
+VM1367:6  ---  setupKeynavTooltip => (a){if(!Imgur.Environment.auth.id){var b=a?"sidegallery-keynav-popup-tip":"sidegallery-keynav-postnext-tip",c=new Imgur.Elements.FrequencyCappedWrapper(b,Imgur.Elements.TetheredTooltip,{stora…
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:6  ---  setEmitter => (a){this._.emitter=a}
+VM1367:6  ---  imageLinkTipsy => (){$(".tipsy").remove();var a=$(this),b=a.attr("href");if($("#hzImg").length)return"";if(a.closest(".comment").find("> .children > .comment > .caption").text().match(/nsfw/gi)||a.parent().tex…
+VM1367:6  ---  appendFavoriteBar => (a,b,c){var d=$(_.templates["galleryimage.favoriteBar"]({value:"http:"+b,favorited:c.data.favorited}));$favoriteImage=d.find(".favorite-image");var e=new Imgur.Favorite({$favButton:$favoriteI…
+VM1367:6  ---  bindZeroClipboard => (){var a=new ZeroClipboard.Client;a.glue("copy-clipboard","copy-container"),a.addEventListener("onMouseUp",function(){$copyContainer=$("#copy-container"),$copyContainer.attr("title","copied")…
+VM1367:6  ---  removeFavoriteBar => (){$("#favorite-bar").remove()}
+VM1367:6  ---  initHeaderActions => (){var a=this;try{!this._.isSubdomain&&null!=this._.dropdownPulseTime&&localStorage&&void 0==localStorage[this._.dropdownPulseTime]&&this._.el.dropdown.mainMenu.addClass("pulse")}catch(b){}th…
+VM1367:6  ---  _showBetaInvite => (){Imgur.Environment.beta.inBeta||null!=this._.beta&&this._.beta.showInvite&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaInvite))}
+VM1367:6  ---  _showBetaWelcome => (){Imgur.Environment.beta.inBeta&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaWelcome))}
+VM1367:6  ---  showBetaBar => (){this._showBetaInvite(),this._showBetaWelcome()}
+VM1367:6  ---  showAnnouncementBar => (a,b){if(!$("#so").length&&!$("#an-msg").length){if(b){if($.cookie(b))return}else if($.cookie("an-msg-closed"))return;var c=$('<div id="an-msg" class="global-message"></div>'),d=$('<a href="j…
+VM1367:6  ---  closeDropdownMenu => (a){if(1!=a.which&&2!=a.which&&3!=a.which&&27!=a.which)return!1;var b=a?$(a.target):null;b.parents(".tag-group-selector-container").length||b.closest("#tags-underbar").length||b.closest("#col…
+VM1367:6  ---  openDropdownMenu => (a,b){return b.hasClass("opened")?void this.closeDropdownMenu(a):($(".opened").removeClass("opened"),b.addClass("opened"),b.hasClass("pulse")&&this.hidePulse(b),Imgur.Upload.Index&&Imgur.Uplo…
+VM1367:6  ---  hidePulse => (a){try{localStorage[this._.dropdownPulseTime]=!0}catch(b){}a.removeClass("pulse")}
+VM1367:6  ---  runPlaceholder => (a){var b="input[type=text][title],input[type=password][title],textarea[title]",c=a||$(b);c.each(function(){$(this).showPlaceholder(),$(this).hasClass("placeholder-onkeydown")?($(this).bind("…
+VM1367:6  ---  hideAds => (){$(".advertisement embed").css("visibility","hidden")}
+VM1367:6  ---  signin => (a){if(!this._.mobile){var b=this;return this.hideAds(),$.colorbox({href:"http"+(Imgur.Environment.isDev?"":"s")+"://"+b._.host+"/"+(a?"signin":"register")+"/modal",iframe:!0,fastIframe:!1,wi…
+VM1367:6  ---  vote => (a,b){a.preventDefault();var c=$(a.currentTarget),d=c.parent().children(".up"),e=c.parent().children(".down"),f=c.attr("data"),g=c.attr("type"),h=null,i=0,j=0,k=this._.hash;if(k&&k.length&&"i…
+VM1367:6  ---  displayVoteMessage => (a){if("function"==typeof humanMsg.remove){var b=this;humanMsg.removeMsg(function(){b.showVoteMessage(a)})}else this.showVoteMessage(a)}
+VM1367:6  ---  showVoteMessage => (a){"up"==a?this.showUpvoteMessage():"down"==a&&this.showDownvoteMessage()}
+VM1367:6  ---  showUpvoteMessage => (){humanMsg.displayMsg(this._.messages.upvoted,"action-msg")}
+VM1367:6  ---  showDownvoteMessage => (){humanMsg.displayMsg(this._.messages.downvoted,"action-msg")}
+VM1367:6  ---  getSettings => (){return{host:this._.host,cdnUrl:this._.cdnUrl,signed:this._.signed,auth:this._.auth}}
+VM1367:6  ---  numberFormat => 
+VM1367:6  ---  getPageHash => 
+VM1367:6  ---  getLinkCodes => 
+VM1367:6  ---  getImageSizes => 
+VM1367:6  ---  getExtension => 
+VM1367:6  ---  setPageHash => 
+VM1367:6  ---  setURL => 
+VM1367:6  ---  parseUri => 
+VM1367:6  ---  setHost => 
+VM1367:6  ---  buildMap => 
+VM1367:6  ---  previewBeta => 
+VM1367:6  ---  acceptBeta => 
+VM1367:6  ---  getSearchUrl => 
+VM1367:3 lastImage : 
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _super => undefined
+VM1367:6  ---  _ => Object {hash: "HimEFdu", url: "/gallery/HimEFdu", protocol: "https:", host: "imgur.com", isDropDownOpen: false…}
+VM1367:6  ---  init => 
+VM1367:6  ---  setHash => 
+VM1367:6  ---  getHash => 
+VM1367:6  ---  updateCaptionHash => 
+VM1367:6  ---  updateShare => 
+VM1367:6  ---  hasImage => 
+VM1367:6  ---  getImage => 
+VM1367:6  ---  getCurrentImage => 
+VM1367:6  ---  checkFetchQueue => 
+VM1367:6  ---  disableCache => 
+VM1367:6  ---  enableCache => 
+VM1367:6  ---  generalInit => 
+VM1367:6  ---  bindViewabilityScroll => 
+VM1367:6  ---  checkStickyHeader => 
+VM1367:6  ---  checkViewabilityTime => 
+VM1367:6  ---  checkViewabilityScroll => 
+VM1367:6  ---  enablePrevButton => 
+VM1367:6  ---  enableNextButton => 
+VM1367:6  ---  disablePrevButton => 
+VM1367:6  ---  disableNextButton => 
+VM1367:6  ---  changeSection => 
+VM1367:6  ---  changeSort => 
+VM1367:6  ---  changeWindow => 
+VM1367:6  ---  updatePoints => 
+VM1367:6  ---  getURL => 
+VM1367:6  ---  fetchImage => 
+VM1367:6  ---  fetchCaptions => 
+VM1367:6  ---  scrollToCaptions => 
+VM1367:6  ---  processCaptions => 
+VM1367:6  ---  getPermalinkIfExists => 
+VM1367:6  ---  setupHistoryState => (){var a=this,b=Imgur.History.getInstance();b.addPopState("inside_nav.comment",function(b){a.handlePopStateComment(b)}),b.addPopState("inside_nav.image",function(b){a.handlePopStateImage(b)})…
+VM1367:6  ---  handlePopStateComment => (){var a=window.location.pathname.split("/"),b=null;3==a.length&&a[2].length>=5&&(b=a[2]),a.length>3&&(b="r"===a[1]?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this.setHash(b),this.scrollToCaption…
+VM1367:6  ---  handlePopStateImage => (){var a=window.location.pathname.split("/"),b=null;3===a.length&&a[2].length>=5&&(b=a[2]),a[2]&&(b=-1!==_.indexOf(["r","topic"],a[1])?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this._.sideGaller…
+VM1367:6  ---  pushWindowState => (a,b){var c=this._.baseURL+"/"+this._.hash;a&&(c+="/comment/"+a,b&&(c+="/"+b)),Imgur.History.getInstance().addWindowState("inside_nav.comment","Comments on "+window.title,c)}
+VM1367:6  ---  setCaptionSort => (a){var b=a.substr(0,1).toUpperCase()+a.substr(1);this._.captionLayout.sort=this["sortCaptionsBy"+b]}
+VM1367:6  ---  getCaptionSorter => (){var a=[_.bind(this.sortCaptionsByMineJustSubmitted,this),this._.captionLayout.sort,_.bind(this.sortCaptionsByIdDesc,this)];return function(b,c){for(var d=0;d<a.length;d++){var e=a[d](b,c);…
+VM1367:6  ---  sortCaptionsByTop => (a,b){var c=a.points,d=b.points;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByBest => (a,b){var c=a.best_score,d=b.best_score;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByNew => (a,b){var c=new Date(a.datetime),d=new Date(b.datetime);return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByMineJustSubmitted => (a,b){return"just_inserted"in a&&!("just_inserted"in b)?-1:"just_inserted"in b&&!("just_inserted"in a)?1:0}
+VM1367:6  ---  sortCaptionsById => (a,b){return a.id<b.id?-1:a.id>b.id?1:0}
+VM1367:6  ---  sortCaptionsByIdDesc => (a,b){return a.id>b.id?-1:a.id<b.id?1:0}
+VM1367:6  ---  showAnalytics => (){this._.analytics.popAndLoad(this._.image)}
+VM1367:6  ---  blankPage => (){var a=this._.elements;Imgur.InfiniteScroll.getInstance().stopInfiniteScroll(),React.unmountComponentAtNode(a.$image.get(0)),$(a.sparkbar).unbind(),$(a.sparkbar).remove(),this._.customAds&&…
+VM1367:6  ---  pushToFetchQueue => (a,b,c){this._.fetchQueue.push(_.bind(this.fetchImage,this,a,b,c))}
+VM1367:6  ---  updateVoteResponseData => (a,b,c){a=a||this.getHash(),b=b||this._.elements.$voteUp,c=c||this._.elements.$voteDown,null!=this._.sideGallery&&(b.hasClass("pushed")?this._.sideGallery.updateVote(a,"up"):c.hasClass("pushe…
+VM1367:6  ---  updateFavorite => (a){this._.sideGallery.updateFavorite(this.getHash(),a)}
+VM1367:6  ---  setupReportLink => (){var a=this.getHash(),b=this._.sideGallery.getImage(a),c=Imgur.Environment.auth.url===this._.image.account_url||!this._.captionsEnabled||b.promoId||b.readonly;this._.el.inside.reportImageLi…
+VM1367:6  ---  handleAds => (){var a=this.getHash(),b=this._.sideGallery.getImage(a);this.isSafe()?this._.ad.injectAd&&(!this._.isHotImage&&b.is_hot||b.hasOwnProperty("in_gallery")&&b.in_gallery)?this.showAds():this._.a…
+VM1367:6  ---  isSafe => (){var a=this._.sideGallery.getImage(this.getHash());if(!a)return!1;var b=("undefined"!=typeof a.timestamp?a.timestamp:a.datetime).split(/[- :]/),c=new Date;return b=new Date(Date.UTC(b[0],b[…
+VM1367:6  ---  updateSponsoredInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a);b.$smallLinks.hide();var d=$("<div>"+_.unescape(c.description)+"</div>");d.find("p").remove(":empty"),this._.element…
+VM1367:6  ---  updateSubmissionInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a),d=this.numberFormat(c.points,"point").split(" "),e=Imgur.Util.truncatedNumberFormat(c.views),f=isFinite(c.points)&&t…
+VM1367:6  ---  updateStatBar => (a,b,c){var d=a.ups+a.downs;d=0>=d?1:d;var e=a.ups/d*100,f=a.downs/d*100;0==e&&0==f&&(e=50,f=50),this._.elements.$statsLink.html(this._.templates.statBar({item:a,points:b,views:c,upvotePercen…
+VM1367:6  ---  setupDownloadLinks => (a){var b=this;this._.elements.$download.unbind("click"),a.is_album?(this._.elements.$download.text("Download album"),this._.elements.$download.click(function(){return b.startDownload(a.hash)…
+VM1367:6  ---  startDownload => (a){var b=Imgur.Album.getInstance();b._.id=a,b.downloadAlbum()}
+VM1367:6  ---  updatePage => (a){var b=this.getHash(),c=this._.elements,d=this._.sideGallery.getImage(b),e=this,f=680;this._.image.is_moderated&&this.removeAds(),d&&(this._.image=d),this._.analytics.clear(!0),Imgur.Galle…
+VM1367:6  ---  setupOptionDropdown => (a){var b=this._.elements,c=Imgur.Environment.auth&&Imgur.Environment.auth.url==this._.image.account_url,d=a.is_album?"show":"hide",e=a.is_album?"hide":"show",f=c&&!a.nsfw&&this._.captionsEna…
+VM1367:6  ---  purgeCommentData => (){var a=this,b=Object.keys(this._.captionInstance._.captions).filter(function(b){return Object.hasOwnProperty.call(a._.captionInstance._.captions,b)&&a.isImageNearby(b)});this._.captionInsta…
+VM1367:6  ---  purgeAlbumData => (){var a=Object.keys(this._.albumImages);if(a.length>10)for(var b=0;b<a.length;++b)this.isImageNearby(a[b])||delete this._.albumImages[a[b]]}
+VM1367:6  ---  isImageNearby => (a){var b=this._.sideGallery.selectedPosition(),c=this._.sideGallery.hashPosition(a);return-1!==c&&c>=b-3&&b+1>=c}
+VM1367:6  ---  _promotedTag => (){var a=React.DOM.div({className:"promoted-tag"},React.DOM.a({href:Imgur.Environment.ppBlog,className:"title",title:"learn more about promoted posts"},"promoted"));return a}
+VM1367:6  ---  _promotedWrap => (a){return React.DOM.div({className:"promoted-wrap"},this._promotedTag(),a)}
+VM1367:6  ---  insertPost => (a,b){if(a.hash==this.getHash()){if(a.is_album&&null==this._.albumImageStore.getImages(a.hash))return void this._.albumImageStore.fetchImages(a.hash,_.bind(this.insertPost,this,this._.sideGal…
+VM1367:6  ---  preloadImage => (a){var b,c=".gif"==a.ext&&a.animated&&a.size>2097152;if(c){var d=document.createElement("video"),e=document.createElement("source");d.canPlayType&&d.canPlayType("video/webm")?e.src=Imgur.Env…
+VM1367:6  ---  bindGoogleForceRefresh => (){var a=this;if(this._.elements.adframe){var b=this._.elements.adframe.contentDocument.getElementsByTagName("iframe")[0];"undefined"!=typeof b&&(b.onload=function(){a.forceAdRefresh()})}}
+VM1367:6  ---  forceAdRefresh => (){this._.ad.nextImageLoadRefreshesAd=!0}
+VM1367:6  ---  bindScrollAd => (){if(this._.elements.$scrollAd.length){var a=this;this._.elements.$scrollAdClose.on("click",function(){a._.ad.closed=!0,a._.elements.$scrollAd.addClass("nodisplay"),a._.elements.scrollAdfram…
+VM1367:6  ---  checkAdTime => (){var a=(this._.elements,this);if(this._.ad.nextImageLoadRefreshesAd){{a._.elements}if(window.usesABP&&"undefined"!=typeof window.abp_ad){this._.ad.abpAdId.removeClass("nodisplay");try{googl…
+VM1367:6  ---  removeAds => (){$(this._.elements.adWrapper).remove(),this._.ad.abpAdId.addClass("nodisplay"),this._.elements.$scrollAd.addClass("nodisplay");try{this._.elements.scrollAdframe.contentWindow.clear()}catch(…
+VM1367:6  ---  showAds => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  hideZoomedImage => (){$(".jquery-image-zoom").is(":visible")&&$("div.jquery-image-zoom a").click(),$.colorbox.close()}
+VM1367:6  ---  timeoutNextImage => (){if(this._.autoBrowse&&!this._.autoBrowseTimeout){var a=7e3,b=this;this._.autoBrowseTimeout=setTimeout(function(){b._.autoBrowseTimeout=null,b._.elements.$navNext.click()},a)}else this._.au…
+VM1367:6  ---  bindAutoBrowse => (){var a=this;$(document).keyup(function(b){return b.ctrlKey&&120===b.keyCode&&(a._.autoBrowse=!a._.autoBrowse,a._.autoBrowse?(a.timeoutNextImage(),humanMsg.displayMsg("Starting auto browse i…
+VM1367:6  ---  navToImage => (a,b){if(!("hash"in a&&this._.hash==a.hash)){"performance"in window&&"memory"in window.performance&&Imgur.Util.jafoLog({event:"nextPageMemory",meta:{pageDepth:Imgur.getInstance().pageDepth,us…
+VM1367:6  ---  logNavigation => (a,b,c){c||(c="next"===a?this._.sideGallery.getNextImage():this._.sideGallery.getPrevImage()),Imgur.Util.jafoLog({event:"galleryNav",meta:{direction:a,trigger:b,targeted:c,visibleTooltip:this…
+VM1367:6  ---  bindArrowKeys => (){var a=this,b={ARROW_LEFT:[37],ARROW_RIGHT:[39],ENTER:[13],MINUS:[109,173,189],PLUS:[187,61,107],NINE:[57,105]};$(document).keydown(function(c){if(!c.ctrlKey&&!c.altKey&&!c.metaKey){if(-1!=…
+VM1367:6  ---  getSideGallery => (){return this._.sideGallery}
+VM1367:6  ---  forceScrollToCaption => (){var a=document.location.hash.substr(1),b=parseInt(a,10);if(!isNaN(b)){var c=$("#caption-"+a);this.scrollToCaption(c)}}
+VM1367:6  ---  scrollToCaption => (a){var b=a.offset().top;$("body").scrollTop(b);var c=a.find(".textbox").first();c.addClass("flash"),setTimeout(function(){c.removeClass("flash")},2e3)}
+VM1367:6  ---  setupKeynavTooltip => (a){if(!Imgur.Environment.auth.id){var b=a?"sidegallery-keynav-popup-tip":"sidegallery-keynav-postnext-tip",c=new Imgur.Elements.FrequencyCappedWrapper(b,Imgur.Elements.TetheredTooltip,{stora…
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:6  ---  setEmitter => (a){this._.emitter=a}
+VM1367:6  ---  imageLinkTipsy => (){$(".tipsy").remove();var a=$(this),b=a.attr("href");if($("#hzImg").length)return"";if(a.closest(".comment").find("> .children > .comment > .caption").text().match(/nsfw/gi)||a.parent().tex…
+VM1367:6  ---  appendFavoriteBar => (a,b,c){var d=$(_.templates["galleryimage.favoriteBar"]({value:"http:"+b,favorited:c.data.favorited}));$favoriteImage=d.find(".favorite-image");var e=new Imgur.Favorite({$favButton:$favoriteI…
+VM1367:6  ---  bindZeroClipboard => (){var a=new ZeroClipboard.Client;a.glue("copy-clipboard","copy-container"),a.addEventListener("onMouseUp",function(){$copyContainer=$("#copy-container"),$copyContainer.attr("title","copied")…
+VM1367:6  ---  removeFavoriteBar => (){$("#favorite-bar").remove()}
+VM1367:6  ---  initHeaderActions => (){var a=this;try{!this._.isSubdomain&&null!=this._.dropdownPulseTime&&localStorage&&void 0==localStorage[this._.dropdownPulseTime]&&this._.el.dropdown.mainMenu.addClass("pulse")}catch(b){}th…
+VM1367:6  ---  _showBetaInvite => (){Imgur.Environment.beta.inBeta||null!=this._.beta&&this._.beta.showInvite&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaInvite))}
+VM1367:6  ---  _showBetaWelcome => (){Imgur.Environment.beta.inBeta&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaWelcome))}
+VM1367:6  ---  showBetaBar => (){this._showBetaInvite(),this._showBetaWelcome()}
+VM1367:6  ---  showAnnouncementBar => (a,b){if(!$("#so").length&&!$("#an-msg").length){if(b){if($.cookie(b))return}else if($.cookie("an-msg-closed"))return;var c=$('<div id="an-msg" class="global-message"></div>'),d=$('<a href="j…
+VM1367:6  ---  closeDropdownMenu => (a){if(1!=a.which&&2!=a.which&&3!=a.which&&27!=a.which)return!1;var b=a?$(a.target):null;b.parents(".tag-group-selector-container").length||b.closest("#tags-underbar").length||b.closest("#col…
+VM1367:6  ---  openDropdownMenu => (a,b){return b.hasClass("opened")?void this.closeDropdownMenu(a):($(".opened").removeClass("opened"),b.addClass("opened"),b.hasClass("pulse")&&this.hidePulse(b),Imgur.Upload.Index&&Imgur.Uplo…
+VM1367:6  ---  hidePulse => 
+VM1367:6  ---  runPlaceholder => 
+VM1367:6  ---  hideAds => 
+VM1367:6  ---  signin => 
+VM1367:6  ---  vote => 
+VM1367:6  ---  displayVoteMessage => 
+VM1367:6  ---  showVoteMessage => 
+VM1367:6  ---  showUpvoteMessage => 
+VM1367:6  ---  showDownvoteMessage => 
+VM1367:6  ---  getSettings => 
+VM1367:6  ---  numberFormat => 
+VM1367:6  ---  getPageHash => 
+VM1367:6  ---  getLinkCodes => 
+VM1367:6  ---  getImageSizes => 
+VM1367:6  ---  getExtension => 
+VM1367:6  ---  setPageHash => (a){"function"==typeof history.replaceState&&history.replaceState(null,a,"#"+a)}
+VM1367:6  ---  setURL => (a){"/"!=a.substr(0,1)&&(a="/"+a),this._.url=a}
+VM1367:6  ---  parseUri => (a){for(var b={strictMode:!1,key:["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],q:{name:"queryKey",parser:/…
+VM1367:6  ---  setHost => (a){this._.host=a}
+VM1367:6  ---  buildMap => (a,b){var c={};for(var d in b){var e=b[d],f=e[a];c[f]=e}return c}
+VM1367:6  ---  previewBeta => (){$.colorbox({href:"/lightboxes/betapreview",iframe:!0,width:"700px",height:"600px",transition:"none",className:"noHeader",fixed:!1,open:!0})}
+VM1367:6  ---  acceptBeta => (){window.location="//"+this._.host+"/beta/enable"}
+VM1367:6  ---  getSearchUrl => (a,b,c){var d="",e=a.sort,f="/search/"+e+"/"+a.window+(b?"/page/"+b:"");return c&&(f+=(Imgur.Environment.signed?"/miss":"/hit")+".json"),a.advSearch&&$.each(a.advSearch,_.bind(function(a,b){"…
+VM1367:3 sectionChange : 
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _super => undefined
+VM1367:6  ---  _ => Object {hash: "HimEFdu", url: "/gallery/HimEFdu", protocol: "https:", host: "imgur.com", isDropDownOpen: false…}
+VM1367:6  ---  init => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  setHash => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  getHash => (){return this._.hash}
+VM1367:6  ---  updateCaptionHash => (){this._.captionInstance.setHash(this._.hash)}
+VM1367:6  ---  updateShare => (){if(!this.hasImage())return void imcon.warn("Can't find image when updating share");var a=this.getImage(),b="http://"+this._.host+this.getURL({type:"historyState",hash:a.hash});b=a.is_album…
+VM1367:6  ---  hasImage => (a){return a=a||this._.hash,a==this._.image.hash?!0:null!=this._.sideGallery.getImage(a)}
+VM1367:6  ---  getImage => (a){return a=a||this._.hash,null==this._.sideGallery?this._.image:this.hasImage(a)?this._.sideGallery.getImage(a):null}
+VM1367:6  ---  getCurrentImage => (){return this._.sideGallery.getImage(this.getHash())}
+VM1367:6  ---  checkFetchQueue => (){if(0!==this._.fetchQueue.length){var a=this._.fetchQueue.shift();
+a&&a()}}
+VM1367:6  ---  disableCache => (){var a=this._.captionsCacheTime,b=new Date;b.setTime(b.getTime()+1e3*a),$.cookie(this._.captionsCacheCookie,"true",{expires:b,path:"/"}),window.setTimeout(this.enableCache.bind(this),1e3*a)…
+VM1367:6  ---  enableCache => (){"new"!=this._.section&&$.cookie(this._.captionsCacheCookie,null,{path:"/"})}
+VM1367:6  ---  generalInit => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  bindViewabilityScroll => (){$(window).on("scroll resize",_.throttle(_.bind(this.checkViewabilityScroll,this),250))}
+VM1367:6  ---  checkStickyHeader => (){var a=$(window).scrollTop(),b=$(".post-header"),c=this._.elements.$postContainer.offset().top,d=a-this._.scrollPosition;if(this._.scrollPosition=a,!this._.headerFixed&&a>c){var e=this._.el…
+VM1367:6  ---  checkViewabilityTime => (a){(_.isObject(a)||this._.lastVwTimeHash!==this._.hash)&&(this._.vwHashTime>0&&this._.emitter.trigger("vwTime",this._.lastVwTimeHash,(new Date).valueOf()-this._.vwHashTime),this._.lastVwTime…
+VM1367:6  ---  checkViewabilityScroll => (){var a=parseInt(this._.elements.$window.scrollTop()+this._.elements.$window.height(),10),b=parseInt(this._.elements.$underImage.offset().top+this._.elements.$underImage.outerHeight()+this._…
+VM1367:6  ---  enablePrevButton => (){this._.elements.$navPrev.removeClass("disabled")}
+VM1367:6  ---  enableNextButton => (){this._.elements.$navNext.removeClass("disabled")}
+VM1367:6  ---  disablePrevButton => (){this._.elements.$navPrev.addClass("disabled")}
+VM1367:6  ---  disableNextButton => (){this._.elements.$navNext.addClass("disabled")}
+VM1367:6  ---  changeSection => (a){this._.section=a}
+VM1367:6  ---  changeSort => (a){this._.sort=a}
+VM1367:6  ---  changeWindow => (a){this._.window=a}
+VM1367:6  ---  updatePoints => (a){var b,c,d;if("comment"===a.type){var e=this._.captionInstance.getCaptionById(this.getHash(),a.comment);e&&"visible_points"in e&&(e.visible_points=a.points),this._.insideCommentsArea.force…
+VM1367:6  ---  getURL => 
+VM1367:6  ---  fetchImage => 
+VM1367:6  ---  fetchCaptions => 
+VM1367:6  ---  scrollToCaptions => 
+VM1367:6  ---  processCaptions => 
+VM1367:6  ---  getPermalinkIfExists => 
+VM1367:6  ---  setupHistoryState => 
+VM1367:6  ---  handlePopStateComment => 
+VM1367:6  ---  handlePopStateImage => 
+VM1367:6  ---  pushWindowState => 
+VM1367:6  ---  setCaptionSort => 
+VM1367:6  ---  getCaptionSorter => 
+VM1367:6  ---  sortCaptionsByTop => 
+VM1367:6  ---  sortCaptionsByBest => 
+VM1367:6  ---  sortCaptionsByNew => 
+VM1367:6  ---  sortCaptionsByMineJustSubmitted => 
+VM1367:6  ---  sortCaptionsById => 
+VM1367:6  ---  sortCaptionsByIdDesc => 
+VM1367:6  ---  showAnalytics => 
+VM1367:6  ---  blankPage => 
+VM1367:6  ---  pushToFetchQueue => (a,b,c){this._.fetchQueue.push(_.bind(this.fetchImage,this,a,b,c))}
+VM1367:6  ---  updateVoteResponseData => (a,b,c){a=a||this.getHash(),b=b||this._.elements.$voteUp,c=c||this._.elements.$voteDown,null!=this._.sideGallery&&(b.hasClass("pushed")?this._.sideGallery.updateVote(a,"up"):c.hasClass("pushe…
+VM1367:6  ---  updateFavorite => (a){this._.sideGallery.updateFavorite(this.getHash(),a)}
+VM1367:6  ---  setupReportLink => (){var a=this.getHash(),b=this._.sideGallery.getImage(a),c=Imgur.Environment.auth.url===this._.image.account_url||!this._.captionsEnabled||b.promoId||b.readonly;this._.el.inside.reportImageLi…
+VM1367:6  ---  handleAds => (){var a=this.getHash(),b=this._.sideGallery.getImage(a);this.isSafe()?this._.ad.injectAd&&(!this._.isHotImage&&b.is_hot||b.hasOwnProperty("in_gallery")&&b.in_gallery)?this.showAds():this._.a…
+VM1367:6  ---  isSafe => (){var a=this._.sideGallery.getImage(this.getHash());if(!a)return!1;var b=("undefined"!=typeof a.timestamp?a.timestamp:a.datetime).split(/[- :]/),c=new Date;return b=new Date(Date.UTC(b[0],b[…
+VM1367:6  ---  updateSponsoredInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a);b.$smallLinks.hide();var d=$("<div>"+_.unescape(c.description)+"</div>");d.find("p").remove(":empty"),this._.element…
+VM1367:6  ---  updateSubmissionInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a),d=this.numberFormat(c.points,"point").split(" "),e=Imgur.Util.truncatedNumberFormat(c.views),f=isFinite(c.points)&&t…
+VM1367:6  ---  updateStatBar => (a,b,c){var d=a.ups+a.downs;d=0>=d?1:d;var e=a.ups/d*100,f=a.downs/d*100;0==e&&0==f&&(e=50,f=50),this._.elements.$statsLink.html(this._.templates.statBar({item:a,points:b,views:c,upvotePercen…
+VM1367:6  ---  setupDownloadLinks => (a){var b=this;this._.elements.$download.unbind("click"),a.is_album?(this._.elements.$download.text("Download album"),this._.elements.$download.click(function(){return b.startDownload(a.hash)…
+VM1367:6  ---  startDownload => (a){var b=Imgur.Album.getInstance();b._.id=a,b.downloadAlbum()}
+VM1367:6  ---  updatePage => (a){var b=this.getHash(),c=this._.elements,d=this._.sideGallery.getImage(b),e=this,f=680;this._.image.is_moderated&&this.removeAds(),d&&(this._.image=d),this._.analytics.clear(!0),Imgur.Galle…
+VM1367:6  ---  setupOptionDropdown => (a){var b=this._.elements,c=Imgur.Environment.auth&&Imgur.Environment.auth.url==this._.image.account_url,d=a.is_album?"show":"hide",e=a.is_album?"hide":"show",f=c&&!a.nsfw&&this._.captionsEna…
+VM1367:6  ---  purgeCommentData => (){var a=this,b=Object.keys(this._.captionInstance._.captions).filter(function(b){return Object.hasOwnProperty.call(a._.captionInstance._.captions,b)&&a.isImageNearby(b)});this._.captionInsta…
+VM1367:6  ---  purgeAlbumData => (){var a=Object.keys(this._.albumImages);if(a.length>10)for(var b=0;b<a.length;++b)this.isImageNearby(a[b])||delete this._.albumImages[a[b]]}
+VM1367:6  ---  isImageNearby => (a){var b=this._.sideGallery.selectedPosition(),c=this._.sideGallery.hashPosition(a);return-1!==c&&c>=b-3&&b+1>=c}
+VM1367:6  ---  _promotedTag => (){var a=React.DOM.div({className:"promoted-tag"},React.DOM.a({href:Imgur.Environment.ppBlog,className:"title",title:"learn more about promoted posts"},"promoted"));return a}
+VM1367:6  ---  _promotedWrap => (a){return React.DOM.div({className:"promoted-wrap"},this._promotedTag(),a)}
+VM1367:6  ---  insertPost => (a,b){if(a.hash==this.getHash()){if(a.is_album&&null==this._.albumImageStore.getImages(a.hash))return void this._.albumImageStore.fetchImages(a.hash,_.bind(this.insertPost,this,this._.sideGal…
+VM1367:6  ---  preloadImage => (a){var b,c=".gif"==a.ext&&a.animated&&a.size>2097152;if(c){var d=document.createElement("video"),e=document.createElement("source");d.canPlayType&&d.canPlayType("video/webm")?e.src=Imgur.Env…
+VM1367:6  ---  bindGoogleForceRefresh => (){var a=this;if(this._.elements.adframe){var b=this._.elements.adframe.contentDocument.getElementsByTagName("iframe")[0];"undefined"!=typeof b&&(b.onload=function(){a.forceAdRefresh()})}}
+VM1367:6  ---  forceAdRefresh => (){this._.ad.nextImageLoadRefreshesAd=!0}
+VM1367:6  ---  bindScrollAd => (){if(this._.elements.$scrollAd.length){var a=this;this._.elements.$scrollAdClose.on("click",function(){a._.ad.closed=!0,a._.elements.$scrollAd.addClass("nodisplay"),a._.elements.scrollAdfram…
+VM1367:6  ---  checkAdTime => (){var a=(this._.elements,this);if(this._.ad.nextImageLoadRefreshesAd){{a._.elements}if(window.usesABP&&"undefined"!=typeof window.abp_ad){this._.ad.abpAdId.removeClass("nodisplay");try{googl…
+VM1367:6  ---  removeAds => (){$(this._.elements.adWrapper).remove(),this._.ad.abpAdId.addClass("nodisplay"),this._.elements.$scrollAd.addClass("nodisplay");try{this._.elements.scrollAdframe.contentWindow.clear()}catch(…
+VM1367:6  ---  showAds => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  hideZoomedImage => (){$(".jquery-image-zoom").is(":visible")&&$("div.jquery-image-zoom a").click(),$.colorbox.close()}
+VM1367:6  ---  timeoutNextImage => (){if(this._.autoBrowse&&!this._.autoBrowseTimeout){var a=7e3,b=this;this._.autoBrowseTimeout=setTimeout(function(){b._.autoBrowseTimeout=null,b._.elements.$navNext.click()},a)}else this._.au…
+VM1367:6  ---  bindAutoBrowse => (){var a=this;$(document).keyup(function(b){return b.ctrlKey&&120===b.keyCode&&(a._.autoBrowse=!a._.autoBrowse,a._.autoBrowse?(a.timeoutNextImage(),humanMsg.displayMsg("Starting auto browse i…
+VM1367:6  ---  navToImage => (a,b){if(!("hash"in a&&this._.hash==a.hash)){"performance"in window&&"memory"in window.performance&&Imgur.Util.jafoLog({event:"nextPageMemory",meta:{pageDepth:Imgur.getInstance().pageDepth,us…
+VM1367:6  ---  logNavigation => (a,b,c){c||(c="next"===a?this._.sideGallery.getNextImage():this._.sideGallery.getPrevImage()),Imgur.Util.jafoLog({event:"galleryNav",meta:{direction:a,trigger:b,targeted:c,visibleTooltip:this…
+VM1367:6  ---  bindArrowKeys => (){var a=this,b={ARROW_LEFT:[37],ARROW_RIGHT:[39],ENTER:[13],MINUS:[109,173,189],PLUS:[187,61,107],NINE:[57,105]};$(document).keydown(function(c){if(!c.ctrlKey&&!c.altKey&&!c.metaKey){if(-1!=…
+VM1367:6  ---  getSideGallery => (){return this._.sideGallery}
+VM1367:6  ---  forceScrollToCaption => (){var a=document.location.hash.substr(1),b=parseInt(a,10);if(!isNaN(b)){var c=$("#caption-"+a);this.scrollToCaption(c)}}
+VM1367:6  ---  scrollToCaption => 
+VM1367:6  ---  setupKeynavTooltip => 
+VM1367:6  ---  constructor => 
+VM1367:6  ---  setEmitter => 
+VM1367:6  ---  imageLinkTipsy => 
+VM1367:6  ---  appendFavoriteBar => 
+VM1367:6  ---  bindZeroClipboard => 
+VM1367:6  ---  removeFavoriteBar => 
+VM1367:6  ---  initHeaderActions => 
+VM1367:6  ---  _showBetaInvite => 
+VM1367:6  ---  _showBetaWelcome => 
+VM1367:6  ---  showBetaBar => (){this._showBetaInvite(),this._showBetaWelcome()}
+VM1367:6  ---  showAnnouncementBar => (a,b){if(!$("#so").length&&!$("#an-msg").length){if(b){if($.cookie(b))return}else if($.cookie("an-msg-closed"))return;var c=$('<div id="an-msg" class="global-message"></div>'),d=$('<a href="j…
+VM1367:6  ---  closeDropdownMenu => (a){if(1!=a.which&&2!=a.which&&3!=a.which&&27!=a.which)return!1;var b=a?$(a.target):null;b.parents(".tag-group-selector-container").length||b.closest("#tags-underbar").length||b.closest("#col…
+VM1367:6  ---  openDropdownMenu => (a,b){return b.hasClass("opened")?void this.closeDropdownMenu(a):($(".opened").removeClass("opened"),b.addClass("opened"),b.hasClass("pulse")&&this.hidePulse(b),Imgur.Upload.Index&&Imgur.Uplo…
+VM1367:6  ---  hidePulse => (a){try{localStorage[this._.dropdownPulseTime]=!0}catch(b){}a.removeClass("pulse")}
+VM1367:6  ---  runPlaceholder => (a){var b="input[type=text][title],input[type=password][title],textarea[title]",c=a||$(b);c.each(function(){$(this).showPlaceholder(),$(this).hasClass("placeholder-onkeydown")?($(this).bind("…
+VM1367:6  ---  hideAds => (){$(".advertisement embed").css("visibility","hidden")}
+VM1367:6  ---  signin => (a){if(!this._.mobile){var b=this;return this.hideAds(),$.colorbox({href:"http"+(Imgur.Environment.isDev?"":"s")+"://"+b._.host+"/"+(a?"signin":"register")+"/modal",iframe:!0,fastIframe:!1,wi…
+VM1367:6  ---  vote => (a,b){a.preventDefault();var c=$(a.currentTarget),d=c.parent().children(".up"),e=c.parent().children(".down"),f=c.attr("data"),g=c.attr("type"),h=null,i=0,j=0,k=this._.hash;if(k&&k.length&&"i…
+VM1367:6  ---  displayVoteMessage => (a){if("function"==typeof humanMsg.remove){var b=this;humanMsg.removeMsg(function(){b.showVoteMessage(a)})}else this.showVoteMessage(a)}
+VM1367:6  ---  showVoteMessage => (a){"up"==a?this.showUpvoteMessage():"down"==a&&this.showDownvoteMessage()}
+VM1367:6  ---  showUpvoteMessage => (){humanMsg.displayMsg(this._.messages.upvoted,"action-msg")}
+VM1367:6  ---  showDownvoteMessage => (){humanMsg.displayMsg(this._.messages.downvoted,"action-msg")}
+VM1367:6  ---  getSettings => (){return{host:this._.host,cdnUrl:this._.cdnUrl,signed:this._.signed,auth:this._.auth}}
+VM1367:6  ---  numberFormat => (a,b){a=(""+a).split(".");for(var c=[],d=a[0],e=d.length;e>0;e-=3,d=d.substring(0,e))c.unshift(d.substr(-3));return c+(a[1]?"."+a[1]:"")+(b?" "+(1!==Math.abs(a)?b+"s":b):"")}
+VM1367:6  ---  getPageHash => (){var a=window.location.hash;return a.substring(1)}
+VM1367:6  ---  getLinkCodes => (){return this._.linkCodes}
+VM1367:6  ---  getImageSizes => (){return this._.imageSizes}
+VM1367:6  ---  getExtension => (a){return/[.]/.exec(a)?/[^.]+$/.exec(a):""}
+VM1367:6  ---  setPageHash => (a){"function"==typeof history.replaceState&&history.replaceState(null,a,"#"+a)}
+VM1367:6  ---  setURL => (a){"/"!=a.substr(0,1)&&(a="/"+a),this._.url=a}
+VM1367:6  ---  parseUri => (a){for(var b={strictMode:!1,key:["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],q:{name:"queryKey",parser:/…
+VM1367:6  ---  setHost => (a){this._.host=a}
+VM1367:6  ---  buildMap => (a,b){var c={};for(var d in b){var e=b[d],f=e[a];c[f]=e}return c}
+VM1367:6  ---  previewBeta => (){$.colorbox({href:"/lightboxes/betapreview",iframe:!0,width:"700px",height:"600px",transition:"none",className:"noHeader",fixed:!1,open:!0})}
+VM1367:6  ---  acceptBeta => (){window.location="//"+this._.host+"/beta/enable"}
+VM1367:6  ---  getSearchUrl => (a,b,c){var d="",e=a.sort,f="/search/"+e+"/"+a.window+(b?"/page/"+b:"");return c&&(f+=(Imgur.Environment.signed?"/miss":"/hit")+".json"),a.advSearch&&$.each(a.advSearch,_.bind(function(a,b){"…
+VM1367:3 sortChange : 
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _super => undefined
+VM1367:6  ---  _ => Object {hash: "HimEFdu", url: "/gallery/HimEFdu", protocol: "https:", host: "imgur.com", isDropDownOpen: false…}
+VM1367:6  ---  init => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  setHash => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  getHash => (){return this._.hash}
+VM1367:6  ---  updateCaptionHash => (){this._.captionInstance.setHash(this._.hash)}
+VM1367:6  ---  updateShare => (){if(!this.hasImage())return void imcon.warn("Can't find image when updating share");var a=this.getImage(),b="http://"+this._.host+this.getURL({type:"historyState",hash:a.hash});b=a.is_album…
+VM1367:6  ---  hasImage => (a){return a=a||this._.hash,a==this._.image.hash?!0:null!=this._.sideGallery.getImage(a)}
+VM1367:6  ---  getImage => (a){return a=a||this._.hash,null==this._.sideGallery?this._.image:this.hasImage(a)?this._.sideGallery.getImage(a):null}
+VM1367:6  ---  getCurrentImage => (){return this._.sideGallery.getImage(this.getHash())}
+VM1367:6  ---  checkFetchQueue => (){if(0!==this._.fetchQueue.length){var a=this._.fetchQueue.shift();
+a&&a()}}
+VM1367:6  ---  disableCache => (){var a=this._.captionsCacheTime,b=new Date;b.setTime(b.getTime()+1e3*a),$.cookie(this._.captionsCacheCookie,"true",{expires:b,path:"/"}),window.setTimeout(this.enableCache.bind(this),1e3*a)…
+VM1367:6  ---  enableCache => (){"new"!=this._.section&&$.cookie(this._.captionsCacheCookie,null,{path:"/"})}
+VM1367:6  ---  generalInit => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  bindViewabilityScroll => (){$(window).on("scroll resize",_.throttle(_.bind(this.checkViewabilityScroll,this),250))}
+VM1367:6  ---  checkStickyHeader => (){var a=$(window).scrollTop(),b=$(".post-header"),c=this._.elements.$postContainer.offset().top,d=a-this._.scrollPosition;if(this._.scrollPosition=a,!this._.headerFixed&&a>c){var e=this._.el…
+VM1367:6  ---  checkViewabilityTime => (a){(_.isObject(a)||this._.lastVwTimeHash!==this._.hash)&&(this._.vwHashTime>0&&this._.emitter.trigger("vwTime",this._.lastVwTimeHash,(new Date).valueOf()-this._.vwHashTime),this._.lastVwTime…
+VM1367:6  ---  checkViewabilityScroll => (){var a=parseInt(this._.elements.$window.scrollTop()+this._.elements.$window.height(),10),b=parseInt(this._.elements.$underImage.offset().top+this._.elements.$underImage.outerHeight()+this._…
+VM1367:6  ---  enablePrevButton => (){this._.elements.$navPrev.removeClass("disabled")}
+VM1367:6  ---  enableNextButton => (){this._.elements.$navNext.removeClass("disabled")}
+VM1367:6  ---  disablePrevButton => (){this._.elements.$navPrev.addClass("disabled")}
+VM1367:6  ---  disableNextButton => (){this._.elements.$navNext.addClass("disabled")}
+VM1367:6  ---  changeSection => (a){this._.section=a}
+VM1367:6  ---  changeSort => (a){this._.sort=a}
+VM1367:6  ---  changeWindow => (a){this._.window=a}
+VM1367:6  ---  updatePoints => (a){var b,c,d;if("comment"===a.type){var e=this._.captionInstance.getCaptionById(this.getHash(),a.comment);e&&"visible_points"in e&&(e.visible_points=a.points),this._.insideCommentsArea.force…
+VM1367:6  ---  getURL => (a){var b="hit";return"captionsJSON"!=a.type||this._.usingCache&&"true"!==$.cookie(this._.captionsCacheCookie)&&"new"!==this._.section||a.cache||(b="miss"),{historyState:this._.baseURL+"/"+a.…
+VM1367:6  ---  fetchImage => (a,b,c){var d=this._.sideGallery.getImage(a);d&&(d.is_album&&null==this._.albumImageStore.getImages(d.hash)?this._.albumImageStore.fetchImages(d.hash,_.bind(function(a){for(var c=0;c<a.count&…
+VM1367:6  ---  fetchCaptions => (a,b,c){if(this._.captionsEnabled){if(this._.captionInstance.haveCaptions(a))return void b();if(!this._.fetchingCaptions[a]){this._.fetchingCaptions[a]=!0;var d=this,e=this.getURL({type:"capt…
+VM1367:6  ---  scrollToCaptions => (a){var b=this._.elements.$underImage.offset().top-this._.elements.$postHeader.outerHeight();a?$("html, body").animate({scrollTop:b},500):window.scrollTo(0,b)}
+VM1367:6  ---  processCaptions => (){var a=this,b=this._.hash,c=this.getCaptionSorter(),d=b===this._.image.hash?this._.image:this._.sideGallery.getImage(b),e=_.clone(this._.captionInstance.getParentIds(b)),f=_.transform(e,fun…
+VM1367:6  ---  getPermalinkIfExists => (){var a=window.location.pathname,b=-1!==a.indexOf("comment");if(b){var c=a.split("/comment/")[1].split("/");return{commentId:parseInt(c[0]),contextLevels:parseInt(c[1])}}}
+VM1367:6  ---  setupHistoryState => (){var a=this,b=Imgur.History.getInstance();b.addPopState("inside_nav.comment",function(b){a.handlePopStateComment(b)}),b.addPopState("inside_nav.image",function(b){a.handlePopStateImage(b)})…
+VM1367:6  ---  handlePopStateComment => (){var a=window.location.pathname.split("/"),b=null;3==a.length&&a[2].length>=5&&(b=a[2]),a.length>3&&(b="r"===a[1]?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this.setHash(b),this.scrollToCaption…
+VM1367:6  ---  handlePopStateImage => (){var a=window.location.pathname.split("/"),b=null;3===a.length&&a[2].length>=5&&(b=a[2]),a[2]&&(b=-1!==_.indexOf(["r","topic"],a[1])?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this._.sideGaller…
+VM1367:6  ---  pushWindowState => (a,b){var c=this._.baseURL+"/"+this._.hash;a&&(c+="/comment/"+a,b&&(c+="/"+b)),Imgur.History.getInstance().addWindowState("inside_nav.comment","Comments on "+window.title,c)}
+VM1367:6  ---  setCaptionSort => (a){var b=a.substr(0,1).toUpperCase()+a.substr(1);this._.captionLayout.sort=this["sortCaptionsBy"+b]}
+VM1367:6  ---  getCaptionSorter => (){var a=[_.bind(this.sortCaptionsByMineJustSubmitted,this),this._.captionLayout.sort,_.bind(this.sortCaptionsByIdDesc,this)];return function(b,c){for(var d=0;d<a.length;d++){var e=a[d](b,c);…
+VM1367:6  ---  sortCaptionsByTop => (a,b){var c=a.points,d=b.points;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByBest => (a,b){var c=a.best_score,d=b.best_score;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByNew => (a,b){var c=new Date(a.datetime),d=new Date(b.datetime);return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByMineJustSubmitted => (a,b){return"just_inserted"in a&&!("just_inserted"in b)?-1:"just_inserted"in b&&!("just_inserted"in a)?1:0}
+VM1367:6  ---  sortCaptionsById => (a,b){return a.id<b.id?-1:a.id>b.id?1:0}
+VM1367:6  ---  sortCaptionsByIdDesc => (a,b){return a.id>b.id?-1:a.id<b.id?1:0}
+VM1367:6  ---  showAnalytics => (){this._.analytics.popAndLoad(this._.image)}
+VM1367:6  ---  blankPage => (){var a=this._.elements;Imgur.InfiniteScroll.getInstance().stopInfiniteScroll(),React.unmountComponentAtNode(a.$image.get(0)),$(a.sparkbar).unbind(),$(a.sparkbar).remove(),this._.customAds&&…
+VM1367:6  ---  pushToFetchQueue => (a,b,c){this._.fetchQueue.push(_.bind(this.fetchImage,this,a,b,c))}
+VM1367:6  ---  updateVoteResponseData => (a,b,c){a=a||this.getHash(),b=b||this._.elements.$voteUp,c=c||this._.elements.$voteDown,null!=this._.sideGallery&&(b.hasClass("pushed")?this._.sideGallery.updateVote(a,"up"):c.hasClass("pushe…
+VM1367:6  ---  updateFavorite => (a){this._.sideGallery.updateFavorite(this.getHash(),a)}
+VM1367:6  ---  setupReportLink => (){var a=this.getHash(),b=this._.sideGallery.getImage(a),c=Imgur.Environment.auth.url===this._.image.account_url||!this._.captionsEnabled||b.promoId||b.readonly;this._.el.inside.reportImageLi…
+VM1367:6  ---  handleAds => (){var a=this.getHash(),b=this._.sideGallery.getImage(a);this.isSafe()?this._.ad.injectAd&&(!this._.isHotImage&&b.is_hot||b.hasOwnProperty("in_gallery")&&b.in_gallery)?this.showAds():this._.a…
+VM1367:6  ---  isSafe => (){var a=this._.sideGallery.getImage(this.getHash());if(!a)return!1;var b=("undefined"!=typeof a.timestamp?a.timestamp:a.datetime).split(/[- :]/),c=new Date;return b=new Date(Date.UTC(b[0],b[…
+VM1367:6  ---  updateSponsoredInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a);b.$smallLinks.hide();var d=$("<div>"+_.unescape(c.description)+"</div>");d.find("p").remove(":empty"),this._.element…
+VM1367:6  ---  updateSubmissionInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a),d=this.numberFormat(c.points,"point").split(" "),e=Imgur.Util.truncatedNumberFormat(c.views),f=isFinite(c.points)&&t…
+VM1367:6  ---  updateStatBar => (a,b,c){var d=a.ups+a.downs;d=0>=d?1:d;var e=a.ups/d*100,f=a.downs/d*100;0==e&&0==f&&(e=50,f=50),this._.elements.$statsLink.html(this._.templates.statBar({item:a,points:b,views:c,upvotePercen…
+VM1367:6  ---  setupDownloadLinks => (a){var b=this;this._.elements.$download.unbind("click"),a.is_album?(this._.elements.$download.text("Download album"),this._.elements.$download.click(function(){return b.startDownload(a.hash)…
+VM1367:6  ---  startDownload => (a){var b=Imgur.Album.getInstance();b._.id=a,b.downloadAlbum()}
+VM1367:6  ---  updatePage => (a){var b=this.getHash(),c=this._.elements,d=this._.sideGallery.getImage(b),e=this,f=680;this._.image.is_moderated&&this.removeAds(),d&&(this._.image=d),this._.analytics.clear(!0),Imgur.Galle…
+VM1367:6  ---  setupOptionDropdown => (a){var b=this._.elements,c=Imgur.Environment.auth&&Imgur.Environment.auth.url==this._.image.account_url,d=a.is_album?"show":"hide",e=a.is_album?"hide":"show",f=c&&!a.nsfw&&this._.captionsEna…
+VM1367:6  ---  purgeCommentData => (){var a=this,b=Object.keys(this._.captionInstance._.captions).filter(function(b){return Object.hasOwnProperty.call(a._.captionInstance._.captions,b)&&a.isImageNearby(b)});this._.captionInsta…
+VM1367:6  ---  purgeAlbumData => (){var a=Object.keys(this._.albumImages);if(a.length>10)for(var b=0;b<a.length;++b)this.isImageNearby(a[b])||delete this._.albumImages[a[b]]}
+VM1367:6  ---  isImageNearby => (a){var b=this._.sideGallery.selectedPosition(),c=this._.sideGallery.hashPosition(a);return-1!==c&&c>=b-3&&b+1>=c}
+VM1367:6  ---  _promotedTag => 
+VM1367:6  ---  _promotedWrap => 
+VM1367:6  ---  insertPost => 
+VM1367:6  ---  preloadImage => 
+VM1367:6  ---  bindGoogleForceRefresh => 
+VM1367:6  ---  forceAdRefresh => 
+VM1367:6  ---  bindScrollAd => 
+VM1367:6  ---  checkAdTime => 
+VM1367:6  ---  removeAds => 
+VM1367:6  ---  showAds => 
+VM1367:6  ---  hideZoomedImage => 
+VM1367:6  ---  timeoutNextImage => 
+VM1367:6  ---  bindAutoBrowse => 
+VM1367:6  ---  navToImage => 
+VM1367:6  ---  logNavigation => 
+VM1367:6  ---  bindArrowKeys => 
+VM1367:6  ---  getSideGallery => 
+VM1367:6  ---  forceScrollToCaption => (){var a=document.location.hash.substr(1),b=parseInt(a,10);if(!isNaN(b)){var c=$("#caption-"+a);this.scrollToCaption(c)}}
+VM1367:6  ---  scrollToCaption => (a){var b=a.offset().top;$("body").scrollTop(b);var c=a.find(".textbox").first();c.addClass("flash"),setTimeout(function(){c.removeClass("flash")},2e3)}
+VM1367:6  ---  setupKeynavTooltip => (a){if(!Imgur.Environment.auth.id){var b=a?"sidegallery-keynav-popup-tip":"sidegallery-keynav-postnext-tip",c=new Imgur.Elements.FrequencyCappedWrapper(b,Imgur.Elements.TetheredTooltip,{stora…
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:6  ---  setEmitter => (a){this._.emitter=a}
+VM1367:6  ---  imageLinkTipsy => (){$(".tipsy").remove();var a=$(this),b=a.attr("href");if($("#hzImg").length)return"";if(a.closest(".comment").find("> .children > .comment > .caption").text().match(/nsfw/gi)||a.parent().tex…
+VM1367:6  ---  appendFavoriteBar => (a,b,c){var d=$(_.templates["galleryimage.favoriteBar"]({value:"http:"+b,favorited:c.data.favorited}));$favoriteImage=d.find(".favorite-image");var e=new Imgur.Favorite({$favButton:$favoriteI…
+VM1367:6  ---  bindZeroClipboard => (){var a=new ZeroClipboard.Client;a.glue("copy-clipboard","copy-container"),a.addEventListener("onMouseUp",function(){$copyContainer=$("#copy-container"),$copyContainer.attr("title","copied")…
+VM1367:6  ---  removeFavoriteBar => (){$("#favorite-bar").remove()}
+VM1367:6  ---  initHeaderActions => (){var a=this;try{!this._.isSubdomain&&null!=this._.dropdownPulseTime&&localStorage&&void 0==localStorage[this._.dropdownPulseTime]&&this._.el.dropdown.mainMenu.addClass("pulse")}catch(b){}th…
+VM1367:6  ---  _showBetaInvite => (){Imgur.Environment.beta.inBeta||null!=this._.beta&&this._.beta.showInvite&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaInvite))}
+VM1367:6  ---  _showBetaWelcome => (){Imgur.Environment.beta.inBeta&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaWelcome))}
+VM1367:6  ---  showBetaBar => (){this._showBetaInvite(),this._showBetaWelcome()}
+VM1367:6  ---  showAnnouncementBar => (a,b){if(!$("#so").length&&!$("#an-msg").length){if(b){if($.cookie(b))return}else if($.cookie("an-msg-closed"))return;var c=$('<div id="an-msg" class="global-message"></div>'),d=$('<a href="j…
+VM1367:6  ---  closeDropdownMenu => (a){if(1!=a.which&&2!=a.which&&3!=a.which&&27!=a.which)return!1;var b=a?$(a.target):null;b.parents(".tag-group-selector-container").length||b.closest("#tags-underbar").length||b.closest("#col…
+VM1367:6  ---  openDropdownMenu => (a,b){return b.hasClass("opened")?void this.closeDropdownMenu(a):($(".opened").removeClass("opened"),b.addClass("opened"),b.hasClass("pulse")&&this.hidePulse(b),Imgur.Upload.Index&&Imgur.Uplo…
+VM1367:6  ---  hidePulse => (a){try{localStorage[this._.dropdownPulseTime]=!0}catch(b){}a.removeClass("pulse")}
+VM1367:6  ---  runPlaceholder => (a){var b="input[type=text][title],input[type=password][title],textarea[title]",c=a||$(b);c.each(function(){$(this).showPlaceholder(),$(this).hasClass("placeholder-onkeydown")?($(this).bind("…
+VM1367:6  ---  hideAds => (){$(".advertisement embed").css("visibility","hidden")}
+VM1367:6  ---  signin => (a){if(!this._.mobile){var b=this;return this.hideAds(),$.colorbox({href:"http"+(Imgur.Environment.isDev?"":"s")+"://"+b._.host+"/"+(a?"signin":"register")+"/modal",iframe:!0,fastIframe:!1,wi…
+VM1367:6  ---  vote => (a,b){a.preventDefault();var c=$(a.currentTarget),d=c.parent().children(".up"),e=c.parent().children(".down"),f=c.attr("data"),g=c.attr("type"),h=null,i=0,j=0,k=this._.hash;if(k&&k.length&&"i…
+VM1367:6  ---  displayVoteMessage => (a){if("function"==typeof humanMsg.remove){var b=this;humanMsg.removeMsg(function(){b.showVoteMessage(a)})}else this.showVoteMessage(a)}
+VM1367:6  ---  showVoteMessage => (a){"up"==a?this.showUpvoteMessage():"down"==a&&this.showDownvoteMessage()}
+VM1367:6  ---  showUpvoteMessage => (){humanMsg.displayMsg(this._.messages.upvoted,"action-msg")}
+VM1367:6  ---  showDownvoteMessage => (){humanMsg.displayMsg(this._.messages.downvoted,"action-msg")}
+VM1367:6  ---  getSettings => (){return{host:this._.host,cdnUrl:this._.cdnUrl,signed:this._.signed,auth:this._.auth}}
+VM1367:6  ---  numberFormat => (a,b){a=(""+a).split(".");for(var c=[],d=a[0],e=d.length;e>0;e-=3,d=d.substring(0,e))c.unshift(d.substr(-3));return c+(a[1]?"."+a[1]:"")+(b?" "+(1!==Math.abs(a)?b+"s":b):"")}
+VM1367:6  ---  getPageHash => (){var a=window.location.hash;return a.substring(1)}
+VM1367:6  ---  getLinkCodes => (){return this._.linkCodes}
+VM1367:6  ---  getImageSizes => (){return this._.imageSizes}
+VM1367:6  ---  getExtension => (a){return/[.]/.exec(a)?/[^.]+$/.exec(a):""}
+VM1367:6  ---  setPageHash => (a){"function"==typeof history.replaceState&&history.replaceState(null,a,"#"+a)}
+VM1367:6  ---  setURL => (a){"/"!=a.substr(0,1)&&(a="/"+a),this._.url=a}
+VM1367:6  ---  parseUri => (a){for(var b={strictMode:!1,key:["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],q:{name:"queryKey",parser:/…
+VM1367:6  ---  setHost => (a){this._.host=a}
+VM1367:6  ---  buildMap => (a,b){var c={};for(var d in b){var e=b[d],f=e[a];c[f]=e}return c}
+VM1367:6  ---  previewBeta => 
+VM1367:6  ---  acceptBeta => 
+VM1367:6  ---  getSearchUrl => 
+VM1367:3 windowChange : 
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _super => undefined
+VM1367:6  ---  _ => Object {hash: "HimEFdu", url: "/gallery/HimEFdu", protocol: "https:", host: "imgur.com", isDropDownOpen: false…}
+VM1367:6  ---  init => 
+VM1367:6  ---  setHash => 
+VM1367:6  ---  getHash => 
+VM1367:6  ---  updateCaptionHash => 
+VM1367:6  ---  updateShare => 
+VM1367:6  ---  hasImage => 
+VM1367:6  ---  getImage => 
+VM1367:6  ---  getCurrentImage => 
+VM1367:6  ---  checkFetchQueue => 
+VM1367:6  ---  disableCache => 
+VM1367:6  ---  enableCache => 
+VM1367:6  ---  generalInit => 
+VM1367:6  ---  bindViewabilityScroll => 
+VM1367:6  ---  checkStickyHeader => 
+VM1367:6  ---  checkViewabilityTime => 
+VM1367:6  ---  checkViewabilityScroll => 
+VM1367:6  ---  enablePrevButton => 
+VM1367:6  ---  enableNextButton => (){this._.elements.$navNext.removeClass("disabled")}
+VM1367:6  ---  disablePrevButton => (){this._.elements.$navPrev.addClass("disabled")}
+VM1367:6  ---  disableNextButton => (){this._.elements.$navNext.addClass("disabled")}
+VM1367:6  ---  changeSection => (a){this._.section=a}
+VM1367:6  ---  changeSort => (a){this._.sort=a}
+VM1367:6  ---  changeWindow => (a){this._.window=a}
+VM1367:6  ---  updatePoints => (a){var b,c,d;if("comment"===a.type){var e=this._.captionInstance.getCaptionById(this.getHash(),a.comment);e&&"visible_points"in e&&(e.visible_points=a.points),this._.insideCommentsArea.force…
+VM1367:6  ---  getURL => (a){var b="hit";return"captionsJSON"!=a.type||this._.usingCache&&"true"!==$.cookie(this._.captionsCacheCookie)&&"new"!==this._.section||a.cache||(b="miss"),{historyState:this._.baseURL+"/"+a.…
+VM1367:6  ---  fetchImage => (a,b,c){var d=this._.sideGallery.getImage(a);d&&(d.is_album&&null==this._.albumImageStore.getImages(d.hash)?this._.albumImageStore.fetchImages(d.hash,_.bind(function(a){for(var c=0;c<a.count&…
+VM1367:6  ---  fetchCaptions => (a,b,c){if(this._.captionsEnabled){if(this._.captionInstance.haveCaptions(a))return void b();if(!this._.fetchingCaptions[a]){this._.fetchingCaptions[a]=!0;var d=this,e=this.getURL({type:"capt…
+VM1367:6  ---  scrollToCaptions => (a){var b=this._.elements.$underImage.offset().top-this._.elements.$postHeader.outerHeight();a?$("html, body").animate({scrollTop:b},500):window.scrollTo(0,b)}
+VM1367:6  ---  processCaptions => (){var a=this,b=this._.hash,c=this.getCaptionSorter(),d=b===this._.image.hash?this._.image:this._.sideGallery.getImage(b),e=_.clone(this._.captionInstance.getParentIds(b)),f=_.transform(e,fun…
+VM1367:6  ---  getPermalinkIfExists => (){var a=window.location.pathname,b=-1!==a.indexOf("comment");if(b){var c=a.split("/comment/")[1].split("/");return{commentId:parseInt(c[0]),contextLevels:parseInt(c[1])}}}
+VM1367:6  ---  setupHistoryState => (){var a=this,b=Imgur.History.getInstance();b.addPopState("inside_nav.comment",function(b){a.handlePopStateComment(b)}),b.addPopState("inside_nav.image",function(b){a.handlePopStateImage(b)})…
+VM1367:6  ---  handlePopStateComment => (){var a=window.location.pathname.split("/"),b=null;3==a.length&&a[2].length>=5&&(b=a[2]),a.length>3&&(b="r"===a[1]?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this.setHash(b),this.scrollToCaption…
+VM1367:6  ---  handlePopStateImage => (){var a=window.location.pathname.split("/"),b=null;3===a.length&&a[2].length>=5&&(b=a[2]),a[2]&&(b=-1!==_.indexOf(["r","topic"],a[1])?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this._.sideGaller…
+VM1367:6  ---  pushWindowState => (a,b){var c=this._.baseURL+"/"+this._.hash;a&&(c+="/comment/"+a,b&&(c+="/"+b)),Imgur.History.getInstance().addWindowState("inside_nav.comment","Comments on "+window.title,c)}
+VM1367:6  ---  setCaptionSort => (a){var b=a.substr(0,1).toUpperCase()+a.substr(1);this._.captionLayout.sort=this["sortCaptionsBy"+b]}
+VM1367:6  ---  getCaptionSorter => (){var a=[_.bind(this.sortCaptionsByMineJustSubmitted,this),this._.captionLayout.sort,_.bind(this.sortCaptionsByIdDesc,this)];return function(b,c){for(var d=0;d<a.length;d++){var e=a[d](b,c);…
+VM1367:6  ---  sortCaptionsByTop => (a,b){var c=a.points,d=b.points;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByBest => (a,b){var c=a.best_score,d=b.best_score;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByNew => (a,b){var c=new Date(a.datetime),d=new Date(b.datetime);return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByMineJustSubmitted => (a,b){return"just_inserted"in a&&!("just_inserted"in b)?-1:"just_inserted"in b&&!("just_inserted"in a)?1:0}
+VM1367:6  ---  sortCaptionsById => (a,b){return a.id<b.id?-1:a.id>b.id?1:0}
+VM1367:6  ---  sortCaptionsByIdDesc => (a,b){return a.id>b.id?-1:a.id<b.id?1:0}
+VM1367:6  ---  showAnalytics => (){this._.analytics.popAndLoad(this._.image)}
+VM1367:6  ---  blankPage => (){var a=this._.elements;Imgur.InfiniteScroll.getInstance().stopInfiniteScroll(),React.unmountComponentAtNode(a.$image.get(0)),$(a.sparkbar).unbind(),$(a.sparkbar).remove(),this._.customAds&&…
+VM1367:6  ---  pushToFetchQueue => (a,b,c){this._.fetchQueue.push(_.bind(this.fetchImage,this,a,b,c))}
+VM1367:6  ---  updateVoteResponseData => (a,b,c){a=a||this.getHash(),b=b||this._.elements.$voteUp,c=c||this._.elements.$voteDown,null!=this._.sideGallery&&(b.hasClass("pushed")?this._.sideGallery.updateVote(a,"up"):c.hasClass("pushe…
+VM1367:6  ---  updateFavorite => (a){this._.sideGallery.updateFavorite(this.getHash(),a)}
+VM1367:6  ---  setupReportLink => (){var a=this.getHash(),b=this._.sideGallery.getImage(a),c=Imgur.Environment.auth.url===this._.image.account_url||!this._.captionsEnabled||b.promoId||b.readonly;this._.el.inside.reportImageLi…
+VM1367:6  ---  handleAds => (){var a=this.getHash(),b=this._.sideGallery.getImage(a);this.isSafe()?this._.ad.injectAd&&(!this._.isHotImage&&b.is_hot||b.hasOwnProperty("in_gallery")&&b.in_gallery)?this.showAds():this._.a…
+VM1367:6  ---  isSafe => (){var a=this._.sideGallery.getImage(this.getHash());if(!a)return!1;var b=("undefined"!=typeof a.timestamp?a.timestamp:a.datetime).split(/[- :]/),c=new Date;return b=new Date(Date.UTC(b[0],b[…
+VM1367:6  ---  updateSponsoredInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a);b.$smallLinks.hide();var d=$("<div>"+_.unescape(c.description)+"</div>");d.find("p").remove(":empty"),this._.element…
+VM1367:6  ---  updateSubmissionInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a),d=this.numberFormat(c.points,"point").split(" "),e=Imgur.Util.truncatedNumberFormat(c.views),f=isFinite(c.points)&&t…
+VM1367:6  ---  updateStatBar => (a,b,c){var d=a.ups+a.downs;d=0>=d?1:d;var e=a.ups/d*100,f=a.downs/d*100;0==e&&0==f&&(e=50,f=50),this._.elements.$statsLink.html(this._.templates.statBar({item:a,points:b,views:c,upvotePercen…
+VM1367:6  ---  setupDownloadLinks => (a){var b=this;this._.elements.$download.unbind("click"),a.is_album?(this._.elements.$download.text("Download album"),this._.elements.$download.click(function(){return b.startDownload(a.hash)…
+VM1367:6  ---  startDownload => (a){var b=Imgur.Album.getInstance();b._.id=a,b.downloadAlbum()}
+VM1367:6  ---  updatePage => (a){var b=this.getHash(),c=this._.elements,d=this._.sideGallery.getImage(b),e=this,f=680;this._.image.is_moderated&&this.removeAds(),d&&(this._.image=d),this._.analytics.clear(!0),Imgur.Galle…
+VM1367:6  ---  setupOptionDropdown => (a){var b=this._.elements,c=Imgur.Environment.auth&&Imgur.Environment.auth.url==this._.image.account_url,d=a.is_album?"show":"hide",e=a.is_album?"hide":"show",f=c&&!a.nsfw&&this._.captionsEna…
+VM1367:6  ---  purgeCommentData => (){var a=this,b=Object.keys(this._.captionInstance._.captions).filter(function(b){return Object.hasOwnProperty.call(a._.captionInstance._.captions,b)&&a.isImageNearby(b)});this._.captionInsta…
+VM1367:6  ---  purgeAlbumData => (){var a=Object.keys(this._.albumImages);if(a.length>10)for(var b=0;b<a.length;++b)this.isImageNearby(a[b])||delete this._.albumImages[a[b]]}
+VM1367:6  ---  isImageNearby => (a){var b=this._.sideGallery.selectedPosition(),c=this._.sideGallery.hashPosition(a);return-1!==c&&c>=b-3&&b+1>=c}
+VM1367:6  ---  _promotedTag => (){var a=React.DOM.div({className:"promoted-tag"},React.DOM.a({href:Imgur.Environment.ppBlog,className:"title",title:"learn more about promoted posts"},"promoted"));return a}
+VM1367:6  ---  _promotedWrap => (a){return React.DOM.div({className:"promoted-wrap"},this._promotedTag(),a)}
+VM1367:6  ---  insertPost => (a,b){if(a.hash==this.getHash()){if(a.is_album&&null==this._.albumImageStore.getImages(a.hash))return void this._.albumImageStore.fetchImages(a.hash,_.bind(this.insertPost,this,this._.sideGal…
+VM1367:6  ---  preloadImage => (a){var b,c=".gif"==a.ext&&a.animated&&a.size>2097152;if(c){var d=document.createElement("video"),e=document.createElement("source");d.canPlayType&&d.canPlayType("video/webm")?e.src=Imgur.Env…
+VM1367:6  ---  bindGoogleForceRefresh => (){var a=this;if(this._.elements.adframe){var b=this._.elements.adframe.contentDocument.getElementsByTagName("iframe")[0];"undefined"!=typeof b&&(b.onload=function(){a.forceAdRefresh()})}}
+VM1367:6  ---  forceAdRefresh => (){this._.ad.nextImageLoadRefreshesAd=!0}
+VM1367:6  ---  bindScrollAd => (){if(this._.elements.$scrollAd.length){var a=this;this._.elements.$scrollAdClose.on("click",function(){a._.ad.closed=!0,a._.elements.$scrollAd.addClass("nodisplay"),a._.elements.scrollAdfram…
+VM1367:6  ---  checkAdTime => (){var a=(this._.elements,this);if(this._.ad.nextImageLoadRefreshesAd){{a._.elements}if(window.usesABP&&"undefined"!=typeof window.abp_ad){this._.ad.abpAdId.removeClass("nodisplay");try{googl…
+VM1367:6  ---  removeAds => (){$(this._.elements.adWrapper).remove(),this._.ad.abpAdId.addClass("nodisplay"),this._.elements.$scrollAd.addClass("nodisplay");try{this._.elements.scrollAdframe.contentWindow.clear()}catch(…
+VM1367:6  ---  showAds => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  hideZoomedImage => (){$(".jquery-image-zoom").is(":visible")&&$("div.jquery-image-zoom a").click(),$.colorbox.close()}
+VM1367:6  ---  timeoutNextImage => (){if(this._.autoBrowse&&!this._.autoBrowseTimeout){var a=7e3,b=this;this._.autoBrowseTimeout=setTimeout(function(){b._.autoBrowseTimeout=null,b._.elements.$navNext.click()},a)}else this._.au…
+VM1367:6  ---  bindAutoBrowse => (){var a=this;$(document).keyup(function(b){return b.ctrlKey&&120===b.keyCode&&(a._.autoBrowse=!a._.autoBrowse,a._.autoBrowse?(a.timeoutNextImage(),humanMsg.displayMsg("Starting auto browse i…
+VM1367:6  ---  navToImage => (a,b){if(!("hash"in a&&this._.hash==a.hash)){"performance"in window&&"memory"in window.performance&&Imgur.Util.jafoLog({event:"nextPageMemory",meta:{pageDepth:Imgur.getInstance().pageDepth,us…
+VM1367:6  ---  logNavigation => (a,b,c){c||(c="next"===a?this._.sideGallery.getNextImage():this._.sideGallery.getPrevImage()),Imgur.Util.jafoLog({event:"galleryNav",meta:{direction:a,trigger:b,targeted:c,visibleTooltip:this…
+VM1367:6  ---  bindArrowKeys => (){var a=this,b={ARROW_LEFT:[37],ARROW_RIGHT:[39],ENTER:[13],MINUS:[109,173,189],PLUS:[187,61,107],NINE:[57,105]};$(document).keydown(function(c){if(!c.ctrlKey&&!c.altKey&&!c.metaKey){if(-1!=…
+VM1367:6  ---  getSideGallery => (){return this._.sideGallery}
+VM1367:6  ---  forceScrollToCaption => (){var a=document.location.hash.substr(1),b=parseInt(a,10);if(!isNaN(b)){var c=$("#caption-"+a);this.scrollToCaption(c)}}
+VM1367:6  ---  scrollToCaption => (a){var b=a.offset().top;$("body").scrollTop(b);var c=a.find(".textbox").first();c.addClass("flash"),setTimeout(function(){c.removeClass("flash")},2e3)}
+VM1367:6  ---  setupKeynavTooltip => (a){if(!Imgur.Environment.auth.id){var b=a?"sidegallery-keynav-popup-tip":"sidegallery-keynav-postnext-tip",c=new Imgur.Elements.FrequencyCappedWrapper(b,Imgur.Elements.TetheredTooltip,{stora…
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:6  ---  setEmitter => (a){this._.emitter=a}
+VM1367:6  ---  imageLinkTipsy => (){$(".tipsy").remove();var a=$(this),b=a.attr("href");if($("#hzImg").length)return"";if(a.closest(".comment").find("> .children > .comment > .caption").text().match(/nsfw/gi)||a.parent().tex…
+VM1367:6  ---  appendFavoriteBar => (a,b,c){var d=$(_.templates["galleryimage.favoriteBar"]({value:"http:"+b,favorited:c.data.favorited}));$favoriteImage=d.find(".favorite-image");var e=new Imgur.Favorite({$favButton:$favoriteI…
+VM1367:6  ---  bindZeroClipboard => (){var a=new ZeroClipboard.Client;a.glue("copy-clipboard","copy-container"),a.addEventListener("onMouseUp",function(){$copyContainer=$("#copy-container"),$copyContainer.attr("title","copied")…
+VM1367:6  ---  removeFavoriteBar => (){$("#favorite-bar").remove()}
+VM1367:6  ---  initHeaderActions => (){var a=this;try{!this._.isSubdomain&&null!=this._.dropdownPulseTime&&localStorage&&void 0==localStorage[this._.dropdownPulseTime]&&this._.el.dropdown.mainMenu.addClass("pulse")}catch(b){}th…
+VM1367:6  ---  _showBetaInvite => (){Imgur.Environment.beta.inBeta||null!=this._.beta&&this._.beta.showInvite&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaInvite))}
+VM1367:6  ---  _showBetaWelcome => (){Imgur.Environment.beta.inBeta&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaWelcome))}
+VM1367:6  ---  showBetaBar => (){this._showBetaInvite(),this._showBetaWelcome()}
+VM1367:6  ---  showAnnouncementBar => (a,b){if(!$("#so").length&&!$("#an-msg").length){if(b){if($.cookie(b))return}else if($.cookie("an-msg-closed"))return;var c=$('<div id="an-msg" class="global-message"></div>'),d=$('<a href="j…
+VM1367:6  ---  closeDropdownMenu => (a){if(1!=a.which&&2!=a.which&&3!=a.which&&27!=a.which)return!1;var b=a?$(a.target):null;b.parents(".tag-group-selector-container").length||b.closest("#tags-underbar").length||b.closest("#col…
+VM1367:6  ---  openDropdownMenu => (a,b){return b.hasClass("opened")?void this.closeDropdownMenu(a):($(".opened").removeClass("opened"),b.addClass("opened"),b.hasClass("pulse")&&this.hidePulse(b),Imgur.Upload.Index&&Imgur.Uplo…
+VM1367:6  ---  hidePulse => (a){try{localStorage[this._.dropdownPulseTime]=!0}catch(b){}a.removeClass("pulse")}
+VM1367:6  ---  runPlaceholder => (a){var b="input[type=text][title],input[type=password][title],textarea[title]",c=a||$(b);c.each(function(){$(this).showPlaceholder(),$(this).hasClass("placeholder-onkeydown")?($(this).bind("…
+VM1367:6  ---  hideAds => (){$(".advertisement embed").css("visibility","hidden")}
+VM1367:6  ---  signin => (a){if(!this._.mobile){var b=this;return this.hideAds(),$.colorbox({href:"http"+(Imgur.Environment.isDev?"":"s")+"://"+b._.host+"/"+(a?"signin":"register")+"/modal",iframe:!0,fastIframe:!1,wi…
+VM1367:6  ---  vote => (a,b){a.preventDefault();var c=$(a.currentTarget),d=c.parent().children(".up"),e=c.parent().children(".down"),f=c.attr("data"),g=c.attr("type"),h=null,i=0,j=0,k=this._.hash;if(k&&k.length&&"i…
+VM1367:6  ---  displayVoteMessage => (a){if("function"==typeof humanMsg.remove){var b=this;humanMsg.removeMsg(function(){b.showVoteMessage(a)})}else this.showVoteMessage(a)}
+VM1367:6  ---  showVoteMessage => (a){"up"==a?this.showUpvoteMessage():"down"==a&&this.showDownvoteMessage()}
+VM1367:6  ---  showUpvoteMessage => (){humanMsg.displayMsg(this._.messages.upvoted,"action-msg")}
+VM1367:6  ---  showDownvoteMessage => (){humanMsg.displayMsg(this._.messages.downvoted,"action-msg")}
+VM1367:6  ---  getSettings => (){return{host:this._.host,cdnUrl:this._.cdnUrl,signed:this._.signed,auth:this._.auth}}
+VM1367:6  ---  numberFormat => (a,b){a=(""+a).split(".");for(var c=[],d=a[0],e=d.length;e>0;e-=3,d=d.substring(0,e))c.unshift(d.substr(-3));return c+(a[1]?"."+a[1]:"")+(b?" "+(1!==Math.abs(a)?b+"s":b):"")}
+VM1367:6  ---  getPageHash => (){var a=window.location.hash;return a.substring(1)}
+VM1367:6  ---  getLinkCodes => (){return this._.linkCodes}
+VM1367:6  ---  getImageSizes => (){return this._.imageSizes}
+VM1367:6  ---  getExtension => (a){return/[.]/.exec(a)?/[^.]+$/.exec(a):""}
+VM1367:6  ---  setPageHash => (a){"function"==typeof history.replaceState&&history.replaceState(null,a,"#"+a)}
+VM1367:6  ---  setURL => (a){"/"!=a.substr(0,1)&&(a="/"+a),this._.url=a}
+VM1367:6  ---  parseUri => (a){for(var b={strictMode:!1,key:["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],q:{name:"queryKey",parser:/…
+VM1367:6  ---  setHost => (a){this._.host=a}
+VM1367:6  ---  buildMap => (a,b){var c={};for(var d in b){var e=b[d],f=e[a];c[f]=e}return c}
+VM1367:6  ---  previewBeta => (){$.colorbox({href:"/lightboxes/betapreview",iframe:!0,width:"700px",height:"600px",transition:"none",className:"noHeader",fixed:!1,open:!0})}
+VM1367:6  ---  acceptBeta => (){window.location="//"+this._.host+"/beta/enable"}
+VM1367:6  ---  getSearchUrl => (a,b,c){var d="",e=a.sort,f="/search/"+e+"/"+a.window+(b?"/page/"+b:"");return c&&(f+=(Imgur.Environment.signed?"/miss":"/hit")+".json"),a.advSearch&&$.each(a.advSearch,_.bind(function(a,b){"…
+VM1367:3 sidegalleryPageLoad : 
+VM1367:5  - Object {this_arg: null}
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _ => Object {config: Array[1], emitter: d, inside: d, sideGallery: b}
+VM1367:6  ---  init => (a,b,c,d){this._={config:a,emitter:b,inside:c,sideGallery:d},b.on("sidegalleryPageLoad",this,this.handleNewGalleryPage),b.on("select",this,this.handleSelectPost)}
+VM1367:6  ---  isActive => (){var a=this.getItem();return!!a}
+VM1367:6  ---  handleNewGalleryPage => (a){"initial"===a&&this.isActive()&&this.handleNewGallery()}
+VM1367:6  ---  handleNewGallery => (){var a=this.getItem();if(a){var b=this._.inside.getHash(),c=b?this._.sideGallery.hashPosition(b):-1;insertAt=-1===c?0:c%2===1||c+1===this._.sideGallery.state.items.length?c+1:c+2,this._.sid…
+VM1367:6  ---  getItem => (){if(Imgur.Util.Experiments._exp3377Active()){var a=this._.inside.getHash(),b=_.find(this._.config,function(b,c){if(!b||!b.hash||!b.variation)return void imcon.log("Bad side cta item",c,b);i…
+VM1367:6  ---  handleSelectPost => (a){var b=_.find(this._.config,function(b){return b.hash===a.hash});if(b&&b.localStorageName){var c=new Imgur.Storage.LocalStorage;c.save(b.localStorageName,{hash:a.hash,date:+new Date})}}
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:5  - Object {this_arg: null}
+VM1367:3 pointUpdate : 
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _super => undefined
+VM1367:6  ---  _ => Object {hash: "HimEFdu", url: "/gallery/HimEFdu", protocol: "https:", host: "imgur.com", isDropDownOpen: false…}
+VM1367:6  ---  init => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  setHash => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  getHash => (){return this._.hash}
+VM1367:6  ---  updateCaptionHash => (){this._.captionInstance.setHash(this._.hash)}
+VM1367:6  ---  updateShare => (){if(!this.hasImage())return void imcon.warn("Can't find image when updating share");var a=this.getImage(),b="http://"+this._.host+this.getURL({type:"historyState",hash:a.hash});b=a.is_album…
+VM1367:6  ---  hasImage => (a){return a=a||this._.hash,a==this._.image.hash?!0:null!=this._.sideGallery.getImage(a)}
+VM1367:6  ---  getImage => (a){return a=a||this._.hash,null==this._.sideGallery?this._.image:this.hasImage(a)?this._.sideGallery.getImage(a):null}
+VM1367:6  ---  getCurrentImage => (){return this._.sideGallery.getImage(this.getHash())}
+VM1367:6  ---  checkFetchQueue => (){if(0!==this._.fetchQueue.length){var a=this._.fetchQueue.shift();
+a&&a()}}
+VM1367:6  ---  disableCache => (){var a=this._.captionsCacheTime,b=new Date;b.setTime(b.getTime()+1e3*a),$.cookie(this._.captionsCacheCookie,"true",{expires:b,path:"/"}),window.setTimeout(this.enableCache.bind(this),1e3*a)…
+VM1367:6  ---  enableCache => (){"new"!=this._.section&&$.cookie(this._.captionsCacheCookie,null,{path:"/"})}
+VM1367:6  ---  generalInit => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  bindViewabilityScroll => (){$(window).on("scroll resize",_.throttle(_.bind(this.checkViewabilityScroll,this),250))}
+VM1367:6  ---  checkStickyHeader => (){var a=$(window).scrollTop(),b=$(".post-header"),c=this._.elements.$postContainer.offset().top,d=a-this._.scrollPosition;if(this._.scrollPosition=a,!this._.headerFixed&&a>c){var e=this._.el…
+VM1367:6  ---  checkViewabilityTime => (a){(_.isObject(a)||this._.lastVwTimeHash!==this._.hash)&&(this._.vwHashTime>0&&this._.emitter.trigger("vwTime",this._.lastVwTimeHash,(new Date).valueOf()-this._.vwHashTime),this._.lastVwTime…
+VM1367:6  ---  checkViewabilityScroll => (){var a=parseInt(this._.elements.$window.scrollTop()+this._.elements.$window.height(),10),b=parseInt(this._.elements.$underImage.offset().top+this._.elements.$underImage.outerHeight()+this._…
+VM1367:6  ---  enablePrevButton => (){this._.elements.$navPrev.removeClass("disabled")}
+VM1367:6  ---  enableNextButton => (){this._.elements.$navNext.removeClass("disabled")}
+VM1367:6  ---  disablePrevButton => (){this._.elements.$navPrev.addClass("disabled")}
+VM1367:6  ---  disableNextButton => (){this._.elements.$navNext.addClass("disabled")}
+VM1367:6  ---  changeSection => (a){this._.section=a}
+VM1367:6  ---  changeSort => (a){this._.sort=a}
+VM1367:6  ---  changeWindow => (a){this._.window=a}
+VM1367:6  ---  updatePoints => (a){var b,c,d;if("comment"===a.type){var e=this._.captionInstance.getCaptionById(this.getHash(),a.comment);e&&"visible_points"in e&&(e.visible_points=a.points),this._.insideCommentsArea.force…
+VM1367:6  ---  getURL => (a){var b="hit";return"captionsJSON"!=a.type||this._.usingCache&&"true"!==$.cookie(this._.captionsCacheCookie)&&"new"!==this._.section||a.cache||(b="miss"),{historyState:this._.baseURL+"/"+a.…
+VM1367:6  ---  fetchImage => (a,b,c){var d=this._.sideGallery.getImage(a);d&&(d.is_album&&null==this._.albumImageStore.getImages(d.hash)?this._.albumImageStore.fetchImages(d.hash,_.bind(function(a){for(var c=0;c<a.count&…
+VM1367:6  ---  fetchCaptions => (a,b,c){if(this._.captionsEnabled){if(this._.captionInstance.haveCaptions(a))return void b();if(!this._.fetchingCaptions[a]){this._.fetchingCaptions[a]=!0;var d=this,e=this.getURL({type:"capt…
+VM1367:6  ---  scrollToCaptions => (a){var b=this._.elements.$underImage.offset().top-this._.elements.$postHeader.outerHeight();a?$("html, body").animate({scrollTop:b},500):window.scrollTo(0,b)}
+VM1367:6  ---  processCaptions => (){var a=this,b=this._.hash,c=this.getCaptionSorter(),d=b===this._.image.hash?this._.image:this._.sideGallery.getImage(b),e=_.clone(this._.captionInstance.getParentIds(b)),f=_.transform(e,fun…
+VM1367:6  ---  getPermalinkIfExists => (){var a=window.location.pathname,b=-1!==a.indexOf("comment");if(b){var c=a.split("/comment/")[1].split("/");return{commentId:parseInt(c[0]),contextLevels:parseInt(c[1])}}}
+VM1367:6  ---  setupHistoryState => (){var a=this,b=Imgur.History.getInstance();b.addPopState("inside_nav.comment",function(b){a.handlePopStateComment(b)}),b.addPopState("inside_nav.image",function(b){a.handlePopStateImage(b)})…
+VM1367:6  ---  handlePopStateComment => (){var a=window.location.pathname.split("/"),b=null;3==a.length&&a[2].length>=5&&(b=a[2]),a.length>3&&(b="r"===a[1]?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this.setHash(b),this.scrollToCaption…
+VM1367:6  ---  handlePopStateImage => (){var a=window.location.pathname.split("/"),b=null;3===a.length&&a[2].length>=5&&(b=a[2]),a[2]&&(b=-1!==_.indexOf(["r","topic"],a[1])?a[a.length-1]:"user"===a[1]?a[4]:a[2]),this._.sideGaller…
+VM1367:6  ---  pushWindowState => (a,b){var c=this._.baseURL+"/"+this._.hash;a&&(c+="/comment/"+a,b&&(c+="/"+b)),Imgur.History.getInstance().addWindowState("inside_nav.comment","Comments on "+window.title,c)}
+VM1367:6  ---  setCaptionSort => (a){var b=a.substr(0,1).toUpperCase()+a.substr(1);this._.captionLayout.sort=this["sortCaptionsBy"+b]}
+VM1367:6  ---  getCaptionSorter => (){var a=[_.bind(this.sortCaptionsByMineJustSubmitted,this),this._.captionLayout.sort,_.bind(this.sortCaptionsByIdDesc,this)];return function(b,c){for(var d=0;d<a.length;d++){var e=a[d](b,c);…
+VM1367:6  ---  sortCaptionsByTop => (a,b){var c=a.points,d=b.points;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByBest => (a,b){var c=a.best_score,d=b.best_score;return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByNew => (a,b){var c=new Date(a.datetime),d=new Date(b.datetime);return c>d?-1:d>c?1:0}
+VM1367:6  ---  sortCaptionsByMineJustSubmitted => (a,b){return"just_inserted"in a&&!("just_inserted"in b)?-1:"just_inserted"in b&&!("just_inserted"in a)?1:0}
+VM1367:6  ---  sortCaptionsById => (a,b){return a.id<b.id?-1:a.id>b.id?1:0}
+VM1367:6  ---  sortCaptionsByIdDesc => (a,b){return a.id>b.id?-1:a.id<b.id?1:0}
+VM1367:6  ---  showAnalytics => (){this._.analytics.popAndLoad(this._.image)}
+VM1367:6  ---  blankPage => (){var a=this._.elements;Imgur.InfiniteScroll.getInstance().stopInfiniteScroll(),React.unmountComponentAtNode(a.$image.get(0)),$(a.sparkbar).unbind(),$(a.sparkbar).remove(),this._.customAds&&…
+VM1367:6  ---  pushToFetchQueue => (a,b,c){this._.fetchQueue.push(_.bind(this.fetchImage,this,a,b,c))}
+VM1367:6  ---  updateVoteResponseData => (a,b,c){a=a||this.getHash(),b=b||this._.elements.$voteUp,c=c||this._.elements.$voteDown,null!=this._.sideGallery&&(b.hasClass("pushed")?this._.sideGallery.updateVote(a,"up"):c.hasClass("pushe…
+VM1367:6  ---  updateFavorite => (a){this._.sideGallery.updateFavorite(this.getHash(),a)}
+VM1367:6  ---  setupReportLink => (){var a=this.getHash(),b=this._.sideGallery.getImage(a),c=Imgur.Environment.auth.url===this._.image.account_url||!this._.captionsEnabled||b.promoId||b.readonly;this._.el.inside.reportImageLi…
+VM1367:6  ---  handleAds => (){var a=this.getHash(),b=this._.sideGallery.getImage(a);this.isSafe()?this._.ad.injectAd&&(!this._.isHotImage&&b.is_hot||b.hasOwnProperty("in_gallery")&&b.in_gallery)?this.showAds():this._.a…
+VM1367:6  ---  isSafe => (){var a=this._.sideGallery.getImage(this.getHash());if(!a)return!1;var b=("undefined"!=typeof a.timestamp?a.timestamp:a.datetime).split(/[- :]/),c=new Date;return b=new Date(Date.UTC(b[0],b[…
+VM1367:6  ---  updateSponsoredInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a);b.$smallLinks.hide();var d=$("<div>"+_.unescape(c.description)+"</div>");d.find("p").remove(":empty"),this._.element…
+VM1367:6  ---  updateSubmissionInfo => (){var a=this.getHash(),b=this._.elements,c=this._.sideGallery.getImage(a),d=this.numberFormat(c.points,"point").split(" "),e=Imgur.Util.truncatedNumberFormat(c.views),f=isFinite(c.points)&&t…
+VM1367:6  ---  updateStatBar => (a,b,c){var d=a.ups+a.downs;d=0>=d?1:d;var e=a.ups/d*100,f=a.downs/d*100;0==e&&0==f&&(e=50,f=50),this._.elements.$statsLink.html(this._.templates.statBar({item:a,points:b,views:c,upvotePercen…
+VM1367:6  ---  setupDownloadLinks => (a){var b=this;this._.elements.$download.unbind("click"),a.is_album?(this._.elements.$download.text("Download album"),this._.elements.$download.click(function(){return b.startDownload(a.hash)…
+VM1367:6  ---  startDownload => (a){var b=Imgur.Album.getInstance();b._.id=a,b.downloadAlbum()}
+VM1367:6  ---  updatePage => (a){var b=this.getHash(),c=this._.elements,d=this._.sideGallery.getImage(b),e=this,f=680;this._.image.is_moderated&&this.removeAds(),d&&(this._.image=d),this._.analytics.clear(!0),Imgur.Galle…
+VM1367:6  ---  setupOptionDropdown => (a){var b=this._.elements,c=Imgur.Environment.auth&&Imgur.Environment.auth.url==this._.image.account_url,d=a.is_album?"show":"hide",e=a.is_album?"hide":"show",f=c&&!a.nsfw&&this._.captionsEna…
+VM1367:6  ---  purgeCommentData => (){var a=this,b=Object.keys(this._.captionInstance._.captions).filter(function(b){return Object.hasOwnProperty.call(a._.captionInstance._.captions,b)&&a.isImageNearby(b)});this._.captionInsta…
+VM1367:6  ---  purgeAlbumData => (){var a=Object.keys(this._.albumImages);if(a.length>10)for(var b=0;b<a.length;++b)this.isImageNearby(a[b])||delete this._.albumImages[a[b]]}
+VM1367:6  ---  isImageNearby => (a){var b=this._.sideGallery.selectedPosition(),c=this._.sideGallery.hashPosition(a);return-1!==c&&c>=b-3&&b+1>=c}
+VM1367:6  ---  _promotedTag => (){var a=React.DOM.div({className:"promoted-tag"},React.DOM.a({href:Imgur.Environment.ppBlog,className:"title",title:"learn more about promoted posts"},"promoted"));return a}
+VM1367:6  ---  _promotedWrap => (a){return React.DOM.div({className:"promoted-wrap"},this._promotedTag(),a)}
+VM1367:6  ---  insertPost => (a,b){if(a.hash==this.getHash()){if(a.is_album&&null==this._.albumImageStore.getImages(a.hash))return void this._.albumImageStore.fetchImages(a.hash,_.bind(this.insertPost,this,this._.sideGal…
+VM1367:6  ---  preloadImage => (a){var b,c=".gif"==a.ext&&a.animated&&a.size>2097152;if(c){var d=document.createElement("video"),e=document.createElement("source");d.canPlayType&&d.canPlayType("video/webm")?e.src=Imgur.Env…
+VM1367:6  ---  bindGoogleForceRefresh => (){var a=this;if(this._.elements.adframe){var b=this._.elements.adframe.contentDocument.getElementsByTagName("iframe")[0];"undefined"!=typeof b&&(b.onload=function(){a.forceAdRefresh()})}}
+VM1367:6  ---  forceAdRefresh => (){this._.ad.nextImageLoadRefreshesAd=!0}
+VM1367:6  ---  bindScrollAd => (){if(this._.elements.$scrollAd.length){var a=this;this._.elements.$scrollAdClose.on("click",function(){a._.ad.closed=!0,a._.elements.$scrollAd.addClass("nodisplay"),a._.elements.scrollAdfram…
+VM1367:6  ---  checkAdTime => (){var a=(this._.elements,this);if(this._.ad.nextImageLoadRefreshesAd){{a._.elements}if(window.usesABP&&"undefined"!=typeof window.abp_ad){this._.ad.abpAdId.removeClass("nodisplay");try{googl…
+VM1367:6  ---  removeAds => (){$(this._.elements.adWrapper).remove(),this._.ad.abpAdId.addClass("nodisplay"),this._.elements.$scrollAd.addClass("nodisplay");try{this._.elements.scrollAdframe.contentWindow.clear()}catch(…
+VM1367:6  ---  showAds => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  hideZoomedImage => (){$(".jquery-image-zoom").is(":visible")&&$("div.jquery-image-zoom a").click(),$.colorbox.close()}
+VM1367:6  ---  timeoutNextImage => (){if(this._.autoBrowse&&!this._.autoBrowseTimeout){var a=7e3,b=this;this._.autoBrowseTimeout=setTimeout(function(){b._.autoBrowseTimeout=null,b._.elements.$navNext.click()},a)}else this._.au…
+VM1367:6  ---  bindAutoBrowse => (){var a=this;$(document).keyup(function(b){return b.ctrlKey&&120===b.keyCode&&(a._.autoBrowse=!a._.autoBrowse,a._.autoBrowse?(a.timeoutNextImage(),humanMsg.displayMsg("Starting auto browse i…
+VM1367:6  ---  navToImage => (a,b){if(!("hash"in a&&this._.hash==a.hash)){"performance"in window&&"memory"in window.performance&&Imgur.Util.jafoLog({event:"nextPageMemory",meta:{pageDepth:Imgur.getInstance().pageDepth,us…
+VM1367:6  ---  logNavigation => (a,b,c){c||(c="next"===a?this._.sideGallery.getNextImage():this._.sideGallery.getPrevImage()),Imgur.Util.jafoLog({event:"galleryNav",meta:{direction:a,trigger:b,targeted:c,visibleTooltip:this…
+VM1367:6  ---  bindArrowKeys => (){var a=this,b={ARROW_LEFT:[37],ARROW_RIGHT:[39],ENTER:[13],MINUS:[109,173,189],PLUS:[187,61,107],NINE:[57,105]};$(document).keydown(function(c){if(!c.ctrlKey&&!c.altKey&&!c.metaKey){if(-1!=…
+VM1367:6  ---  getSideGallery => (){return this._.sideGallery}
+VM1367:6  ---  forceScrollToCaption => (){var a=document.location.hash.substr(1),b=parseInt(a,10);if(!isNaN(b)){var c=$("#caption-"+a);this.scrollToCaption(c)}}
+VM1367:6  ---  scrollToCaption => (a){var b=a.offset().top;$("body").scrollTop(b);var c=a.find(".textbox").first();c.addClass("flash"),setTimeout(function(){c.removeClass("flash")},2e3)}
+VM1367:6  ---  setupKeynavTooltip => (a){if(!Imgur.Environment.auth.id){var b=a?"sidegallery-keynav-popup-tip":"sidegallery-keynav-postnext-tip",c=new Imgur.Elements.FrequencyCappedWrapper(b,Imgur.Elements.TetheredTooltip,{stora…
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:6  ---  setEmitter => (a){this._.emitter=a}
+VM1367:6  ---  imageLinkTipsy => (){$(".tipsy").remove();var a=$(this),b=a.attr("href");if($("#hzImg").length)return"";if(a.closest(".comment").find("> .children > .comment > .caption").text().match(/nsfw/gi)||a.parent().tex…
+VM1367:6  ---  appendFavoriteBar => (a,b,c){var d=$(_.templates["galleryimage.favoriteBar"]({value:"http:"+b,favorited:c.data.favorited}));$favoriteImage=d.find(".favorite-image");var e=new Imgur.Favorite({$favButton:$favoriteI…
+VM1367:6  ---  bindZeroClipboard => (){var a=new ZeroClipboard.Client;a.glue("copy-clipboard","copy-container"),a.addEventListener("onMouseUp",function(){$copyContainer=$("#copy-container"),$copyContainer.attr("title","copied")…
+VM1367:6  ---  removeFavoriteBar => (){$("#favorite-bar").remove()}
+VM1367:6  ---  initHeaderActions => (){var a=this;try{!this._.isSubdomain&&null!=this._.dropdownPulseTime&&localStorage&&void 0==localStorage[this._.dropdownPulseTime]&&this._.el.dropdown.mainMenu.addClass("pulse")}catch(b){}th…
+VM1367:6  ---  _showBetaInvite => (){Imgur.Environment.beta.inBeta||null!=this._.beta&&this._.beta.showInvite&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaInvite))}
+VM1367:6  ---  _showBetaWelcome => (){Imgur.Environment.beta.inBeta&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaWelcome))}
+VM1367:6  ---  showBetaBar => (){this._showBetaInvite(),this._showBetaWelcome()}
+VM1367:6  ---  showAnnouncementBar => (a,b){if(!$("#so").length&&!$("#an-msg").length){if(b){if($.cookie(b))return}else if($.cookie("an-msg-closed"))return;var c=$('<div id="an-msg" class="global-message"></div>'),d=$('<a href="j…
+VM1367:6  ---  closeDropdownMenu => (a){if(1!=a.which&&2!=a.which&&3!=a.which&&27!=a.which)return!1;var b=a?$(a.target):null;b.parents(".tag-group-selector-container").length||b.closest("#tags-underbar").length||b.closest("#col…
+VM1367:6  ---  openDropdownMenu => (a,b){return b.hasClass("opened")?void this.closeDropdownMenu(a):($(".opened").removeClass("opened"),b.addClass("opened"),b.hasClass("pulse")&&this.hidePulse(b),Imgur.Upload.Index&&Imgur.Uplo…
+VM1367:6  ---  hidePulse => (a){try{localStorage[this._.dropdownPulseTime]=!0}catch(b){}a.removeClass("pulse")}
+VM1367:6  ---  runPlaceholder => (a){var b="input[type=text][title],input[type=password][title],textarea[title]",c=a||$(b);c.each(function(){$(this).showPlaceholder(),$(this).hasClass("placeholder-onkeydown")?($(this).bind("…
+VM1367:6  ---  hideAds => (){$(".advertisement embed").css("visibility","hidden")}
+VM1367:6  ---  signin => (a){if(!this._.mobile){var b=this;return this.hideAds(),$.colorbox({href:"http"+(Imgur.Environment.isDev?"":"s")+"://"+b._.host+"/"+(a?"signin":"register")+"/modal",iframe:!0,fastIframe:!1,wi…
+VM1367:6  ---  vote => (a,b){a.preventDefault();var c=$(a.currentTarget),d=c.parent().children(".up"),e=c.parent().children(".down"),f=c.attr("data"),g=c.attr("type"),h=null,i=0,j=0,k=this._.hash;if(k&&k.length&&"i…
+VM1367:6  ---  displayVoteMessage => (a){if("function"==typeof humanMsg.remove){var b=this;humanMsg.removeMsg(function(){b.showVoteMessage(a)})}else this.showVoteMessage(a)}
+VM1367:6  ---  showVoteMessage => (a){"up"==a?this.showUpvoteMessage():"down"==a&&this.showDownvoteMessage()}
+VM1367:6  ---  showUpvoteMessage => (){humanMsg.displayMsg(this._.messages.upvoted,"action-msg")}
+VM1367:6  ---  showDownvoteMessage => (){humanMsg.displayMsg(this._.messages.downvoted,"action-msg")}
+VM1367:6  ---  getSettings => (){return{host:this._.host,cdnUrl:this._.cdnUrl,signed:this._.signed,auth:this._.auth}}
+VM1367:6  ---  numberFormat => (a,b){a=(""+a).split(".");for(var c=[],d=a[0],e=d.length;e>0;e-=3,d=d.substring(0,e))c.unshift(d.substr(-3));return c+(a[1]?"."+a[1]:"")+(b?" "+(1!==Math.abs(a)?b+"s":b):"")}
+VM1367:6  ---  getPageHash => (){var a=window.location.hash;return a.substring(1)}
+VM1367:6  ---  getLinkCodes => (){return this._.linkCodes}
+VM1367:6  ---  getImageSizes => (){return this._.imageSizes}
+VM1367:6  ---  getExtension => (a){return/[.]/.exec(a)?/[^.]+$/.exec(a):""}
+VM1367:6  ---  setPageHash => (a){"function"==typeof history.replaceState&&history.replaceState(null,a,"#"+a)}
+VM1367:6  ---  setURL => (a){"/"!=a.substr(0,1)&&(a="/"+a),this._.url=a}
+VM1367:6  ---  parseUri => (a){for(var b={strictMode:!1,key:["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],q:{name:"queryKey",parser:/…
+VM1367:6  ---  setHost => (a){this._.host=a}
+VM1367:6  ---  buildMap => (a,b){var c={};for(var d in b){var e=b[d],f=e[a];c[f]=e}return c}
+VM1367:6  ---  previewBeta => (){$.colorbox({href:"/lightboxes/betapreview",iframe:!0,width:"700px",height:"600px",transition:"none",className:"noHeader",fixed:!1,open:!0})}
+VM1367:6  ---  acceptBeta => (){window.location="//"+this._.host+"/beta/enable"}
+VM1367:6  ---  getSearchUrl => (a,b,c){var d="",e=a.sort,f="/search/"+e+"/"+a.window+(b?"/page/"+b:"");return c&&(f+=(Imgur.Environment.signed?"/miss":"/hit")+".json"),a.advSearch&&$.each(a.advSearch,_.bind(function(a,b){"…
+VM1367:3 report image : 
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _super => undefined
+VM1367:6  ---  imgurInsideNav => d {_super: undefined, _: Object}
+VM1367:6  ---  _ => Object {hash: "HimEFdu", url: "/gallery/HimEFdu", protocol: "https:", host: "imgur.com", isDropDownOpen: false…}
+VM1367:6  ---  init => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:6  ---  getEmitter => (){return this._.emitter}
+VM1367:6  ---  getCacheValue => (){var a="";return $("script[type*=javascript]").each(function(){if(this.src){var b=this.src.split("?"),c=$.trim(b[0].split("/").pop());if("gallery.js"==c)return void(a=b[1])}}),a}
+VM1367:6  ---  isNumberKey => (a){var b=a.which?a.which:a.keyCode;return b>31&&(48>b||b>57)?!1:!0}
+VM1367:6  ---  remove => (){humanMsg.displayMsg("Working...");var a=this.imgurInsideNav.getHash(),b=this._.baseURL+"/action/remove_image/"+a,c={remove:!0,sid:this._.sid};$.post(b,c,function(a){return a.success?void h…
+VM1367:6  ---  mature => (){humanMsg.displayMsg("Working...");var a=this.imgurInsideNav.getHash(),b=this._.baseURL+"/action/mature_image/"+a,c={sid:this._.sid};$.post(b,c,_.bind(function(a){return a.success?(humanMsg…
+VM1367:6  ---  opMature => (){$.colorbox({href:this._.el.colorboxConfirmForm.id,open:!0,inline:!0,top:"15%",transition:"none",scrolling:!1,onComplete:_.bind(this.bindMatureImage,this)})}
+VM1367:6  ---  ban => (){var a;""!=this._.account_url&&(a={account_url:this._.account_url,type:"main",sid:this._.sid,offending_url:window.location.href},$.post("/adm/removals/ban",a,_.bind(function(){var b="The ba…
+VM1367:6  ---  spam => (){""!=this._.account_url&&$.post("/adm/removals/markspammer",{account_url:this._.account_url,type:"main",sid:this._.sid},_.bind(function(){humanMsg.displayMsg(this._.account_url+" has been s…
+VM1367:6  ---  warn => (){var a=window.location.href;""!=this._.account_url&&$.post("/adm/removals/warn",{account_url:this._.account_url,data:a,sid:this._.sid},_.bind(function(){humanMsg.displayMsg(this._.account_u…
+VM1367:6  ---  trophy => (a){var b,c,d=$(a.target),e=d.attr("data-type"),f=d.text(),g=d.val(),h=this.imgurInsideNav.getCurrentImage();if("comment"===e){if(b=document.location.pathname.match(/^\/gallery\/[^\/]+\/comme…
+VM1367:6  ---  reportImage => (){var a=this,b=a.imgurInsideNav.getHash(),c={type:"galleryPost",hash:b,isAlbum:a.imgurInsideNav._.image.is_album,nsfw:a.imgurInsideNav._.image.nsfw};Imgur.Util.jafoLog({event:"reportInvoked"…
+VM1367:6  ---  bindDeleteImage => (){var a=this;this._.el.colorboxConfirmForm.no.unbind("click"),this._.el.colorboxConfirmForm.yes.unbind("click"),this._.el.colorboxConfirmForm.title.html("Remove Submission from Gallery"),thi…
+VM1367:6  ---  bindMatureImage => (){var a=this.imgurInsideNav.getHash(),b=this._.baseURL+"/action/mature_image/"+a,c={sid:this._.sid},d=this._.messages.markMature;this._.el.colorboxConfirmForm.no.unbind("click"),this._.el.co…
+VM1367:6  ---  deleteImage => (){var a=this;$.colorbox({href:a._.el.colorboxConfirmForm.id,open:!0,inline:!0,top:"15%",transition:"none",scrolling:!1,onComplete:function(){a.bindDeleteImage()}})}
+VM1367:6  ---  reCaption => (){var a=Imgur.InsideNav.getInstance().getHash();window.location="/memegen/create/"+a}
+VM1367:6  ---  insertAd => (a){var b=Math.floor(1e3*Math.random()),c=$('<div id="bottom-ad" class="advertisement"></div>'),d=$('<div class="panel-ad advertisement"></div>'),e=$('<iframe src="//imgur.com/include/rc-ifra…
+VM1367:6  ---  fadeInLoader => (a){var b=this._.el.outside.content.find(this._.el.outside.tagLoaderClass);b.length&&b.eq(b.length-1).fadeIn(75,a)}
+VM1367:6  ---  fadeOutLoader => (a){var b=this._.el.outside.content.find(this._.el.outside.tagLoaderClass);b.length&&b.eq(b.length-1).fadeOut(75,a)}
+VM1367:6  ---  initialPopState => (){window.location=window.location}
+VM1367:6  ---  initTipsy => (){if(!this._.isIPad){var a=$("#imagelist img, .thumbnails img, .thumbs img, .image img, .thumb-title");a.each(function(){$(this).attr("title",$(this).attr("data-title"))}),a.tipsy({gravity:"…
+VM1367:6  ---  initZoom => (){this._.el.inside.zoom.imageZoom()}
+VM1367:6  ---  showPastPreview => (){this._.vars.pastPage>this._.vars.maxDays&&(this._.vars.pastPage=this._.vars.maxDays,this._.el.past.days.val(this._.vars.pastPage)),$(".tipsy").remove(),this._.el.past.previewContent.empty(…
+VM1367:6  ---  pastOnLoad => (){this.hideAds(),0==this._.el.past.previewContent.find("h3").size()&&this.showPastPreview(),this._.el.past.days.val(this._.vars.pastPage);var a=this;this._.el.past.calendar.DatePicker({forma…
+VM1367:6  ---  pastClickHandler => (){var a=this;Imgur.Util.jafoLog({event:"pastImagesClock"}),$.colorbox({href:"#"+this._.el.past.wrapper.attr("id"),inline:!0,innerWidth:this._.el.past.wrapper.width()+20,innerHeight:this._.el…
+VM1367:6  ---  pastDaysChangeHandler => (a){isFinite(a.currentTarget.value)?(this._.vars.pastPage=parseInt(a.currentTarget.value,10),this._.el.past.slider.slider("value",this._.vars.pastPage)):humanMsg.displayMsg("Please enter a nu…
+VM1367:6  ---  pastDaysKeypressHandler => (a){return this.isNumberKey(a)}
+VM1367:6  ---  pastTickerClickHandler => (a){clearTimeout(this._.vars.pastTickerTimer),this._.vars.pastPage=$(a.target).hasClass(this._.el.past.positiveTickClass)?this._.vars.pastPage+1<this._.maxPage?this._.vars.pastPage+1:this._.m…
+VM1367:6  ---  pastSubmitClickHandler => (){var a=this._.showPast?this._.vars.pastPage:this._.vars.pastPage-1;Imgur.Util.jafoLog({event:"pastImagesGo",meta:{page:a}}),$.colorbox.close(),window.location=this._.baseURL+"/hot/viral/pag…
+VM1367:6  ---  getBaseUrl => (){return this._.overRideUrl?this._.overRideUrl:this._.baseURL}
+VM1367:6  ---  getSectionUrl => (){var a=this._.section&&"tag"!=this._.section&&"group"!=this._.section&&"topic"!=this._.section&&"favorites"!=this._.section?"/"+this._.section:"",b=this._.baseURL+a+"/";return b}
+VM1367:6  ---  getUrl => (a,b){var c="top"==this._.section?"":this._.sort+"/",d="top"==this._.sort||"top"==this._.section?this._.window+"/":"",e=this.getSectionUrl()+c+d+"page/"+a+"/"+(Imgur.Environment.signed?"miss"…
+VM1367:6  ---  handleResponse => (a,b,c){var d=$(a).find("img").length;if(d>0&&(this._.vars.scrolledImageSet>=1||"new"==this._.section)&&!$(this._.el.outside.extendedImagelist).length&&$.cookie("showComments")){var e;e=$(0==…
+VM1367:6  ---  fetchImages => (a,b,c){var d=this.getUrl(a,b);this._.vars.loading=!0,$.ajax({url:d,success:_.bind(function(a){this._.vars.loading=!1,this.handleResponse(a,c,d)},this)}),$(_.bind(function(){Imgur.Util.jafoLo…
+VM1367:6  ---  showLoadMore => (){$(this._.el.outside.loaderID).eq(0).html(this._.messages.loadMore),$(this._.el.outside.loadMoreID).click(_.bind(function(a){$(a.target).unbind("click"),$(a.target).parent().html('<img src=…
+VM1367:6  ---  loadMore => (a){return this._.vars.loading?void 0:!a&&this._.vars.scrolledPage>0&&this._.vars.scrolledPage%5==0&&-1==this._.vars.scrolledImageSet?void this.showLoadMore():void($(this._.el.outside.loaderI…
+VM1367:6  ---  notorietyLinkClickHandler => (){this._.el.user.notorietyList.is(":hidden")?(this._.el.user.notorietyList.slideDown(),this._.el.user.notorietyLink.find("a").html("hide list")):(this._.el.user.notorietyList.slideUp(),this.…
+VM1367:6  ---  userButtonCommentsClickHandler => (){window.location="/user/"+this._.account_url}
+VM1367:6  ---  userButtonFavoritesClickHandler => (){window.location="/user/"+this._.account_url+"/favorites"}
+VM1367:6  ---  userButtonSubmittedClickHandler => (){window.location="/user/"+this._.account_url+"/submitted"}
+VM1367:6  ---  userButtonRepliesClickHandler => (){window.location="/user/"+this._.account_url+"/replies"}
+VM1367:6  ---  setupUserCaptions => (){var a=new Imgur.Linkifier;a.addGrabber(new Imgur.Linkify.ImgurGrabber(Imgur.Environment.host,Imgur.Environment.cdnUrl)),a.addGrabber(new Imgur.Linkify.PlainGrabber),a.addGrabber(new Imgur.…
+VM1367:6  ---  setupUserFavorites => (){var a=this,b=function(){a._.el.user.loader.show(),$.get("/user/"+a._.account_url+"/favorites/page/"+ ++a._.page+"?scrolling",function(c){c?(a._.el.user.loader.hide(),a._.el.user.favorites.…
+VM1367:6  ---  setupUserReplies => (){var a=new Imgur.Linkifier;a.addGrabber(new Imgur.Linkify.ImgurGrabber(Imgur.Environment.host,Imgur.Environment.cdnUrl)),a.addGrabber(new Imgur.Linkify.PlainGrabber),a.addGrabber(new Imgur.…
+VM1367:6  ---  setupUserSubmitted => (){var a=this,b=function(){a._.el.user.loader.show(),$.get("/user/"+a._.account_url+"/submitted/page/"+ ++a._.page+"?scrolling",function(c){c?(a._.el.user.loader.hide(),a._.el.user.favorites.…
+VM1367:6  ---  userPmButtonClickHandler => (){var a=this;return this._.signed?void $.colorbox({href:"#"+a._.el.user.pmWrapper.attr("id"),inline:!0,innerWidth:a._.el.user.pmWrapper.width()+20,innerHeight:a._.el.user.pmWrapper.height()+…
+VM1367:6  ---  userPmSendButton => (){var a=this;if(""!=a._.el.user.pmBody.val()&&a._.el.user.pmBody.val()!=a._.el.user.pmBody.attr("title")){for(var b=a._.el.user.pmForm.find("input, textarea"),c=0;c<b.length;++c){var d=$(b[c…
+VM1367:6  ---  carouselItemFirstIn => (a,b,c){0==a.index()?c.addClass("disabled"):c.removeClass("disabled")}
+VM1367:6  ---  carouselItemLastIn => (a,b,c){var d=b.jcarousel("items").length;a.index()==d-1?c.addClass("disabled"):c.removeClass("disabled")}
+VM1367:6  ---  userInit => (){var a=this;this.generalInit(),this._.el.user.notorietyLink.click(function(){a.notorietyLinkClickHandler()}),this._.el.user.buttonComments.click(function(){a.userButtonCommentsClickHandler(…
+VM1367:6  ---  toggleShowViral => (){$.cookie("hidingviral")?$.removeCookie("hidingviral",{path:"/"}):$.cookie("hidingviral",!0,{expires:30,path:"/"}),window.location=window.location}
+VM1367:6  ---  toggleShowFiltered => (a,b,c){var d="true"!==$.cookie(a),e=d?"<span>showing "+c+"</span>":"<span>hiding "+c+"</span>";this._.el.outside.$toggleFiltered.toggleClass("showing",d).html(e),$(".cards").toggleClass("blu…
+VM1367:6  ---  initOutsideInfScroll => (){Imgur.InfiniteScroll.getInstance().infiniteScroll(_.bind(function(){this.loadMore()},this))}
+VM1367:6  ---  bindOutsideSortOptions => (){var a=this;this._.el.outside.$sortOptions.bind("click",function(){var b=$(this).attr("href").split("?")[0],c=b.split("/"),d=c[c.length-1];Imgur.Util.jafoLog({event:"gallerySortChange",meta…
+VM1367:6  ---  searchAdvancedHandleSubmit => (a){a.preventDefault();var b,c,d,e,f=document.location,g=this._.el.search.$advancedForm.find("input"),h=[],i=!0,j=this._.el.search.$advancedAllInput.val(),k=g.length,l=f.protocol+"//"+f.host;…
+VM1367:6  ---  searchAdvancedToggleHandler => (a){var b=this,c=$(a.target);this._.el.search.$advanced.is(":visible")?(this._.el.search.$advanced.fadeOut(150,function(){b.syncSearchSimpleAndAdvanced()}),$(a.target).attr("title","show adva…
+VM1367:6  ---  searchAdvancedToggleSizeType => (){this._.el.search.$sizeToggle.is(":checked")?(this._.el.search.$pxCombo.hide(0),this._.el.search.$mpxCombo.show(0)):(this._.el.search.$mpxCombo.hide(0),this._.el.search.$pxCombo.show(0))}
+VM1367:6  ---  searchHighlight => (){var a,b,c="",d=!1,e=!1,f={className:"matched-search-term"},g=$(this._.el.search.imageCard);if(this._.inSearch){if("object"!=typeof this._.advSearch||"string"==typeof this._.searchQuery&&""…
+VM1367:6  ---  syncSearchSimpleAndAdvanced => (){this._.el.search.$advanced.length<1||(this._.el.search.$advanced.is(":visible")?(this._syncSearchSimpleAndAdvancedElements(this._.el.search.$headerSearchInput,this._.el.search.$advancedAll…
+VM1367:6  ---  _syncSearchSimpleAndAdvancedElements => (a,b){var c=String(b.val()),d=a.val(),e=a.attr("placeholder");c.length<1&&d!=e&&b.val(d).trigger("change"),a.val("")}
+VM1367:6  ---  outsideInit => (){var a=this;this._.vars.scrolledPage=this._.vars.pastPage=this._.page,this._.showPast||(this._.vars.pastPage+=1),this.generalInit(),this.initOutsideInfScroll(),this.bindOutsideSortOptions()…
+VM1367:6  ---  initOutsideComboboxes => (){$(".combobox:not(#section):not(#sort)").combobox({onChange:_.bind(function(a,b){switch(a){case"q_size_px":$(this._.el.search.size).val(b),this._.el.search.$sizeMpx.val(b);var c=this._.el.s…
+VM1367:6  ---  insideInit => (){var a=_.bind(function(a,b){var c=this.imgurInsideNav.getHash(),d=this.imgurInsideNav._.sideGallery.getImage(c);switch(d||(d=this._.image),b){case"download":Imgur.Util.jafoLog({event:"downl…
+VM1367:6  ---  toggleTab => (a){if(!a)return void $(".button-container .btn").removeClass("opened");a.stopPropagation();var b=$(a.currentTarget),c=b.hasClass("opened");$(".opened").removeClass("opened"),c||b.addClass("o…
+VM1367:6  ---  generalInit => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
+VM1367:6  ---  updateShare => (){var a=this._.image;if(a){var b=Imgur.ShareButtons.getInstance();b.bindButtons();var c="http://"+this._.host+this._.baseURL+"/"+this._.hash;c=a.is_album?c.replace("/account/favorites/","/a/…
+VM1367:6  ---  getInsideNav => (){return this.imgurInsideNav}
+VM1367:6  ---  generateReportBox => (a,b,c){this._.signed?$.colorbox({html:'<div id="report-container"></div>',open:!0,top:"10%",transition:"none",scrolling:!1,fixed:!0,width:420,height:402,className:"noBorder",close:"",onCompl…
+VM1367:6  ---  preventCloseAnalytics => (){this._.preventCloseAnalytics=!0}
+VM1367:6  ---  setEmitter => (a){this._.emitter=a}
+VM1367:6  ---  imageLinkTipsy => (){$(".tipsy").remove();var a=$(this),b=a.attr("href");if($("#hzImg").length)return"";if(a.closest(".comment").find("> .children > .comment > .caption").text().match(/nsfw/gi)||a.parent().tex…
+VM1367:6  ---  appendFavoriteBar => (a,b,c){var d=$(_.templates["galleryimage.favoriteBar"]({value:"http:"+b,favorited:c.data.favorited}));$favoriteImage=d.find(".favorite-image");var e=new Imgur.Favorite({$favButton:$favoriteI…
+VM1367:6  ---  bindZeroClipboard => (){var a=new ZeroClipboard.Client;a.glue("copy-clipboard","copy-container"),a.addEventListener("onMouseUp",function(){$copyContainer=$("#copy-container"),$copyContainer.attr("title","copied")…
+VM1367:6  ---  removeFavoriteBar => (){$("#favorite-bar").remove()}
+VM1367:6  ---  initHeaderActions => (){var a=this;try{!this._.isSubdomain&&null!=this._.dropdownPulseTime&&localStorage&&void 0==localStorage[this._.dropdownPulseTime]&&this._.el.dropdown.mainMenu.addClass("pulse")}catch(b){}th…
+VM1367:6  ---  _showBetaInvite => (){Imgur.Environment.beta.inBeta||null!=this._.beta&&this._.beta.showInvite&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaInvite))}
+VM1367:6  ---  _showBetaWelcome => (){Imgur.Environment.beta.inBeta&&(Imgur.Environment.ctaConfig=$.extend(!0,Imgur.Environment.ctaConfig,this._.beta.ctaWelcome))}
+VM1367:6  ---  showBetaBar => (){this._showBetaInvite(),this._showBetaWelcome()}
+VM1367:6  ---  showAnnouncementBar => (a,b){if(!$("#so").length&&!$("#an-msg").length){if(b){if($.cookie(b))return}else if($.cookie("an-msg-closed"))return;var c=$('<div id="an-msg" class="global-message"></div>'),d=$('<a href="j…
+VM1367:6  ---  closeDropdownMenu => (a){if(1!=a.which&&2!=a.which&&3!=a.which&&27!=a.which)return!1;var b=a?$(a.target):null;b.parents(".tag-group-selector-container").length||b.closest("#tags-underbar").length||b.closest("#col…
+VM1367:6  ---  openDropdownMenu => (a,b){return b.hasClass("opened")?void this.closeDropdownMenu(a):($(".opened").removeClass("opened"),b.addClass("opened"),b.hasClass("pulse")&&this.hidePulse(b),Imgur.Upload.Index&&Imgur.Uplo…
+VM1367:6  ---  hidePulse => (a){try{localStorage[this._.dropdownPulseTime]=!0}catch(b){}a.removeClass("pulse")}
+VM1367:6  ---  runPlaceholder => (a){var b="input[type=text][title],input[type=password][title],textarea[title]",c=a||$(b);c.each(function(){$(this).showPlaceholder(),$(this).hasClass("placeholder-onkeydown")?($(this).bind("…
+VM1367:6  ---  hideAds => (){$(".advertisement embed").css("visibility","hidden")}
+VM1367:6  ---  showAds => (){$(".advertisement embed").css("visibility","visible")}
+VM1367:6  ---  signin => (a){if(!this._.mobile){var b=this;return this.hideAds(),$.colorbox({href:"http"+(Imgur.Environment.isDev?"":"s")+"://"+b._.host+"/"+(a?"signin":"register")+"/modal",iframe:!0,fastIframe:!1,wi…
+VM1367:6  ---  vote => (a,b){a.preventDefault();var c=$(a.currentTarget),d=c.parent().children(".up"),e=c.parent().children(".down"),f=c.attr("data"),g=c.attr("type"),h=null,i=0,j=0,k=this._.hash;if(k&&k.length&&"i…
+VM1367:6  ---  displayVoteMessage => (a){if("function"==typeof humanMsg.remove){var b=this;humanMsg.removeMsg(function(){b.showVoteMessage(a)})}else this.showVoteMessage(a)}
+VM1367:6  ---  showVoteMessage => (a){"up"==a?this.showUpvoteMessage():"down"==a&&this.showDownvoteMessage()}
+VM1367:6  ---  showUpvoteMessage => (){humanMsg.displayMsg(this._.messages.upvoted,"action-msg")}
+VM1367:6  ---  showDownvoteMessage => (){humanMsg.displayMsg(this._.messages.downvoted,"action-msg")}
+VM1367:6  ---  getSettings => (){return{host:this._.host,cdnUrl:this._.cdnUrl,signed:this._.signed,auth:this._.auth}}
+VM1367:6  ---  numberFormat => (a,b){a=(""+a).split(".");for(var c=[],d=a[0],e=d.length;e>0;e-=3,d=d.substring(0,e))c.unshift(d.substr(-3));return c+(a[1]?"."+a[1]:"")+(b?" "+(1!==Math.abs(a)?b+"s":b):"")}
+VM1367:6  ---  setHash => (a){this._.hash=a}
+VM1367:6  ---  getPageHash => (){var a=window.location.hash;return a.substring(1)}
+VM1367:6  ---  getLinkCodes => (){return this._.linkCodes}
+VM1367:6  ---  getImageSizes => (){return this._.imageSizes}
+VM1367:6  ---  getExtension => (a){return/[.]/.exec(a)?/[^.]+$/.exec(a):""}
+VM1367:6  ---  setPageHash => (a){"function"==typeof history.replaceState&&history.replaceState(null,a,"#"+a)}
+VM1367:6  ---  setURL => (a){"/"!=a.substr(0,1)&&(a="/"+a),this._.url=a}
+VM1367:6  ---  parseUri => (a){for(var b={strictMode:!1,key:["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],q:{name:"queryKey",parser:/…
+VM1367:6  ---  setHost => (a){this._.host=a}
+VM1367:6  ---  buildMap => (a,b){var c={};for(var d in b){var e=b[d],f=e[a];c[f]=e}return c}
+VM1367:6  ---  previewBeta => (){$.colorbox({href:"/lightboxes/betapreview",iframe:!0,width:"700px",height:"600px",transition:"none",className:"noHeader",fixed:!1,open:!0})}
+VM1367:6  ---  acceptBeta => (){window.location="//"+this._.host+"/beta/enable"}
+VM1367:6  ---  getSearchUrl => (a,b,c){var d="",e=a.sort,f="/search/"+e+"/"+a.window+(b?"/page/"+b:"");return c&&(f+=(Imgur.Environment.signed?"/miss":"/hit")+".json"),a.advSearch&&$.each(a.advSearch,_.bind(function(a,b){"…
+VM1367:3 gotPromoted : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 navToImage : 
+VM1367:5  - Object {this_arg: null}
+VM1367:5  - Object {this_arg: null}
+VM1367:3 displayPromoted : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 promoEvent : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 new suggest query : 
+VM1367:5  - Object {this_arg: null}
+VM1367:5  - Object {this_arg: null}
+VM1367:3 image-tag-box.hide : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 closed dropdown menu : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 image-tag-box.show : 
+VM1367:5  - Object {this_arg: null}
+VM1367:5  - Object {this_arg: d}
+VM1367:6  ---  _ => Object {signed: false, tagImageStore: d, currentImageStore: d, suggestionModel: d, suggestionStore: d…}
+VM1367:6  ---  init => (a,b,c,d,e,f,g,h,i){this._={signed:a,signin:b,tagImageStore:c,currentImageStore:d,suggestionModel:f,suggestionStore:h,alternativesModel:e,tagStore:i,voteModel:g,haveFetched:[]}}
+VM1367:6  ---  handleChangedQuery => (){var a=this._.suggestionStore.getQuery();this._.suggestionStore.setIsLoading(!0),this._.suggestionModel.cancel(),this._.suggestionModel.fetch(a,_.bind(this._handleSuggestResponse,this),_.bi…
+VM1367:6  ---  _handleSuggestResponse => (a,b){this._.suggestionStore.setSuggestions(b);for(var c=0;c<b.length;c++)this._.tagStore.addTag(b[c]);this._.suggestionStore.setIsLoading(!1),this._.suggestionStore.setLastFinishedQuery(a)}
+VM1367:6  ---  _handleSuggestError => (a){this._.suggestionStore.setIsLoading(!1),this._.suggestionStore.setLastFinishedQuery(a)}
+VM1367:6  ---  handleUpdateTagBox => (){var a=this._.currentImageStore.getCurrentImageId();this._.suggestionStore.setValidationMode("query"),this._.suggestionStore.setQuery(""),-1==this._.haveFetched.indexOf(a)&&(this._.alternat…
+VM1367:6  ---  handleVote => (a,b,c,d){this._.signed?this._.voteModel.changeVote(a,b,c,d,_.bind(this._handleVoteFail,this,a,b,c)):this._.signin()}
+VM1367:6  ---  _handleVoteFail => (a,b,c,d){if("success"!=d){this._.tagImageStore.setAjaxError(a,d);var e=this._.tagImageStore.getTag(a,b);e&&e.source==Imgur.Tag.Store.TagImage.prototype.SOURCE.USER&&this._.tagImageStore.remo…
+VM1367:6  ---  handleDeleteTag => (a,b){this._.signed&&(this._.voteModel.deleteTag(a,b),this._.tagImageStore.removeTagFromPost(a,b))}
+VM1367:6  ---  handleReportTag => (a,b){this._.signed&&this._.voteModel.reportTag(a,b,_.noop,_.noop)}
+VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+VM1367:3 image tag updated : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 tag updated : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 tag added to post : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 ajax error added to post : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 tag removed from post : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 ajax error removed from post : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 ajax tag loading finished : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 new finished query : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 new suggest validation mode : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 new suggestions : 
+VM1367:5  - Object {this_arg: null}
+VM1367:3 current image updated : 
+VM1367:5  - Object {this_arg: null}
+Object {command.location: Array[1], command.refresh: Array[1], keyboardNav: Array[1], buttonNav: Array[1], beforeComments: Array[1]…}
