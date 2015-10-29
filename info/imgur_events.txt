@@ -19,6 +19,7 @@ buttonNav :
  - Object { f: function (), this_arg: Object }
  
 // No clue. NOT fired before comments. Maybe at page load once ?
+// Looks like it is fired before writing an comment
 beforeComments : 
  - Object { f: Imgur.Linkify.OpGrabber<.handleImageChange(), this_arg: Object }
  
@@ -278,6 +279,7 @@ VM1367:6  ---  scan => (a){var b=null,c=[];if(!this._.currentOp)return c;for(;nu
 VM1367:6  ---  handleImageChange => (a){this._.currentOp=a&&a.account_url?a.account_url:null}
 VM1367:6  ---  grab => (a){return{href:"/user/"+this._.currentOp,text:a}}
 VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)}
+
 VM1367:3 select : 
 VM1367:5  - Object {this_arg: d}
 VM1367:6  ---  _ => Object {currentOp: "alcesalcesg"}
@@ -290,8 +292,7 @@ VM1367:6  ---  constructor => d(){!a&&this.init&&this.init.apply(this,arguments)
 VM1367:5  - Object {this_arg: d}
 VM1367:6  ---  _ => Object {hash: "HimEFdu", pendingRef: null, abortedHash: "HimEFdu"}
 VM1367:6  ---  init => (a){this._={hash:a,pendingRef:null}}
-VM1367:6  ---  handleUpdatedImage => (a){this._.abortedHash=this._.hash,this._.hash=a.hash
-}
+VM1367:6  ---  handleUpdatedImage => (a){this._.abortedHash=this._.hash,this._.hash=a.hash}
 VM1367:6  ---  canView => (){return!1}
 VM1367:6  ---  canHover => (a){return!!a.match(/#\d+/)}
 VM1367:6  ---  hoverover => (a,b,c){if(b.match(/#\d+/)){var d=b.replace("#",""),e=this._.hash,f=$.ajax({url:"/gallery/action/image/"+e,type:"GET",data:{order:d},success:_.bind(function(a){this._.abortedHash!==e&&a.data&…
@@ -309,8 +310,7 @@ VM1367:6  ---  updateShare => (){if(!this.hasImage())return void imcon.warn("Can
 VM1367:6  ---  hasImage => (a){return a=a||this._.hash,a==this._.image.hash?!0:null!=this._.sideGallery.getImage(a)}
 VM1367:6  ---  getImage => (a){return a=a||this._.hash,null==this._.sideGallery?this._.image:this.hasImage(a)?this._.sideGallery.getImage(a):null}
 VM1367:6  ---  getCurrentImage => (){return this._.sideGallery.getImage(this.getHash())}
-VM1367:6  ---  checkFetchQueue => (){if(0!==this._.fetchQueue.length){var a=this._.fetchQueue.shift();
-a&&a()}}
+VM1367:6  ---  checkFetchQueue => (){if(0!==this._.fetchQueue.length){var a=this._.fetchQueue.shift(); a&&a()}}
 VM1367:6  ---  disableCache => (){var a=this._.captionsCacheTime,b=new Date;b.setTime(b.getTime()+1e3*a),$.cookie(this._.captionsCacheCookie,"true",{expires:b,path:"/"}),window.setTimeout(this.enableCache.bind(this),1e3*a)…
 VM1367:6  ---  enableCache => (){"new"!=this._.section&&$.cookie(this._.captionsCacheCookie,null,{path:"/"})}
 VM1367:6  ---  generalInit => (){var c=this._super;this._super=e[a];var d=b.apply(this,arguments);return this._super=c,d}
@@ -442,10 +442,13 @@ VM1367:5  - Object {this_arg: null}
 VM1367:5  - Object {this_arg: null}
 VM1367:5  - Object {this_arg: null}
 VM1367:5  - Object {this_arg: null}
+
 VM1367:3 imageRendered : 
 VM1367:5  - Object {this_arg: null}
+
 VM1367:3 reset : 
 VM1367:5  - Object {this_arg: null}
+
 VM1367:3 firstImage : 
 VM1367:5  - Object {this_arg: d}
 VM1367:6  ---  _super => undefined
@@ -566,6 +569,7 @@ VM1367:6  ---  buildMap =>
 VM1367:6  ---  previewBeta => 
 VM1367:6  ---  acceptBeta => 
 VM1367:6  ---  getSearchUrl => 
+
 VM1367:3 lastImage : 
 VM1367:5  - Object {this_arg: d}
 VM1367:6  ---  _super => undefined
