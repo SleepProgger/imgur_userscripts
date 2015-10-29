@@ -1,7 +1,7 @@
+$.each(imgur._.emitter.callbacks, function(k, v){ console.log(k + ' => ', v) })
 on /gallery:
   select =>  Array [ Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, 6 more… ]
     - Not clue what exactly, but it get fired when navigated to the next post.
-  
   command.location =>  Array [ Object ]
   command.refresh =>  Array [ Object ]
   keyboardNav =>  Array [ Object ]
