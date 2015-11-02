@@ -12,12 +12,12 @@ imgur._.emitter.callbacks['keyboardNav'][0].this_arg
   - imgur._.emitter.callbacks['keyboardNav'][0].state
   
   
-  // Bunch of cool stuff like getting image/comments in here:
-  Imgur.InsideNav._instance
-    // all captions
-    - Imgur.InsideNav._instance._.captionInstance._.captions.Ym5fw.set
-    // find all captions by filter
-    Imgur.InsideNav._instance._.captionInstance.getCaptionIdsByFilter('nC3xcA3', function(a){return a.author_id==14030205})
+// Bunch of cool stuff like getting image/comments in here:
+Imgur.InsideNav._instance
+  // all captions
+  - Imgur.InsideNav._instance._.captionInstance._.captions.Ym5fw.set
+  // find all captions by filter
+  Imgur.InsideNav._instance._.captionInstance.getCaptionIdsByFilter('nC3xcA3', function(a){return a.author_id==14030205})
     
     
   If found no event where i can manipulate the comments before the get displayed (Bet there are events on the correct place in the site flow though).
