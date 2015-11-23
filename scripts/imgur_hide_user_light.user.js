@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        ImgurHideUser
+// @name        imgur_hide_user_light
 // @namespace   imgur_stuff
 // @include     https://imgur.com/account/*
 // @include     http://imgur.com/account/*
