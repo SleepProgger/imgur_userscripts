@@ -1,5 +1,6 @@
 // No clue what this is for an object, but interesting stuff for navigation in there:
 imgur._.emitter.callbacks['keyboardNav'][0].this_arg
+Seem to be Imgur.InsideNav._instance._.sideGallery
   // navigates to post
   - imgur._.emitter.callbacks['keyboardNav'][0].this_arg.selectImage('nC3xcA3')
   // get image info
@@ -10,6 +11,8 @@ imgur._.emitter.callbacks['keyboardNav'][0].this_arg
   - imgur._.emitter.callbacks['keyboardNav'][0].scrollToHash('hash')
   // Contains all cached post data ? Use .refs for post hash to post object
   - imgur._.emitter.callbacks['keyboardNav'][0].state
+  // The next (all?) posts: 
+  - Imgur.InsideNav._instance._.sideGallery.state
   
   
 // Bunch of cool stuff like getting image/comments in here:
