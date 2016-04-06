@@ -33,7 +33,7 @@ $( window ).ready(function() {
 								 '<tr><td style="color: #2B2B2B; font-size: 0.7em;" colspan="2" align="center" id="stats_credits_script"> - </td></tr>'+
 								 '</table>');
 		newBox.append(tble);
-		newBox.insertBefore( $('.icons').filter('.textbox') );
+		newBox.insertBefore( $('.notoriety-container').parent() );
 				
 		
 
