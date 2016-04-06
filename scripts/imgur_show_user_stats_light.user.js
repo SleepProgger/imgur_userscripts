@@ -28,12 +28,12 @@ $( window ).ready(function() {
 								 '<tr><td>Albums</td><td align="right"><a href="http://'+username+'.imgur.com" id="stats_albums"> - </a></td></tr>'+
 								 '<tr><td>Images</td><td align="right"><a href="http://'+username+'.imgur.com/all" id="stats_images"> - </a></td></tr>'+
 								 '<tr><td>Favorites</td><td align="right"><a href="http://imgur.com/user/'+username+'/favorites" id="stats_favorites"> - </a></td></tr>'+
-								 '<tr><td colspan="2" align="center"><a href="http://community.imgur.com/users/'+username+'"><img src="'+IC_LOGO+'" width="50%" /></a></td></tr>'+
+								 '<tr><td colspan="2" align="center"><a href="http://community.imgur.com/users/'+username+'">IC profile</a></td></tr>'+
 								 '<tr><td style="color: #2B2B2B; font-size: 0.7em;" colspan="2" align="center" id="stats_credits_user"> - </td></tr>'+
 								 '<tr><td style="color: #2B2B2B; font-size: 0.7em;" colspan="2" align="center" id="stats_credits_script"> - </td></tr>'+
 								 '</table>');
 		newBox.append(tble);
-		newBox.insertBefore( $('.notoriety-container').parent() );
+		newBox.insertBefore( $('.notoriety-container') );
 				
 		
 
