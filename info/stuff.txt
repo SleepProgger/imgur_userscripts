@@ -14,6 +14,9 @@ Seem to be Imgur.InsideNav._instance._.sideGallery
   // The next (all?) posts: 
   - Imgur.InsideNav._instance._.sideGallery.state
   
+  // All images from the current album
+  Imgur.InsideNav._instance._.albumImageStore._.posts[Imgur.InsideNav._instance._.hash]
+  
   
 // Bunch of cool stuff like getting image/comments in here:
 Imgur.InsideNav._instance
@@ -23,6 +26,6 @@ Imgur.InsideNav._instance
   Imgur.InsideNav._instance._.captionInstance.getCaptionIdsByFilter('nC3xcA3', function(a){return a.author_id==14030205})
     
     
-  If found no event where i can manipulate the comments before the get displayed (Bet there are events on the correct place in the site flow though).
+  I found no event where i can manipulate the comments before the get displayed (Bet there are events on the correct place in the site flow though).
   So lets just hook the processCaptions method, because why not.
   - window._pcaptions = Imgur.InsideNav._instance.processCaptions; Imgur.InsideNav._instance.processCaptions = function(){console.log('process captions', this); window._pcaptions.call(Imgur.InsideNav._instance)}
