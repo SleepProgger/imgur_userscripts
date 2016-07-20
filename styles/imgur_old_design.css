@@ -1,0 +1,112 @@
+@namespace url(http://www.w3.org/1999/xhtml);
+
+@-moz-document regexp("https?://((?!community)[a-z]*).?imgur.com.*"){
+  /* Global stuff */
+  body{
+    background-color: #121211; 
+    font-family: Arial,sans-serif;
+    font-size: 14px;
+    color: #ddddd1;
+  }
+  #topbar{
+   background-color: #2b2b2b;
+  }
+  .panel{
+    background-color: #2b2b2b;
+  }
+  /* TODO: investigate if this breaks something.
+  input[type="text"], input[type="password"], input[type="email"], textarea{
+    background-color: #1c1c1c !important;
+  }
+  */
+
+  /* Posts */
+  .post-header{
+    background-color: rgba(38,38,38,.9);
+  }
+  .post-title{
+    font-size: 16px;
+    font-family: open_sansbold,sans-serif;
+    font-weight: bold; /* TODO: 400 in original. Why not bold ? */
+    color: #f2f2f2;
+  }
+  .post-container, .new-panel, .new-panel-header, .layout-options{
+    background-color: #2B2B2B !important;
+  }
+  .post-image-description, .post-image-meta, .post-action{
+    background-color: #2E2E2E;
+  }
+  .post-image{
+    background-color: #181817;
+  }
+  form.caption-create{
+    background-color: #1c1c1c !important;
+    border: none;
+  }
+
+  /* Comments */
+  #comments-container{
+    background-color: #2B2B2B;
+    width: 640px;
+    padding: 20px;    
+  }
+  .caption{
+   margin-bottom: 5px; 
+  }
+  #captions .usertext{
+    background-color: #181817;
+  }
+  /* Remove the strange gradient thing*/
+  .caption-gradient-wrapper{
+    display: none;
+  }
+  /* We need this because we removed the gradient */
+  .bad-captions{
+    margin-top: 0;
+  }
+  .bad-captions > .link{
+    margin: 3px 0 14px 15px;    
+  }
+  /*
+  Move the open replies button to the left.
+  We are missing the reply count now though. TODO: find a solution
+  */
+  .comment-reply-count{
+    top: -20px;
+    left: -50px;
+    margin: 0px;
+  }
+  .comment-reply-count-text{ display: none; }
+  .comment-votes{
+    left: -45px;
+    opacity: 1;
+  }
+  #captions.root-caption-container > .children{
+    padding-left:40px;
+  }
+  /* Show reply button at all times */
+  .comment-create-reply {
+    background: #181817;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #3E3E3E;
+  }
+  .comment-create-reply:hover {
+    color: inherit;
+  }
+
+
+  /* Minimize "write comment" area when not focused */
+  #captions > .caption-create{
+    height: auto;
+    padding: 0px;
+  }
+  #captions > .caption-create textarea{ height: 23px;}
+  #captions > .caption-create{ padding: 3px 0px 3px 10px; }
+  #captions > .caption-create textarea:focus + .summary{ display: block; }
+  #captions > .caption-create .summary{ display: none; }
+  #captions > .caption-create .summary:hover{ display: block; }  
+  /* Why is this even there ? In case you forget your username ? */
+  #captions > .caption-create .caption-create-username{ display: none; }  
+}
