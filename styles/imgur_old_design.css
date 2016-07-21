@@ -55,6 +55,7 @@
   }
   #captions .usertext{
     background-color: #181817;
+    border-radius: 6px !important;
   }
   /* Remove the strange gradient thing*/
   .caption-gradient-wrapper{
@@ -67,21 +68,34 @@
   .bad-captions > .link{
     margin: 3px 0 14px 15px;    
   }
+  /* Remove that bubble blib thingy */
+  #captions .comment[data-level]>.caption .usertext:before,
+  #captions .comment>.caption .usertext:before{
+    display: none;
+  }
   /*
   Move the open replies button to the left.
   We are missing the reply count now though. TODO: find a solution
   */
-  .comment-reply-count{
-    top: -20px;
-    left: -50px;
-    margin: 0px;
+  .comment-reply-count,
+  .load-more{
+   position: absolute;
+   left: -66px;
+   top: 19.5px;
   }
+  /* For now we just don't show it at all on the replies page */
+  .caption.unvotable .comment-reply-count{
+    display: none !important;
+  }
+  
   .comment-reply-count-text{ display: none; }
   .comment-votes{
     left: -45px;
     opacity: 1;
   }
-  #captions.root-caption-container > .children{
+  #captions.root-caption-container > .children,
+  #captions > .comment
+  {
     padding-left:40px;
   }
   /* Show reply button at all times */
