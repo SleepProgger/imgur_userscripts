@@ -53,6 +53,9 @@
   .caption{
    margin-bottom: 5px; 
   }
+  .children form.caption-create{
+    margin: 5px 0 0 0px;
+  }
   #captions .usertext{
     background-color: #181817;
     border-radius: 6px !important;
@@ -70,7 +73,8 @@
   }
   /* Remove that bubble blib thingy */
   #captions .comment[data-level]>.caption .usertext:before,
-  #captions .comment>.caption .usertext:before{
+  #captions .comment>.caption .usertext:before,
+  form.caption-create:before{
     display: none;
   }
   /*
