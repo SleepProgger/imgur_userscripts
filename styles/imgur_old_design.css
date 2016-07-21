@@ -43,13 +43,21 @@
     background-color: #1c1c1c !important;
     border: none;
   }
+  .js-post-truncated{
+    background-color: #2E2E2E;
+    margin-top: 0;
+  }
 
   /* Comments */
   #comments-container{
-    background-color: #2B2B2B;
+    background-color: #2E2E2E;
     width: 640px;
     padding: 20px;    
   }
+  #comments-container::before{
+    background-color: inherit;
+  }
+  
   .caption{
    margin-bottom: 5px; 
   }
@@ -81,8 +89,8 @@
   Move the open replies button to the left.
   We are missing the reply count now though. TODO: find a solution
   */
-  .comment-reply-count,
-  .load-more{
+  .comment-reply-count
+  {
    position: absolute;
    left: -66px;
    top: 19.5px;
