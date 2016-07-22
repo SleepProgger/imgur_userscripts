@@ -1,18 +1,18 @@
 @namespace url(http://www.w3.org/1999/xhtml);
 
-@-moz-document regexp("https?://((?!community)[a-z]*).?imgur.com.*"){
+@-moz-document regexp("https?://((?!community)[a-z]*).?imgur.com((?!\/adm).*).*"){
   /* Global stuff */
   body{
-    background-color: #121211; 
-    font-family: Arial,sans-serif;
-    font-size: 14px;
-    color: #ddddd1;
+    background-color: #121211 !important; 
+    font-family: Arial,sans-serif !important;
+    font-size: 14px !important;
+    color: #ddddd1 !important;
   }
   #topbar{
-   background-color: #2b2b2b;
+   background-color: #2b2b2b !important;
   }
   .panel{
-    background-color: #2b2b2b;
+    background-color: #2b2b2b !important;
   }
   /* TODO: investigate if this breaks something.
   input[type="text"], input[type="password"], input[type="email"], textarea{
@@ -22,68 +22,68 @@
 
   /* Posts */
   .post-header{
-    background-color: rgba(38,38,38,.9);
+    background-color: rgba(38,38,38,.9) !important;
   }
   .post-title{
     font-size: 16px;
-    font-family: open_sansbold,sans-serif;
-    font-weight: bold; /* TODO: 400 in original. Why not bold ? */
-    color: #f2f2f2;
+    font-family: open_sansbold,sans-serif !important;
+    font-weight: bold !important; /* TODO: 400 in original. Why not bold ? */
+    color: #f2f2f2 !important;
   }
   .post-container, .new-panel, .new-panel-header, .layout-options{
     background-color: #2B2B2B !important;
   }
   .post-image-description, .post-image-meta, .post-action{
-    background-color: #2E2E2E;
+    background-color: #2E2E2E !important;
   }
   .post-image{
-    background-color: #181817;
+    background-color: #181817 !important;
   }
   form.caption-create{
     background-color: #1c1c1c !important;
-    border: none;
+    border: none !important;
   }
   .js-post-truncated{
-    background-color: #2E2E2E;
-    margin-top: 0;
+    background-color: #2E2E2E !important;
+    margin-top: 0 !important;
   }
 
   /* Comments */
   #comments-container{
-    background-color: #2E2E2E;
-    width: 640px;
-    padding: 20px;    
+    background-color: #2E2E2E !important;
+    width: 640px !important;
+    padding: 20px !important;    
   }
   #comments-container::before{
-    background-color: inherit;
+    background-color: inherit !important;
   }
   
   .caption{
-   margin-bottom: 5px; 
+   margin-bottom: 5px !important; 
   }
   .children form.caption-create{
-    margin: 5px 0 0 0px;
+    margin: 5px 0 0 0px !important;
   }
   #captions .usertext{
-    background-color: #181817;
+    background-color: #181817 !important;
     border-radius: 6px !important;
   }
   /* Remove the strange gradient thing*/
   .caption-gradient-wrapper{
-    display: none;
+    display: none !important;
   }
   /* We need this because we removed the gradient */
   .bad-captions{
-    margin-top: 0;
+    margin-top: 0 !important;
   }
   .bad-captions > .link{
-    margin: 3px 0 14px 15px;    
+    margin: 3px 0 14px 15px !important;    
   }
   /* Remove that bubble blib thingy */
   #captions .comment[data-level]>.caption .usertext:before,
   #captions .comment>.caption .usertext:before,
   form.caption-create:before{
-    display: none;
+    display: none !important;
   }
   /*
   Move the open replies button to the left.
@@ -91,48 +91,48 @@
   */
   .comment-reply-count
   {
-   position: absolute;
-   left: -66px;
-   top: 19.5px;
+   position: absolute !important;
+   left: -66px !important;
+   top: 19.5px !important;
   }
   /* For now we just don't show it at all on the replies page */
   .caption.unvotable .comment-reply-count{
     display: none !important;
   }
   
-  .comment-reply-count-text{ display: none; }
+  .comment-reply-count-text{ display: none !important; }
   .comment-votes{
-    left: -45px;
-    opacity: 1;
+    left: -45px !important;
+    opacity: 1 !important;
   }
   #captions.root-caption-container > .children,
   #captions > .comment
   {
-    padding-left:40px;
+    padding-left:40px !important;
   }
   /* Show reply button at all times */
   .comment-create-reply {
-    background: #181817;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #3E3E3E;
+    background: #181817 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    color: #3E3E3E !important;
   }
   .comment-create-reply:hover {
-    color: inherit;
+    color: inherit !important;
   }
 
 
   /* Minimize "write comment" area when not focused */
   #captions > .caption-create{
-    height: auto;
-    padding: 0px;
+    height: auto !important;
+    padding: 0px !important;
   }
-  #captions > .caption-create textarea{ height: 23px;}
-  #captions > .caption-create{ padding: 3px 0px 3px 10px; }
-  #captions > .caption-create textarea:focus + .summary{ display: block; }
-  #captions > .caption-create .summary{ display: none; }
-  #captions > .caption-create .summary:hover{ display: block; }  
+  #captions > .caption-create textarea{ height: 23px !important;}
+  #captions > .caption-create{ padding: 3px 0px 3px 10px !important; }
+  #captions > .caption-create textarea:focus + .summary{ display: block !important; }
+  #captions > .caption-create .summary{ display: none !important; }
+  #captions > .caption-create .summary:hover{ display: block !important; }  
   /* Why is this even there ? In case you forget your username ? */
-  #captions > .caption-create .caption-create-username{ display: none; }  
+  #captions > .caption-create .caption-create-username{ display: none !important; }  
 }
