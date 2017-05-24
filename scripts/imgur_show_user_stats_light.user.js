@@ -3,8 +3,9 @@
 // @namespace   someName
 // @include     http://imgur.com/user/*
 // @include     https://imgur.com/user/*
-// @version     0.3.0
+// @version     0.3.3
 // @grant       none
+// @description Show user statistics on imgur
 // ==/UserScript==
 // TODO: Catch errors and check result.success
 // TODO: Think about useable version numbers...
@@ -63,6 +64,8 @@ $(window).ready(function () {
     '<tr class="_extended"><td>Last activity</td><td align="right" id="stats_last_active"></td></tr>' +
     '<tr class="_extended"><td>AVG post points</td><td align="right" id="stats_score"></td></tr>' +
     '<tr class="_extended"><td>AVG post views</td><td align="right" id="stats_views"></td></tr>' +
+    '<tr class="_extended"><td>Most viral posts </td><td align="right" id="stats_most_viral"></td></tr>' +
+    '<tr class="_extended"><td>NSFW posts </td><td align="right" id="stats_nsfw"></td></tr>' +
     '<tr class="_extended"><td>Top tags</td><td align="right" id="stats_toptags"></td></tr>' +
     '<tr><td colspan="2"><hr></td></tr>'+
     '<tr><td colspan="2" align="center"><a href="http://community.imgur.com/users/' + username + '">IC profile</a></td></tr>' +             
@@ -139,7 +142,7 @@ $(window).ready(function () {
             if(_sub_site+1 == MAX_SUB_PAGES){
               var a = $('<span style="color:yellow; font-weight: bold; padding: 0 5px 0 5px;">!</span>');
               a.attr('title', 'Only the last '+ _submissions.length +' submissions are considered.');
-              $('#stats_score, #stats_views, #stats_toptags').parent().children('td:nth-child(1)').append(a);
+              $('#stats_score, #stats_views, #stats_toptags, #stats_nsfw, #stats_most_viral').parent().children('td:nth-child(1)').append(a);
             }else{
               _last_sub_id = result.data[0].id;
               _sub_site += 1;
@@ -156,6 +159,8 @@ $(window).ready(function () {
             calc_score();
             collect_tags();
             get_last_comment();
+            calc_most_viral();
+            calc_nsfw();
           }
         }, function (a, b, c) {
           console.log('Failed to load', a, b, c);
@@ -201,6 +206,31 @@ $(window).ready(function () {
       a.text( round(point_sum / points.length).toLocaleString());
       a.attr('title', 'Upvotes avg: ' + round(ups).toLocaleString() + ". Downvotes avg: " + round(downs).toLocaleString() + ".");
       $('#stats_score').append(a).closest('td').children().show().filter('img').remove();
+    }
+    
+    function calc_most_viral(){
+      var virals = _get_field(_submissions ,'in_most_viral');
+      var _sum = virals.sum();
+      if(virals.length > 0){
+        val = Math.round((100.0 / virals.length) * _sum);
+      }
+      var a = $('<span></span>');
+      a.text( val + "%" );
+      a.attr('title', _sum + " / " + virals.length + " posts");
+      $('#stats_most_viral').append(a).closest('td').children().show().filter('img').remove();
+    }
+    
+    function calc_nsfw(){
+      var nsfws = _get_field(_submissions ,'nsfw');
+      var _sum = nsfws.sum();
+      var val = 0;
+      if(nsfws.length > 0){
+        val = Math.round((100.0 / nsfws.length) * _sum);
+      }
+      var a = $('<span></span>');
+      a.text( val + "%" );
+      a.attr('title', _sum + " / " + nsfws.length + " posts");
+      $('#stats_nsfw').append(a).closest('td').children().show().filter('img').remove();
     }
     
     function collect_tags(){
