@@ -3,7 +3,7 @@
 // @namespace   someName
 // @include     http://imgur.com/user/*
 // @include     https://imgur.com/user/*
-// @version     0.3.3
+// @version     0.3.4
 // @grant       none
 // @description Show user statistics on imgur
 // ==/UserScript==
@@ -95,6 +95,7 @@ $(window).ready(function () {
         $('#stats_submissions').html(result.data.total_gallery_submissions.toLocaleString()).closest('td').children().show().filter('img').remove();
         $('#stats_favorites').html(result.data.total_gallery_favorites.toLocaleString()).closest('td').children().show().filter('img').remove();
         _submissions_left = result.data.total_gallery_submissions;
+        if(_submissions_left == 0) $('#_btn_extend, #_stats_table hr:nth(1)').hide()
       }, function (a, b, c) {
         console.log('Failed to load', a, b, c);
         $('#stats_comments, #stats_submissions, #stats_favorites').text('Failed to load').closest('td').children().show().filter('img').remove();
@@ -131,7 +132,9 @@ $(window).ready(function () {
     
     
     function get_submissions() {
-      if(_submissions_left <= 0) return;
+      if(_submissions_left <= 0){
+        return; 
+      }
       console.log("Requesting submission page #" + _sub_site);
       
       request_user_info('submissions/' + _sub_site, function (result, status, request) {
