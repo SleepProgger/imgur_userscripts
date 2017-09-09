@@ -3,15 +3,13 @@
 // @namespace   someName
 // @include     http://imgur.com/user/*
 // @include     https://imgur.com/user/*
-// @version     0.3.4
+// @version     0.3.6
 // @grant       none
 // @description Show user statistics on imgur
 // ==/UserScript==
 // TODO: Catch errors and check result.success
 // TODO: Think about useable version numbers...
 // TODO: Add support for username.imgur.com style urls
-// TODO: Is there a way to request http://community.imgur.com/users/'+username+'.json without CORS problems ?
-//       We could use greasemonkey ajax call, but that wouldn't work with bookmarklets and every other browser (i guess)
 // TODO: Show errors and handle no credits remaining ?
 
 $(window).ready(function () {
@@ -51,6 +49,7 @@ $(window).ready(function () {
     var username = window.location.pathname.split('/', 3) [2]; // TODO: look for a more stable way (is there an imgur js var maybe ?)
     var newBox = $('<div id="statsBox" class="textbox"></div>');
     var tble = $('<table id="_stats_table" width="100%">' +
+    '<tr><td colspan="2" align="center" style="display:none; color:#cf3131; font-weight:bold;" id="stats_is_mod">Moderator</td></tr>' +
     '<tr><td colspan="2"><hr></td></tr>'+
     '<tr><td>Account creation</td><td align="right"><span id="stats_created"> - </span></td></tr>' +
     '<tr><td>Comments</td><td align="right"><a href="http://imgur.com/user/' + username + '/" id="stats_comments"> - </a></td></tr>' +
@@ -91,9 +90,9 @@ $(window).ready(function () {
     
     // get coments / submission stats
     request_user_info('gallery_profile', function (result, status, request) {
-        $('#stats_comments').html(result.data.total_gallery_comments.toLocaleString()).closest('td').children().show().filter('img').remove();
-        $('#stats_submissions').html(result.data.total_gallery_submissions.toLocaleString()).closest('td').children().show().filter('img').remove();
-        $('#stats_favorites').html(result.data.total_gallery_favorites.toLocaleString()).closest('td').children().show().filter('img').remove();
+        $('#stats_comments').text(result.data.total_gallery_comments.toLocaleString()).closest('td').children().show().filter('img').remove();
+        $('#stats_submissions').text(result.data.total_gallery_submissions.toLocaleString()).closest('td').children().show().filter('img').remove();
+        $('#stats_favorites').text(result.data.total_gallery_favorites.toLocaleString()).closest('td').children().show().filter('img').remove();
         _submissions_left = result.data.total_gallery_submissions;
         if(_submissions_left == 0) $('#_btn_extend, #_stats_table hr:nth(1)').hide()
       }, function (a, b, c) {
@@ -104,7 +103,29 @@ $(window).ready(function () {
     
     // get the exact (*) join date. TODO: I bet i messed up the time(zones) here.
     request_user_info('', function (result, status, request) {
-        $('#stats_created').html(new Date(result.data.created * 1000).toLocaleDateString()).closest('td').children().show().filter('img').remove();
+        var date = new Date(result.data.created * 1000);
+        var cake = new Date(result.data.created * 1000);
+        var now = new Date();
+        cake.setFullYear(now.getFullYear());
+        if(cake < now){
+          cake.setFullYear(cake.getFullYear() + 1);
+        }
+        var dist = cake - now;
+        var foo = [[1000*60*60*24, 'day'], [1000*60*60, 'hour'], [1000*60, 'minute'], [1000, 'second']];
+        var till_str = "";
+        for(var i=0; i< foo.length; ++i){
+          var val = Math.floor(dist / foo[i][0]);
+          dist -= val * foo[i][0];
+          if(val == 0 && till_str.length == 0)
+            continue;
+          till_str += val + " " + foo[i][1];
+          if(val > 1) till_str += "s";
+          till_str += " ";
+        }
+        $('#stats_created').text(date.toLocaleDateString()).attr('title', date.toLocaleString() + "\n" + "In: " + till_str).closest('td').children().show().filter('img').remove();
+        if(result.data.pro_expiration != false){
+          $('#stats_is_mod').show();  
+        }
       }, function (a, b, c) {
         console.log('Failed to load', a, b, c);
         $('#stats_created').text('Failed to load').closest('td').children().show().filter('img').remove();
@@ -113,19 +134,19 @@ $(window).ready(function () {
     
     // album count (inklusive not submitted to gallery), if album settings are set to public.
     request_user_info('albums/count', function (result, status, request) {
-        $('#stats_albums').html(result.data.toLocaleString()).closest('td').children().show().filter('img').remove();
+        $('#stats_albums').text(result.data.toLocaleString()).closest('td').children().show().filter('img').remove();
       }, function (a, b, c) {
         console.log('Failed to load', a, b, c);
-        $('#stats_albums').html('private').closest('td').children().show().filter('img').remove();
+        $('#stats_albums').text('private').closest('td').children().show().filter('img').remove();
       }
     );
     
     // image count (inklusive not submitted to gallery), if image settings are set to public.
     request_user_info('images/count', function (result, status, request) {
-        $('#stats_images').html(result.data.toLocaleString()).closest('td').children().show().filter('img').remove();
+        $('#stats_images').text(result.data.toLocaleString()).closest('td').children().show().filter('img').remove();
       }, function (a, b, c) {
         console.log('Failed to load', a, b, c);
-        $('#stats_images').html('private').closest('td').children().show().filter('img').remove();
+        $('#stats_images').text('private').closest('td').children().show().filter('img').remove();
       }
     );
     
