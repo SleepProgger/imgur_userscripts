@@ -3,15 +3,15 @@
 // @namespace   someName
 // @include     https://community.imgur.com/*
 // @version     0.5a
-// @grant       none
+// @grant       GM_addStyle
 // ==/UserScript==
 /*
 * Patch for GM_getValue and GM_SetValue support for chrome
 * credits to: www.devign.me/greasemonkey-gm_getvaluegm_setvalue-functions-for-google-chrome/
 */
 var run_script = false;
-
-window.onload = (function(){
+GM_addStyle("@keyframes nodeInserted{from{outline-color:#fff}to{outline-color:#000}}@-moz-keyframes nodeInserted{from{outline-color:#fff}to{outline-color:#000}}@-webkit-keyframes nodeInserted{from{outline-color:#fff}to{outline-color:#000}}@-ms-keyframes nodeInserted{from{outline-color:#fff}to{outline-color:#000}}@-o-keyframes nodeInserted{from{outline-color:#fff}to{outline-color:#000}}#article,.article,article{animation-duration:0.01s;-o-animation-duration:0.01s;-ms-animation-duration:0.01s;-moz-animation-duration:0.01s;-webkit-animation-duration:0.01s;animation-name:nodeInserted;-o-animation-name:nodeInserted;-ms-animation-name:nodeInserted;-moz-animation-name:nodeInserted;-webkit-animation-name:nodeInserted}");
+$(document).ready(function(){
     if (window.location.href.indexOf("/t/") > 0) {
         run_script = true;
         MakeMagic();
@@ -30,12 +30,20 @@ if (!this.GM_getValue || (this.GM_getValue.toString && this.GM_getValue.toString
     };
 }
 
-var GR_COOKIE_NAME = 'discourse_mutefile';
+var GR_COOKIE_NAME = 'imgur_community_mute';
 var hide_ids = $.parseJSON(GM_getValue(GR_COOKIE_NAME, '{}'));
 
-document.addEventListener("wheel", function(event) { 
-    setTimeout(RecastSpell, 1000);
-});
+(function(){
+    event = function(event){
+        if (event.animationName == 'nodeInserted') {
+            RecastSpell();
+        }
+    }
+        
+document.addEventListener('animationstart', event, false);
+document.addEventListener('MSAnimationStart', event, false);
+document.addEventListener('webkitAnimationStart', event, false);
+})();
 
 function RecastSpell(){
     if (run_script == true) {
@@ -52,7 +60,8 @@ function MakeMagic(){
 		    //var name = $(node).find('.names').text;
 		    var confirmString = "Really mute " + name + "?";  
 		    if (confirm(confirmString) == true) {
-                        this.innerHTML = "Unmute;"
+                serveJustice();
+                this.innerHTML = "Unmute;"
 			$(node).find('.contents').hide();
 			$(node).find('.names').hide();
 			$(node).find('.avatar').hide();
@@ -61,8 +70,17 @@ function MakeMagic(){
 			hide_ids[tid] = 1;
 			GM_setValue(GR_COOKIE_NAME, JSON.stringify(hide_ids));
 			$('[data-user-id="'+tid+'"]').find('.mute_btn').remove();
-			$('[data-user-id="'+tid+'"]').each(function(){ handle_post_node(this) });          
+			$('[data-user-id="'+tid+'"]').each(function(){ handle_post_node(this) });
+		        setTimeout(endAnimation, 3000);            
 		    }
+		}
+
+		function serveJustice() {
+		    var overlay = jQuery('<div id="overlay" class="overlay"> </div>');
+            overlay.appendTo(document.body);
+		}
+		function endAnimation(){
+		 	$( ".overlay" ).remove();
 		}
 		function umute_foo(){
 		    var confirmString = "Unmute " + name + "?";  
@@ -85,12 +103,12 @@ function MakeMagic(){
 			$(node).find('.avatar').hide();
 			if($(node).find('.umute_btn').length > 0) return;
 			var btn = $('<button class="umute_btn" title="Unmute this user." style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden; outline:none; margin-left: 3px; "><i class="fa fa-microphone"></i></button>');
-			$(node).find('.post-info').first().prepend(btn);
+			$(node).find('.post-info').first().append(btn);
 			btn.click(umute_foo);
 		}else {
 			if($(node).find('.mute_btn').length > 0) return;
 			var btn = $('<button title="Mute this user." style="background: none;" class="mute_btn"><i class="fa fa-microphone-slash"></i></button>');
-			btn.insertBefore($(node).find('.create').last());
+			$(node).find('.post-info').first().append(btn);
 			btn.click(mute_foo);
 		}
 	}
