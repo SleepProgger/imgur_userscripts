@@ -49,7 +49,7 @@ $(window).ready(function () {
     var username = window.location.pathname.split('/', 3) [2]; // TODO: look for a more stable way (is there an imgur js var maybe ?)
     var newBox = $('<div id="statsBox" class="textbox"></div>');
     var tble = $('<table id="_stats_table" width="100%">' +
-    '<tr><td colspan="2" align="center" style="display:none; color:#cf3131; font-weight:bold;" id="stats_is_mod">Moderator</td></tr>' +
+    //'<tr><td colspan="2" align="center" style="display:none; color:#cf3131; font-weight:bold;" id="stats_is_mod">Moderator</td></tr>' +
     '<tr><td colspan="2"><hr></td></tr>'+
     '<tr><td>Account creation</td><td align="right"><span id="stats_created"> - </span></td></tr>' +
     '<tr><td>Comments</td><td align="right"><a href="http://imgur.com/user/' + username + '/" id="stats_comments"> - </a></td></tr>' +
@@ -123,9 +123,9 @@ $(window).ready(function () {
           till_str += " ";
         }
         $('#stats_created').text(date.toLocaleDateString()).attr('title', date.toLocaleString() + "\n" + "In: " + till_str).closest('td').children().show().filter('img').remove();
-        if(result.data.pro_expiration != false){
+        /*if(result.data.pro_expiration != false){
           $('#stats_is_mod').show();  
-        }
+        }*/
       }, function (a, b, c) {
         console.log('Failed to load', a, b, c);
         $('#stats_created').text('Failed to load').closest('td').children().show().filter('img').remove();
