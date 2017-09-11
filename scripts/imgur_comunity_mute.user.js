@@ -4,6 +4,7 @@
 // @include     https://community.imgur.com/*
 // @version     0.5a
 // @grant       none
+// @resource	mute_css https://gitcdn.xyz/repo/tinoesroho/discourse_repo/master/scripts/mute.css
 // ==/UserScript==
 $('head').append('<link rel="stylesheet" href="https://gitcdn.xyz/repo/tinoesroho/discourse_repo/master/scripts/mute.css" type="text/css" />');
 
