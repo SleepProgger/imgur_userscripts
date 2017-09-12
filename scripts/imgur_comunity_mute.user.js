@@ -1,11 +1,12 @@
 // ==UserScript==
-// @name        imgur_comunity_mute
+// @name        imgur_community_mute
 // @namespace   someName
 // @include     https://community.imgur.com/*
-// @version     0.41a
+// @version     0.5a
 // @grant       none
+// @resource	mute_css https://gitcdn.xyz/repo/tinoesroho/discourse_repo/master/scripts/mute.css
 // ==/UserScript==
-
+$('head').append('<link rel="stylesheet" href="https://gitcdn.xyz/repo/tinoesroho/discourse_repo/master/scripts/mute.css" type="text/css" />');
 
 /*
 * Patch for GM_getValue and GM_SetValue support for chrome
@@ -25,9 +26,24 @@ if (!this.GM_getValue || (this.GM_getValue.toString && this.GM_getValue.toString
 
 
 $('body').ready(function(){
+  doWork();
+});
+
+(function(){
+    event = function(event){
+        if (event.animationName == 'nodeInserted') {
+            doWork();
+        }
+    }
+        
+document.addEventListener('animationstart', event, false);
+document.addEventListener('MSAnimationStart', event, false);
+document.addEventListener('webkitAnimationStart', event, false);
+})();
+
 	var GR_COOKIE_NAME = 'imgur_community_mute';
 	var hide_ids = $.parseJSON(GM_getValue(GR_COOKIE_NAME, '{}'));
-
+function doWork() {
 	function handle_post_node(node){
 		var tid = node.getAttribute('data-user-id');
 		function mute_foo(){
@@ -92,4 +108,4 @@ $('body').ready(function(){
 		}
 	});
 	observer.observe(document, { subtree: true, childList: true});
-});
+}
