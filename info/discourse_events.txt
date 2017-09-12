@@ -1,0 +1,30 @@
+Discourse.Site.current().appEvents.on(name, func)
+Some events (found by https://github.com/discourse/discourse/search?utf8=%E2%9C%93&q=appEvents.trigger&type=):
+   - header:hide-topic ()
+   - header:show-topic (topic) # Same as header:update-topic ? Prob not fired when topic is updated, whereas update... prob will.
+   - header:update-topic  (topic) # reliable ? fires when a thread is visited.
+   - header:search-context-trigger ()
+   - header:keyboard-trigger ({type: 'page-search', event} || { type: 'jump' } || {type: 'search'})
+   - topic:current-post-scrolled (?, ?)
+   - topic:current-post-changed (post)
+   - topic-entrance:show ({topic: this.get('topic'), position: $target.offset()})
+   - topic-notifications-button:changed ({type: "notification", id: this.get("value")})
+   - post:highlight (closest ?)
+   - post-stream:refresh (None or { id: this.get('model.id') })
+   - composer:will-open ()
+   - composer:will-close
+   - composer:resize ()
+   - composer:resized ()
+   - composer:find-similar ()
+   - composer:insert-block (quotedText)
+   - composer:insert-text (focused[0].href, {ensureSpace: true})
+   - dom:clean ()
+   - url:refresh ()
+   - modal-body:flash ({ text, messageClass })
+   - modal:body-shown (this.getProperties('title','rawTitle','fixed'))
+   - ace:resize () # Admin thingy resize i guess
+   - popup-menu:open (this._optionsLocation())
+   - notifications:changed ()
+   - search-autocomplete:after-complete ()
+   - share:url (topic.get('shareUrl'), $('#topic-footer-buttons'))
+   - emoji-picker:close ()
