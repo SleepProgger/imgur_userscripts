@@ -2,7 +2,7 @@
 // @name        imgur_community_mute
 // @namespace   someName
 // @include     https://community.imgur.com/*
-// @version     0.6a
+// @version     0.61a
 // @grant       none
 // ==/UserScript==
 
@@ -88,8 +88,8 @@ $(document).ready(function(){
 
     var node = $(post);
     if(node.find('.mute_btn').length > 0) return;
-    var btn = $('<button title="Mute this user." style="background: none;" class="mute_btn btn-icon"><i class="fa fa-microphone-slash"></i></button>');;
-    btn.insertBefore(node.find('.create').last());
+    var btn = $('<button title="Mute this user." style="background: none; font-size: 1.3em; vertical-align:top; border:none;" class="mute_btn"><i class="fa fa-microphone-slash"></i></button>');;
+    btn.insertBefore(node.find('.relative-date').last());
     btn.click(on_mute_user);
   }
 
