@@ -2,8 +2,7 @@
 // @name        imgur_community_mute
 // @namespace   someName
 // @include     https://community.imgur.com/*
-// @include    https://meta.discourse.org*
-// @version     0.7a
+// @version     0.71a
 // @grant       none
 // ==/UserScript==
 
