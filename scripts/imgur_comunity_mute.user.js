@@ -2,9 +2,16 @@
 // @name        imgur_community_mute
 // @namespace   someName
 // @include     https://community.imgur.com/*
-// @version     0.61a
+// @include    https://meta.discourse.org*
+// @version     0.7a
 // @grant       none
 // ==/UserScript==
+
+/*
+* Hides user on discourse software.
+* Known bugs:
+*  - After a click on the "replied to" button (top right) the post is made visible again.
+*/
 
 /*
 * Patch for GM_getValue and GM_SetValue support for chrome
@@ -25,11 +32,21 @@ if (!this.GM_getValue || (this.GM_getValue.toString && this.GM_getValue.toString
 $(document).ready(function(){
   // After how long we try to update the user name. (Only relevant for the settings UI)
   var GET_USER_DATA_AFTER = 60*60;
-  var HIDE_FULL_POST = true;
+  // Hide the full post like it was never there.
+  var HIDE_FULL_POST = false;
   var HIDE_AVATAR = true;
-  var HIDE_NAME = true;
-  
+  var HIDE_NAME = false;
+  // Ad a butotn to hidden posts (if HIDE_FULL_POST == false) to temporary show the post.
+  var ADD_TMP_SHOW_BUTTON = true;
+  // Icons to use
+  var ICON_MUTE = "fa-microphone-slash";
+  var ICON_UNMUTE = "fa-microphone";
+  var ICON_TMP_SHOW = "fa-eye";
+  var ICON_TMP_HIDE = "fa-eye-slash";
+  // Styles to use for the buttons
+  var BTN_STYLE = "background: none; font-size: 1.3em; vertical-align:top; border:none;";
   var GR_COOKIE_NAME = 'imgur_community_mute';
+  
   var hide_ids = $.parseJSON(GM_getValue(GR_COOKIE_NAME, '{}'));
   
   function gen_prefixed_css(data, prefixes, values){
@@ -64,15 +81,27 @@ $(document).ready(function(){
       return;
     }
     article = $(article);
-    if(HIDE_AVATAR) article.find('.avatar').css('visibility', 'hidden');
+    if(HIDE_AVATAR) article.find('.topic-avatar').css('visibility', 'hidden');
     if(HIDE_NAME) article.find('.names').hide();
     article.find('.contents').hide();
+    article.find('.mute_btn').attr('title', 'Unmute user.').find('i').removeClass(ICON_MUTE).addClass(ICON_UNMUTE);
+    if(ADD_TMP_SHOW_BUTTON) article.find('.show_post_btn').show();
+  }
+  
+  function unhide_post(article){
+    article = $(article);
+    article.find('.topic-avatar').css('visibility', 'visible');
+    article.find('.names, .contents').show();
+    article.find('.mute_btn').attr('title', 'Mute user.').find('i').removeClass(ICON_UNMUTE).addClass(ICON_MUTE);
+    if(ADD_TMP_SHOW_BUTTON) article.find('.show_post_btn').attr('title', "Show post.").hide();
   }
 
   function handle_post(event){
     if (event.animationName != 'nodeInserted') return;
     var post = event.target;
     var user_id = parseInt(post.getAttribute('data-user-id'));
+    var _btn_title = "Mute this user.";
+    var _btn_class = ICON_MUTE;
     if(hide_ids[user_id]){
       var user_name = $(post).find('.username a').text();
       // Update our cached names.
@@ -82,31 +111,64 @@ $(document).ready(function(){
         hide_ids[user_id] = [user_name, new Date().getTime() / 1000];
         GM_setValue(GR_COOKIE_NAME, JSON.stringify(hide_ids));
       }
-      hide_post(post);
-      return;
+      if(HIDE_FULL_POST){
+        hide_post(post);
+        return;
+      }
+      _btn_title = "Unmute user."
+      _btn_class = ICON_UNMUTE;
+      
     }
-
+    // Add buttons
     var node = $(post);
     if(node.find('.mute_btn').length > 0) return;
-    var btn = $('<button title="Mute this user." style="background: none; font-size: 1.3em; vertical-align:top; border:none;" class="mute_btn"><i class="fa fa-microphone-slash"></i></button>');;
-    btn.insertBefore(node.find('.relative-date').last());
+    var btn = $('<button title="'+_btn_title+'" style="'+BTN_STYLE+'" class="mute_btn"><i class="fa '+_btn_class+'"></i></button>');
+    btn.insertBefore(node.find('.post-date').last());
+    if(ADD_TMP_SHOW_BUTTON){
+      var btn_tmp = $('<button title="Show post." style="display:none; '+BTN_STYLE+'" class="show_post_btn"><i class="fa '+ICON_TMP_SHOW+'"></i></button>');
+      btn_tmp.click(function(){
+        if(this.title == "Show post."){ // dirty
+          node.find('.contents').show()
+          this.title = "Hide post.";
+          btn_tmp.find('i').removeClass(ICON_TMP_SHOW).addClass(ICON_TMP_HIDE);
+        }else{
+          node.find('.contents').hide()
+          this.title = "Show post.";
+          btn_tmp.find('i').removeClass(ICON_TMP_HIDE).addClass(ICON_TMP_SHOW);
+        }
+      });
+      btn_tmp.insertBefore(btn);
+    }
     btn.click(on_mute_user);
+    if(hide_ids[user_id])hide_post(post);
   }
 
   function on_mute_user(evt){
-    var user_id = $(this).parents('article');
+    var article = $(this).parents('article');
     // We don't handle the case of multiple authors of a post (wiki).
-    var username = user_id.find('.username a').text();
-    user_id = parseInt(user_id[0].getAttribute('data-user-id'));
-    if (confirm("Mute " + username + " ?")){
+    var username = article.find('.username a').text();
+    var user_id = parseInt(article[0].getAttribute('data-user-id'));
+    var _question = "Mute ";
+    var _func = hide_post;
+    if(hide_ids[user_id]){
+      _question = "Unmute ";
+      _func = unhide_post;
+    }
+    if (confirm(_question + username + " ?")){
      hide_ids = $.parseJSON(GM_getValue(GR_COOKIE_NAME, '{}')) // in case another tab changed it
-     hide_ids[user_id] = [username, new Date().getTime() / 1000];
+     if(hide_ids[user_id]) delete hide_ids[user_id];
+     else hide_ids[user_id] = [username, new Date().getTime() / 1000];
      GM_setValue(GR_COOKIE_NAME, JSON.stringify(hide_ids));
-     $('article[data-user-id="'+user_id+'"]').each(function(_,a){hide_post(a)});
+     jumpToPost(article[0].getAttribute('data-post-id'));
+     $('article[data-user-id="'+user_id+'"]').each(function(_,a){_func(a)});
     }
     return false;
   }
 
+  function jumpToPost(postid){
+    var topic = Discourse.__container__.lookup('controller:topic');
+    topic._jumpToPostId(postid);
+  }
   /*
   * UI stuff follows
   */
