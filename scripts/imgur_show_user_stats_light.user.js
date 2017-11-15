@@ -3,7 +3,7 @@
 // @namespace   someName
 // @include     http://imgur.com/user/*
 // @include     https://imgur.com/user/*
-// @version     0.3.6
+// @version     0.3.7
 // @grant       none
 // @description Show user statistics on imgur
 // ==/UserScript==
@@ -14,6 +14,7 @@
 
 $(window).ready(function () {
   var CLIENT_ID = 'cd0695f1226536b';
+  var SHOW_ID = false;
   var MAX_SUB_PAGES = 15;
   var _submissions_left = -1;
   var _sub_site = 0;
@@ -51,6 +52,7 @@ $(window).ready(function () {
     var tble = $('<table id="_stats_table" width="100%">' +
     //'<tr><td colspan="2" align="center" style="display:none; color:#cf3131; font-weight:bold;" id="stats_is_mod">Moderator</td></tr>' +
     '<tr><td colspan="2"><hr></td></tr>'+
+    '<tr style="display:none"><td>Userid:</td><td align="right"><span id="stats_uid"> - </span></td></tr>' +
     '<tr><td>Account creation</td><td align="right"><span id="stats_created"> - </span></td></tr>' +
     '<tr><td>Comments</td><td align="right"><a href="http://imgur.com/user/' + username + '/" id="stats_comments"> - </a></td></tr>' +
     '<tr><td>Submissions</td><td align="right"><a href="http://imgur.com/user/' + username + '/submitted" id="stats_submissions"> - </a></td></tr>' +
@@ -123,6 +125,10 @@ $(window).ready(function () {
           till_str += " ";
         }
         $('#stats_created').text(date.toLocaleDateString()).attr('title', date.toLocaleString() + "\n" + "In: " + till_str).closest('td').children().show().filter('img').remove();
+        if(SHOW_ID){
+          $('#stats_uid').text(result.data.id).parent().parent().show();
+          $('#stats_uid').closest('td').children().show().filter('img').remove();
+        }
         /*if(result.data.pro_expiration != false){
           $('#stats_is_mod').show();  
         }*/
