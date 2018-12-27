@@ -2,7 +2,7 @@
 // @name        imgur_community_mute
 // @namespace   someName
 // @include     https://community.imgur.com/*
-// @version     0.8a
+// @version     0.81a
 // @grant       none
 // ==/UserScript==
 
@@ -92,7 +92,7 @@ $(document).ready(function(){
     if(HIDE_AVATAR) article.find('.topic-avatar').css('visibility', 'hidden');
     if(HIDE_NAME) article.find('.names').hide();
     article.find('.contents').hide();
-    article.find('.mute_btn').attr('title', 'Unmute user.').find('i').removeClass(ICON_MUTE).addClass(ICON_UNMUTE);
+    article.find('.mute_btn').attr('title', 'Unmute user.').find('svg use').attr('xlink:href', '#'+ICON_UNMUTE);
     if(ADD_TMP_SHOW_BUTTON) article.find('.show_post_btn').show();
   }
 
@@ -100,7 +100,7 @@ $(document).ready(function(){
     article = $(article);
     article.find('.topic-avatar').css('visibility', 'visible');
     article.find('.names, .contents').show();
-    article.find('.mute_btn').attr('title', 'Mute user.').find('i').removeClass(ICON_UNMUTE).addClass(ICON_MUTE);
+    article.find('.mute_btn').attr('title', 'Mute user.').find('svg use').attr('xlink:href', '#'+ICON_MUTE);
     if(ADD_TMP_SHOW_BUTTON) article.find('.show_post_btn').attr('title', "Show post.").hide();
   }
 
