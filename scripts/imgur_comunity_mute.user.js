@@ -2,7 +2,7 @@
 // @name        imgur_community_mute
 // @namespace   someName
 // @include     https://community.imgur.com/*
-// @version     0.71a
+// @version     0.8a
 // @grant       none
 // ==/UserScript==
 
@@ -10,6 +10,7 @@
 * Hides user on discourse software.
 * Known bugs:
 *  - After a click on the "replied to" button (top right) the post is made visible again.
+*  - The settings UI only might requires a F5 press on the account page to be visible
 */
 
 /*
@@ -38,22 +39,22 @@ $(document).ready(function(){
   // Ad a butotn to hidden posts (if HIDE_FULL_POST == false) to temporary show the post.
   var ADD_TMP_SHOW_BUTTON = true;
   // Icons to use
-  var ICON_MUTE = "fa-microphone-slash";
-  var ICON_UNMUTE = "fa-microphone";
-  var ICON_TMP_SHOW = "fa-eye";
-  var ICON_TMP_HIDE = "fa-eye-slash";
+  var ICON_MUTE = "microphone-slash"; //"fa-microphone-slash";
+  var ICON_UNMUTE = "microphone";
+  var ICON_TMP_SHOW = "far-eye";
+  var ICON_TMP_HIDE = "far-eye-slash";
   // Styles to use for the buttons
   var BTN_STYLE = "background: none; font-size: 1.3em; vertical-align:top; border:none;";
   var GR_COOKIE_NAME = 'imgur_community_mute';
-  
+
   var hide_ids = $.parseJSON(GM_getValue(GR_COOKIE_NAME, '{}'));
-  
+
   function gen_prefixed_css(data, prefixes, values){
      // ahhhhhh
     var ret = "";
-    for(i=0; i<prefixes.length; ++i){
+    for(var i=0; i<prefixes.length; ++i){
       var tmp = data;
-      for(j=0; j<values.length; ++j){
+      for(var j=0; j<values.length; ++j){
         // js... why is everything so complicated ?
         tmp = tmp.split(values[j]).join(prefixes[i]);
       }
@@ -65,14 +66,22 @@ $(document).ready(function(){
   var css = document.createElement('style');
   css.type = 'text/css';
   document.body.appendChild(css);
-  css.innerHTML = gen_prefixed_css("@keyframes nodeInserted { from {outline-color: #fff} to {outline-color: #000} }\n", ['keyframes', '-webkit-keyframes'], ['keyframes']) + 
-    "article[data-user-id] {" + 
-    gen_prefixed_css("animation: nodeInserted 0.01s;\n", ['animation', '-webkit-animation'], ['animation']) + 
+  css.innerHTML = gen_prefixed_css("@keyframes nodeInserted { from {outline-color: #fff} to {outline-color: #000} }\n", ['keyframes', '-webkit-keyframes'], ['keyframes']) +
+    "article[data-user-id] {" +
+    gen_prefixed_css("animation: nodeInserted 0.01s;\n", ['animation', '-webkit-animation'], ['animation']) +
+    "}\n" +
+     ".pref-avatar {" +
+      gen_prefixed_css("animation: nodeInserted 0.01s;\n", ['animation', '-webkit-animation'], ['animation']) +
     "}\n";
-  console.log(css.innerHTML);
   document.addEventListener('animationstart', handle_post, true);
   document.addEventListener('mozAnimationstart', handle_post, true);
   document.addEventListener('webkitAnimationstart', handle_post, true);
+  // Add missing svg icons:
+  var own_icons = $('<div id="own_svg_foo"><svg xmlns="http://www.w3.org/2000/svg" style="display:none"></svg></div>');
+  $(document.body).append(own_icons);
+  own_icons.find('svg').append('<symbol viewBox="0 0 640 512" id="microphone"><path d="M237.541,328.897c25.128,0,46.632-8.946,64.523-26.83c17.888-17.884,26.833-39.399,26.833-64.525V91.365 c0-25.126-8.938-46.632-26.833-64.525C284.173,8.951,262.669,0,237.541,0c-25.125,0-46.632,8.951-64.524,26.84 c-17.893,17.89-26.838,39.399-26.838,64.525v146.177c0,25.125,8.949,46.641,26.838,64.525 C190.906,319.951,212.416,328.897,237.541,328.897z"/> <path d="M396.563,188.15c-3.606-3.617-7.898-5.426-12.847-5.426c-4.944,0-9.226,1.809-12.847,5.426 c-3.613,3.616-5.421,7.898-5.421,12.845v36.547c0,35.214-12.518,65.333-37.548,90.362c-25.022,25.03-55.145,37.545-90.36,37.545 c-35.214,0-65.334-12.515-90.365-37.545c-25.028-25.022-37.541-55.147-37.541-90.362v-36.547c0-4.947-1.809-9.229-5.424-12.845 c-3.617-3.617-7.895-5.426-12.847-5.426c-4.952,0-9.235,1.809-12.85,5.426c-3.618,3.616-5.426,7.898-5.426,12.845v36.547 c0,42.065,14.04,78.659,42.112,109.776c28.073,31.118,62.762,48.961,104.068,53.526v37.691h-73.089 c-4.949,0-9.231,1.811-12.847,5.428c-3.617,3.614-5.426,7.898-5.426,12.847c0,4.941,1.809,9.233,5.426,12.847 c3.616,3.614,7.898,5.428,12.847,5.428h182.719c4.948,0,9.236-1.813,12.847-5.428c3.621-3.613,5.431-7.905,5.431-12.847 c0-4.948-1.81-9.232-5.431-12.847c-3.61-3.617-7.898-5.428-12.847-5.428h-73.08v-37.691 c41.299-4.565,75.985-22.408,104.061-53.526c28.076-31.117,42.12-67.711,42.12-109.776v-36.547 C401.998,196.049,400.185,191.77,396.563,188.15z"/></symbol>');
+  // Hackish way to get the svg to display. Not sure if that'll work in all browsers.... If all else fails, simply use base64 encoded png....
+  $("#own_svg_foo").html($("#own_svg_foo").html());
 
   function hide_post(article){
     if(HIDE_FULL_POST){
@@ -86,7 +95,7 @@ $(document).ready(function(){
     article.find('.mute_btn').attr('title', 'Unmute user.').find('i').removeClass(ICON_MUTE).addClass(ICON_UNMUTE);
     if(ADD_TMP_SHOW_BUTTON) article.find('.show_post_btn').show();
   }
-  
+
   function unhide_post(article){
     article = $(article);
     article.find('.topic-avatar').css('visibility', 'visible');
@@ -97,6 +106,10 @@ $(document).ready(function(){
 
   function handle_post(event){
     if (event.animationName != 'nodeInserted') return;
+    if($(event.target).hasClass("pref-avatar")){
+      setup_settings_ui();
+      return;
+    }
     var post = event.target;
     var user_id = parseInt(post.getAttribute('data-user-id'));
     var _btn_title = "Mute this user.";
@@ -116,24 +129,23 @@ $(document).ready(function(){
       }
       _btn_title = "Unmute user."
       _btn_class = ICON_UNMUTE;
-      
     }
     // Add buttons
     var node = $(post);
     if(node.find('.mute_btn').length > 0) return;
-    var btn = $('<button title="'+_btn_title+'" style="'+BTN_STYLE+'" class="mute_btn"><i class="fa '+_btn_class+'"></i></button>');
+    var btn = $('<button title="'+_btn_title+'" style="'+BTN_STYLE+'" class="mute_btn"><svg class="fa d-icon d-icon-ellipsis-h svg-icon svg-node"><use xlink:href="#'+ICON_MUTE+'"></use></svg></button>');
     btn.insertBefore(node.find('.post-date').last());
     if(ADD_TMP_SHOW_BUTTON){
-      var btn_tmp = $('<button title="Show post." style="display:none; '+BTN_STYLE+'" class="show_post_btn"><i class="fa '+ICON_TMP_SHOW+'"></i></button>');
+      var btn_tmp = $('<button title="Show post." style="display:none; '+BTN_STYLE+'" class="show_post_btn"><svg class="fa d-icon d-icon-ellipsis-h svg-icon svg-node"><use xlink:href="#'+ICON_TMP_SHOW+'"></use></svg></button>');
       btn_tmp.click(function(){
         if(this.title == "Show post."){ // dirty
           node.find('.contents').show()
-          this.title = "Hide post.";
-          btn_tmp.find('i').removeClass(ICON_TMP_SHOW).addClass(ICON_TMP_HIDE);
+          this.title = "Hide post."; // TODO: switch to svg usage
+          btn_tmp.find('svg use').attr('xlink:href', '#'+ICON_TMP_HIDE);
         }else{
           node.find('.contents').hide()
           this.title = "Show post.";
-          btn_tmp.find('i').removeClass(ICON_TMP_HIDE).addClass(ICON_TMP_SHOW);
+          btn_tmp.find('svg use').attr('xlink:href', '#'+ICON_TMP_SHOW);
         }
       });
       btn_tmp.insertBefore(btn);
@@ -171,12 +183,25 @@ $(document).ready(function(){
   /*
   * UI stuff follows
   */
-  Discourse.PageTracker.current().on('change', function(url){
+  // Removed and i am too lazy to do it properly
+  /*Discourse.PageTracker.current().on('change', function(url){
     setup_settings_ui();
-  });
+  });*/
+  /*function _wait_for_settings(){
+    if(!!window.location.pathname.match('/preferences(/account/?)?$')){
+      if($('.pref-avatar').length){
+        setup_settings_ui();
+      }else{
+        console.log("Wait for settings");
+        window.setTimeout(_wait_for_settings, 250);
+      }
+    }
+  }
+  _wait_for_settings();*/
+
+
   function _lookup_user(user_id, user, cb){
     // TODO: Does the store cache data ? Or is there some user cache somewhere we can use ?
-    var user_id = user_id;
     var user_name = user[0];
     if(user_name.length == 0){
       cb(user_id, "", -1, false);
@@ -188,7 +213,7 @@ $(document).ready(function(){
       return;
     }
     var store = Discourse.__container__.lookup('store:main');
-    a = store.find('user', user_name).catch(function(){
+    var a = store.find('user', user_name).catch(function(){
       // Prevent error report from being generated
       console.log('lookup_user', user_id, "Invalid username");
       // TODO: we could search the first x pages of the user endpoint
@@ -202,11 +227,12 @@ $(document).ready(function(){
       cb(user_id, user_name, age, false);
     });
   }
-  
+
   function setup_settings_ui(){
     if(!window.location.pathname.match('/preferences(/account/?)?$') ) {
       return;
     }
+      console.log("Settings UI");
     var settings_pane = $('.pref_cfg_mute_user');
     var blocked_count = Object.keys(hide_ids).length;
     var box;
@@ -250,7 +276,7 @@ $(document).ready(function(){
       if(! $.isArray(hide_ids[i])){
         hide_ids[i] = ["", new Date().getTime() / 1000]
       }
-      var option = $('<option value="'+i+'">Loading info</option>');      
+      var option = $('<option value="'+i+'">Loading info</option>');
       box.append(option);
       _lookup_user(i, hide_ids[i], function(user_id, user_name, age, success){
         var now = new Date().getTime() / 1000;
@@ -260,21 +286,21 @@ $(document).ready(function(){
         if(!success){
           option.text("User id: " + user_id);
           // TODO: Ask if we should crawl the first x userpages via the API to find the username.
-          last_seen = age >= 60*60 ? parseInt(age/60/60) + " hours ago" : parseInt(age/60) + " minutes ago";
+          var last_seen = age >= 60*60 ? parseInt(age/60/60) + " hours ago" : parseInt(age/60) + " minutes ago";
           if(user_name.length) last_seen += " as user " + user_name;
           option.css('color', 'red').attr('title', "Couldn't find username.\nLast seen "+last_seen+".\nSimply continuing to browse might fix this.");
         }else{
-          option.text(user_name);  
+          option.text(user_name);
         }
       });
     }
   }
-  
+
   function on_import(){
     hide_ids = $.parseJSON(GM_getValue(GR_COOKIE_NAME, '{}')) // in case another tab changed it
     var data = prompt("Paste your exported data:");
     if(!data || data.length < 5) return false;
-    var data = $.parseJSON(data);
+    data = $.parseJSON(data);
     for(var i in data){
       i = parseInt(i);
       if(data.hasOwnProperty(i)){
