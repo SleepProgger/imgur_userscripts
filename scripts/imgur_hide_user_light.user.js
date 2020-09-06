@@ -16,6 +16,8 @@
 * - Add list to settings -> mod section (or inject into imgurs message block list ?)
 * - Renove from gallery view
 * - Navigate away when direct calling an blocked post ?
+* - Block tags
+* - Support imgur internals blocking (messages and replies)
 */
 
 
@@ -32,6 +34,7 @@ $.each(blocked, function(k, v){
   else if(v.length != 4)
     blocked[k] = [blocked[k][0], blocked[k][1], blocked[k][2], "?"];
 });
+localStorage.setItem("blocked_user", JSON.stringify(blocked));
 
 var captions = undefined;
 var captioninstance = undefined;
@@ -43,7 +46,7 @@ function inject_mod_menu(){
 	if($('#_mod_menu_button').length > 0){
 		return $('#mod_settings');
 	}
-	var btn = $('<li id="_mod_menu_button" data-type="mods">mods</li>');
+	var btn = $('<li id="_mod_menu_button" data-type="mods">Mods</li>');
 	$('#leftside-nav ul').append(btn);
 	var space = $('<div class="nodisplay mod_settings" id="mod_settings"></div>');
 	$('.settings-content').append(space);
@@ -60,11 +63,13 @@ function inject_mod_menu(){
 }
 
 function setup_settings_gui(){
+  blocked = $.parseJSON(localStorage.getItem('blocked_user')) || {};
   var space = inject_mod_menu();
   var content = $('<div class="section"></div>');
   var user_table = $('<table style="width:100%"><tr class="app"><td>User name</td><td>Posts</td><td>Comments</td><td>Replies</td><td>Remove</td></tr></table>');
   $.each(blocked, function(k, v){
-    if(k == null) return;
+    if(k == null || v == null) return;
+      console.log(k , v);
     var row = $('<tr class="app"><td></td><td></td><td></td><td></td><td></td></tr>');
     row.find('td').get(0).innerHTML = '<a href="/user/'+v[3]+'">'+v[3]+'</a>';
     row.find('td').get(1).innerHTML = v[0] == 1 ? 'Blocked' : 'Shown';
@@ -80,6 +85,7 @@ function setup_settings_gui(){
     row.find('td').eq(4).append(delbtn);
     user_table.append(row);
   });
+  /*  // This was used when reddit post would appear on imgrue posted as "reddit" user. TODO: trash
   var show_crossposts = $('<a>'+(blocked.hasOwnProperty("null") ? 'Show' : 'Hide')+' crossposts</a>');
   show_crossposts.click(function(){
     if(blocked.hasOwnProperty("null")){
@@ -92,10 +98,53 @@ function setup_settings_gui(){
       show_crossposts.text('Show crossposts');
     }
   });
+  */
+
+  var exinport = $('<span><button class="btn-small btn-gray">Export blocklist</button> <button class="btn-small btn-main">Import blocklist</button> <button class="btn-small btn-destructive">Clear blocklist</button></span>');
+  $(exinport.find("button")[0]).click(function(){
+    var _ui = $('<div><textarea readonly=""></textarea><br/><button class="btn-small btn-destructive">Close</button></div>');
+    _ui.css({background: "gray", padding: "2px", position: "absolute", "width": "400px", "height": "300px", "margin-left": "-200px", left: "50%", top: "0px"});
+    _ui.find("textarea").css({width: "100%", height: "100%"});
+    _ui.find(".btn-destructive").click(function(){_ui.remove();});
+    _ui.find("textarea").val(JSON.stringify(blocked)).select();
+    content.append(_ui);
+  });
+
+  $(exinport.find("button")[1]).click(function(){
+    var _ui = $('<div><textarea></textarea><br/><button class="btn-small btn-main">Load</button> <button class="btn-small btn-destructive">Close</button></div>');
+    _ui.css({background: "gray", padding: "2px", position: "absolute", "width": "400px", "height": "300px", "margin-left": "-200px", left: "50%", top: "0px"});
+    _ui.find("textarea").css({width: "100%", height: "100%"});
+    _ui.find(".btn-main").click(function(){
+        blocked = $.parseJSON(localStorage.getItem('blocked_user')) || {};
+        var data = $.parseJSON(_ui.find("textarea").val()) || {};
+        $.each(data, function(k, v){
+            if(! $.isArray(v))
+                blocked[k] = [0, 1, data[k], "?"];
+            else if(v.length != 4)
+                blocked[k] = [data[k][0], data[k][1], data[k][2], "?"];
+            else
+                blocked[k] = data[k];
+        });
+        localStorage.setItem("blocked_user", JSON.stringify(blocked));
+        content.remove();
+        setup_settings_gui();
+    });
+    _ui.find(".btn-destructive").click(function(){_ui.remove();});
+    content.append(_ui);
+  });
+
+  $(exinport.find("button")[2]).click(function(){
+    if(window.confirm("Are you sure you want to delete all blocked user ?")){
+        localStorage.setItem("blocked_user", "{}");
+        content.remove();
+        setup_settings_gui();
+    }
+  });
+
   content.append('<h2>Blocked user</h2>');
   content.append(user_table);
   content.append('<br/><h3>Misc.</h3>');
-  content.append(show_crossposts);
+  content.append(exinport);
   space.append(content);
 }
 
@@ -104,7 +153,7 @@ function setup_settings_gui(){
 function setup_block_gui(){
   // TODO: make this look nicer
   var block_gui = $(
-   '<div style="float:right; margin-bottom: 5px;" class="textbox button">' +
+   '<div style="float:right; margin-bottom: 5px;" class="textbox button">' + // TODO: use lables here instead....
     '<span><input style="margin-left:5px;" type="checkbox" id="block_posts" />Block posts</span>' +
     '<span><input style="margin-left:10px;" type="checkbox" id="block_comments" />Block comments</span>' +
     '<span><input style="margin-left:10px;" type="checkbox" id="block_replies" />Block replies</span>' +
@@ -112,10 +161,12 @@ function setup_block_gui(){
    '</div>'
   ).insertBefore('.panel-header');
   $('.panel-header').css('clear', 'right');
+  block_gui.find('span').css('color', 'gray').find('input').prop('disabled', true);
   // Get user id via imgur api form username (TODO: find a way without the api. It need to be there somewhere on the page already)
   var CLIENT_ID = 'cd0695f1226536b';
   var username = window.location.pathname.split('/', 4) [2];
   var endpoint = 'https://api.imgur.com/3/account/' + username;
+
   $.ajax({
     url: endpoint,
     method: 'GET',
@@ -126,8 +177,7 @@ function setup_block_gui(){
     success: function(response){
       // TODO: handle failed requests
       if(response.success){
-        
-        var btn = $('<button style="margin-left:20px;"></button>');
+        // post, comment, reply, last seen username
         var checkbox_post = block_gui.find('#block_posts');
         var checkbox_comment = block_gui.find('#block_comments');
         var checkbox_reply = block_gui.find('#block_replies');
@@ -138,53 +188,40 @@ function setup_block_gui(){
             user[3] = username;
             localStorage.setItem("blocked_user", JSON.stringify(blocked));
           }
-          btn.text("Unblock user", blocked[response.data.id]);
           checkbox_post.prop('checked', blocked[response.data.id][0] == 1);
           checkbox_comment.prop('checked', blocked[response.data.id][1] == 1);
           checkbox_reply.prop('checked', blocked[response.data.id][2] == 1);
         }else{
-          btn.text("Block user");
           checkbox_post.prop('checked', false);
           checkbox_comment.prop('checked', false);
           checkbox_reply.prop('checked', false);
         }
-        block_gui.find('img').replaceWith(btn);
-        // Add/remove blocked user
-        btn.click(function(){         
-          if(! blocked.hasOwnProperty(response.data.id)){
-            blocked[response.data.id] = [
-              checkbox_post.prop('checked') ? 1 : 0,
-              checkbox_comment.prop('checked') ? 1 : 0,
-              checkbox_reply.prop('checked') ? 1 : 0,
-              username
-            ];
-            btn.text("Unblock user");
-          }else{
-            delete blocked[response.data.id];
-            btn.text("Block user");
-          }
-          localStorage.setItem("blocked_user", JSON.stringify(blocked));
-        });
+        block_gui.find('img').hide();
+        block_gui.find('span').css('color', 'white').find('input').prop('disabled', false);
+
+        function _set_flags(userid, index, state){
+            // post, commment, reply, last seen, username
+            blocked = $.parseJSON(localStorage.getItem('blocked_user')) || {};
+            var user = blocked[userid] || [0, 0, 0, username];
+            user[index] = state;
+            if(user[0] + user[1] + user[2] == 0){
+                delete blocked[userid];
+            } else {
+                blocked[userid] = user;
+            }
+            localStorage.setItem("blocked_user", JSON.stringify(blocked));
+        }
         // Block posts ?
         checkbox_post.change(function(){
-          if(blocked.hasOwnProperty(response.data.id)){
-           blocked[response.data.id][0] = checkbox_post.prop('checked') ? 1 : 0;
-           localStorage.setItem("blocked_user", JSON.stringify(blocked));
-          }
+          _set_flags(response.data.id, 0, checkbox_post.prop('checked') ? 1 : 0);
         });
         // Block comments ?
         checkbox_comment.change(function(){
-          if(blocked.hasOwnProperty(response.data.id)){
-           blocked[response.data.id][1] = checkbox_comment.prop('checked') ? 1 : 0;
-           localStorage.setItem("blocked_user", JSON.stringify(blocked));
-          }
+          _set_flags(response.data.id, 1, checkbox_comment.prop('checked') ? 1 : 0);
         });
         // Block replies ?
         checkbox_reply.change(function(){
-          if(blocked.hasOwnProperty(response.data.id)){
-           blocked[response.data.id][2] = checkbox_reply.prop('checked') ? 1 : 0;
-           localStorage.setItem("blocked_user", JSON.stringify(blocked));
-          }
+          _set_flags(response.data.id, 2, checkbox_reply.prop('checked') ? 1 : 0);
         });
       }
     },
@@ -275,7 +312,7 @@ else if (window.location.pathname.indexOf('/user/') == 0 && window.location.path
      console.log('asd load', arguments);
      return arguments;
    });
-   */        
+   */
    // This works sometimes for the initial load, but always for every load after that
    hookit_pre(Imgur.InsideNav._instance._.sideGallery, '_ajaxSuccess', function(args){
      arguments[0]['data'] = $.grep(arguments[0]['data'], function(v){
@@ -284,27 +321,27 @@ else if (window.location.pathname.indexOf('/user/') == 0 && window.location.path
      return arguments;
    });
    imgur._.emitter.callbacks['sidegalleryPageLoad'].push({f:function(){
-     // pretty dirsty but the values are overwritten soemwehere after the event
+     // pretty dirty but the values are overwritten soemwehere after the event
      // TODO: ...
      window.setTimeout(function(){
        Imgur.InsideNav._instance._.sideGallery.state.items = $.grep(Imgur.InsideNav._instance._.sideGallery.state.items, function(v){
-         if((blocked.hasOwnProperty(v.account_id) && blocked[v.account_id][0] == 1))
-          console.log('asd block', v);
+         //if((blocked.hasOwnProperty(v.account_id) && blocked[v.account_id][0] == 1))
+         // console.log('asd block', v);
          return !(blocked.hasOwnProperty(v.account_id) && blocked[v.account_id][0] == 1);
        });
        // recreate the box (TODO: Read that code)
        Imgur.InsideNav._instance._.sideGallery._onScroll();
      }, 1000);
    }, this_arg:{}});
-   
+
   // Filter comments
   // I didn't found a fitting  event to filter the comments, so lets just hook the process comments function
   // TODO: try to run earlier or run once at site load for already loaded comments
   var _pcaptions = Imgur.InsideNav._instance.processCaptions;
   function process_captions_hook(ori, ori_this) {
     handle_blocked_comments(function (comment) {
-      if(blocked[comment.author_id][1] == 0)
-        return;
+      //if(blocked[comment.author_id][1] == 0)
+        //return;
       //console.log('asd removed before render:', comment);
       if (blocked[comment.author_id][2] == 1 || !has_nonblocked_childs(comment)) {
         deleteCaption(comment.id);
@@ -320,8 +357,7 @@ else if (window.location.pathname.indexOf('/user/') == 0 && window.location.path
   */
   function remove_rendered_comments() {
     handle_blocked_comments(function (comment) {
-      //console.log('asd Removed after render:', comment);
-      if (blocked[comment.author_id] == 1 || !has_nonblocked_childs(comment)) {
+      if (blocked[comment.author_id][2] == 1 || !has_nonblocked_childs(comment)) {
         captioninstance.deleteCaption(comment.id);
         $('.caption').filter('[data-id="' + comment.id + '"]').hide();
       } else {
