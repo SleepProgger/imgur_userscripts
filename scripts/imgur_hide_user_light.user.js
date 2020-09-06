@@ -7,7 +7,7 @@
 // @include     http://imgur.com/gallery/*
 // @include     https://imgur.com/user/*
 // @include     http://imgur.com/user/*
-// @version     1.4
+// @version     1.5
 // @grant       none
 // ==/UserScript==
 
