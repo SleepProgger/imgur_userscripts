@@ -2,10 +2,11 @@
 // @name         ImgurComment500Limit
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  try to take over the world!
+// @description  Brings the 500 character limit comments to non "beta" imgur users
 // @author       SleepProgger
 // @match        https://imgur.com/*
 // @grant        none
+// @license      MIT
 // ==/UserScript==
 
 (function() {
@@ -16,7 +17,7 @@
         var __hook_ajax = $.ajax; $.ajax = function(x){
             // The only way i found to circumvent the character limit is to use the "new" API.
             // There probably is some nicer way, but meh this works
-            if(! x.url.startsWith("/gallery/action/caption/")){
+            if(!x.url || ! x.url.startsWith("/gallery/action/caption/")){
                 return __hook_ajax(x);
             }
             // Rewrite request to the "new" API format
