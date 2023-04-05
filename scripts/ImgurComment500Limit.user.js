@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImgurComment500Limit
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Brings the 500 character limit comments to non "beta" imgur users
 // @author       SleepProgger
 // @match        https://imgur.com/*
