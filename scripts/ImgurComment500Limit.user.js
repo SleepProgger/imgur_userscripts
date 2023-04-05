@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImgurComment500Limit
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Brings the 500 character limit comments to non "beta" imgur users
 // @author       SleepProgger
 // @match        https://imgur.com/*
@@ -66,7 +66,7 @@
             };
         };
         function _waitForImgur(){
-            if(Imgur && Imgur.Caption){
+            if(window.Imgur && Imgur.Caption){
                 console.log("Imgur is ready");
                 _func();
                 return;
